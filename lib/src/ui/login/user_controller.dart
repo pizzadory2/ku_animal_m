@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ku_control_pad/src/ui/login/user_repository.dart';
+import 'package:ku_animal_m/src/ui/login/user_repository.dart';
 
 class UserController extends GetxController {
   static UserController get to => Get.find();
