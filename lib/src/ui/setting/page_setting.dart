@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
+import 'package:ku_animal_m/src/style/colors_ex.dart';
 
+// 언어 선택
+// 공지사항
+// 버전
+// 기본안전재고
+// 로그아웃
 class PageSetting extends StatefulWidget {
   const PageSetting({super.key});
 
@@ -21,7 +27,7 @@ class _PageSettingState extends State<PageSetting> {
     _controllerIP.text = RestClient().dio.options.baseUrl;
     super.initState();
 
-    _loadData();
+    // _loadData();
   }
 
   @override
@@ -33,21 +39,8 @@ class _PageSettingState extends State<PageSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () {
-              // Navigator.pop(context);
-              Get.back();
-            },
-            child: const Icon(Icons.arrow_back)),
-        backgroundColor: Colors.black,
-        centerTitle: true,
-        title: const Text("환경설정"),
-      ),
       body: Container(
-        color: Colors.black,
-        width: double.infinity,
+        color: Colors.white,
         child: Column(
           children: [
             Row(

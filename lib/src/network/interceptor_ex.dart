@@ -52,7 +52,8 @@ class InterceptorEx extends Interceptor {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
-        throw DeadlineExceededException(err.requestOptions);
+        // throw DeadlineExceededException(err.requestOptions);
+        return handler.next(err);
       case DioExceptionType.badResponse:
         switch (err.response?.statusCode) {
           case 400:
@@ -132,11 +133,13 @@ class InterceptorEx extends Interceptor {
             }
             break;
           case 404:
-            throw NotFoundException(err.requestOptions);
+            return handler.next(err);
+          // throw NotFoundException(err.requestOptions);
           case 409:
             throw ConflictException(err.requestOptions);
           case 500:
-            throw InternalServerErrorException(err.requestOptions);
+            return handler.next(err);
+          //throw InternalServerErrorException(err.requestOptions);
         }
         break;
       case DioExceptionType.cancel:

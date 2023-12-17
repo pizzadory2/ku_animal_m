@@ -1,7 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
@@ -125,7 +128,7 @@ class Utils {
       file,
       fit: fit,
       errorBuilder: (context, error, stackTrace) {
-        return Container(color: Colors.grey[300], child: Center(child: Text("Load Failed(Image)")));
+        return Container(color: Colors.grey[300], child: const Center(child: Text("Load Failed(Image)")));
       },
     );
 
@@ -141,8 +144,24 @@ class Utils {
       filename += defaultSuffix;
     }
 
-    String fullFilePath = "assets/images/" + filename;
+    String fullFilePath = "assets/images/$filename";
     return AssetImage(fullFilePath);
+  }
+
+  static ImageSvg(String filename, {double? width, double? height, Color? color}) {
+    String defaultSuffix = ".svg";
+    if (!filename.endsWith(defaultSuffix)) {
+      filename += defaultSuffix;
+    }
+
+    String fullFilePath = "assets/$filename";
+
+    return SvgPicture.asset(
+      fullFilePath,
+      width: width,
+      height: height,
+      colorFilter: ColorFilter.mode(color ?? Colors.transparent, BlendMode.srcIn),
+    );
   }
 
   static bool validateFormat(String data) {

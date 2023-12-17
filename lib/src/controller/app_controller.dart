@@ -23,9 +23,27 @@ class AppController extends GetxController {
     Get.changeThemeMode(value ? ThemeMode.dark : ThemeMode.light);
   }
 
-  void changeLanguage(bool value) {
-    _isEnglish.value = value;
-    Get.updateLocale(value ? const Locale('en', 'US') : const Locale('id', 'ID'));
+  // void changeLanguage(bool value) {
+  //   _isEnglish.value = value;
+  //   Get.updateLocale(value ? const Locale('en', 'US') : const Locale('id', 'ID'));
+  // }
+
+  void changeLanguage({String language = "ko"}) {
+    // _isEnglish.value = value;
+    switch (language) {
+      case "ko":
+        _isEnglish.value = false;
+        Get.updateLocale(const Locale('ko', 'KR'));
+        break;
+      case "en":
+        _isEnglish.value = true;
+        Get.updateLocale(const Locale('en', 'US'));
+        break;
+      case "ja":
+        _isEnglish.value = false;
+        Get.updateLocale(const Locale('ja', 'JP'));
+        break;
+    }
   }
 
   void changeThemeBySystem(bool value) {

@@ -10,11 +10,12 @@ class WidgetFactory {
     );
   }
 
-  static Widget dividerVer({double width = 1, double height = double.infinity, Color? color}) {
+  static Widget dividerVer({double width = 1, double height = double.infinity, Color? color, double margin = 0}) {
     return Container(
       color: color ?? Color(0xFF606066),
       height: height,
       width: width,
+      margin: EdgeInsets.symmetric(horizontal: margin),
     );
   }
 
@@ -133,13 +134,13 @@ class WidgetFactory {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
-        padding: EdgeInsets.symmetric(vertical: 15),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 15),
         color: bgColor,
         child: Container(
           width: 40,
           height: 7,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.black,
             // border: Border.all(width: 1, color: Colors.grey.shade300),
             borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -147,6 +148,36 @@ class WidgetFactory {
         ),
       ),
     );
+  }
+
+  static BoxDecoration boxDecoration({double radius = 15}) {
+    return BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.3),
+          spreadRadius: 3,
+          blurRadius: 7,
+          offset: const Offset(4, 0),
+        )
+      ],
+      color: Colors.white,
+      // border: Border.all(
+      //   width: 1,
+      // ),
+      borderRadius: BorderRadius.circular(radius),
+    );
+    // return BoxDecoration(
+    //   color: Colors.white,
+    //   borderRadius: BorderRadius.circular(10),
+    //   boxShadow: [
+    //     BoxShadow(
+    //       color: Colors.grey.withOpacity(0.5),
+    //       spreadRadius: 1,
+    //       blurRadius: 3,
+    //       offset: Offset(0, 1), // changes position of shadow
+    //     ),
+    //   ],
+    // );
   }
 
   static Widget get spacerWidth => const SizedBox(width: 5);

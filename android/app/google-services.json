@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "23031455636",
+    "project_id": "ku-animal-m",
+    "storage_bucket": "ku-animal-m.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23031455636:android:94cfb7fc76f7d4ab083981",
+        "android_client_info": {
+          "package_name": "com.today25.kuanimalm.ku_animal_m"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLucCg13OwmIulmkRD5EryNelGTJQgDhM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

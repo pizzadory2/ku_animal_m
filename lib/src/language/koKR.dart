@@ -1,0 +1,25 @@
+// ignore_for_file: file_names
+
+Map<String, String> koKR = <String, String>{
+  'hello': '안녕하세요',
+  'login': 'Login',
+  // 'signin': 'SIGN IN',
+  'signin': 'Login',
+  'logintoyouraccount': 'Login to your account',
+  'first': '처음이신가요?',
+  'Create an account': '가입하기',
+  // 'Create an account': 'Create an account',
+  'keep me sign in': '로그인 유지',
+  'forgot password': '비밀번호 찾기',
+  'auto login': '자동 로그인',
+  'email or id': 'email or id',
+  'password': 'password',
+  'home': '홈',
+  'in': '입고',
+  'out': '출고',
+  'inout': '입출고',
+  'inven': '재고',
+  'setting': '설정',
+  'alarm': '알람',
+  'search': '검색',
+};
