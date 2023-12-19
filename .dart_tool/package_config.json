@@ -344,6 +344,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "mobile_scanner",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/mobile_scanner-3.5.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "path",
       "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/path-1.8.3",
       "packageUri": "lib/",
@@ -444,12 +450,6 @@
       "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/pointycastle-3.7.3",
       "packageUri": "lib/",
       "languageVersion": "2.14"
-    },
-    {
-      "name": "qr_code_scanner",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/qr_code_scanner-1.0.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.17"
     },
     {
       "name": "shared_preferences",
@@ -620,7 +620,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-12-16T07:16:31.742479Z",
+  "generated": "2023-12-17T15:27:29.819036Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }

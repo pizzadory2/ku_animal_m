@@ -14,6 +14,7 @@ class AppController extends GetxController {
 
   String classSeq = "";
   String className = "";
+  String language = "ko";
 
   // String serverUrl = "http://ctl.today25.com/Ajax/AjaxApi";
   String serverUrl = "";
@@ -28,9 +29,12 @@ class AppController extends GetxController {
   //   Get.updateLocale(value ? const Locale('en', 'US') : const Locale('id', 'ID'));
   // }
 
-  void changeLanguage({String language = "ko"}) {
+  /// 언어 변경
+  /// ko - 한국어, en - 영어, ja - 일본어
+  void changeLanguage({String lang = "ko"}) {
     // _isEnglish.value = value;
-    switch (language) {
+    language = lang;
+    switch (lang) {
       case "ko":
         _isEnglish.value = false;
         Get.updateLocale(const Locale('ko', 'KR'));

@@ -1,13 +1,19 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
+import 'package:ku_animal_m/src/common/widget_factory.dart';
+import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
+import 'package:ku_animal_m/src/ui/notice/page_notice.dart';
 
 // 언어 선택
 // 공지사항
-// 버전
 // 기본안전재고
+// 버전
 // 로그아웃
 class PageSetting extends StatefulWidget {
   const PageSetting({super.key});
@@ -39,86 +45,32 @@ class _PageSettingState extends State<PageSetting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.white,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text("setting".tr, style: tsAppbarTitle),
+        centerTitle: true,
+      ),
+      body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 700,
-                  color: Colors.grey,
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    controller: _controllerIP,
-                    cursorColor: Colors.white,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(
-                      hintText: "ip를 입력해주세요",
-                      border: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    RestClient().updateDio(_controllerIP.text);
-                    Utils.showToast("적용되었습니다.");
-
-                    setState(() {
-                      _loadData();
-                    });
-                  },
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    alignment: Alignment.center,
-                    color: Colors.pink,
-                    child: const Text(
-                      "적용",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            // Text(
-            //   "${RestClient().dio.options.baseUrl}",
-            //   style: TextStyle(color: Colors.red, fontSize: 30),
-            // ),
-            GestureDetector(
-              onTap: () {
-                // RestClient().updateDio(_controllerIP.text);
-                Utils.showToast("저장되었습니다.");
-                Get.back();
-
-                // setState(() {
-                //   _loadData();
-                // });
-              },
-              child: Container(
-                margin: EdgeInsets.only(top: 20, bottom: 20),
-                width: 300,
-                height: 50,
-                alignment: Alignment.center,
-                color: Colors.pink,
-                child: const Text(
-                  "SAVE",
-                  style: TextStyle(color: Colors.white),
-                ),
+            SingleChildScrollView(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  // _buildMyInfo(),
+                  _buildNotice(),
+                  _buildLanguage(),
+                  // _buildVersion(),
+                  _buildLogout(),
+                ],
               ),
             ),
-            _buildClassList(),
+            _buildVersion2(),
           ],
         ),
       ),
     );
-  }
-
-  _buildClassList() {
-    return Container();
   }
 
   BoxDecoration _defaultDecoration(bool select) {
@@ -174,5 +126,165 @@ class _PageSettingState extends State<PageSetting> {
       ],
       stops: [0.1, 1.0],
     );
+  }
+
+  _buildMyInfo() {
+    return Container(
+      height: 10,
+    );
+  }
+
+  _buildNotice() {
+    return _buildSettingItem(
+      title: "notice",
+      func: () {
+        debugPrint("공지사항");
+        Get.to(const PageNotice());
+      },
+    );
+  }
+
+  _buildLanguage() {
+    return _buildSettingItem(
+      title: "language",
+      subTitle: getLanguage(),
+      func: () {
+        debugPrint("언어선택");
+        _showBottomSheet();
+      },
+    );
+  }
+
+  _buildVersion() {
+    return _buildSettingItem(
+      title: "App Version",
+      subTitle: "0.0.1",
+    );
+  }
+
+  _buildVersion2() {
+    String appVersion = "0.0.1";
+
+    return Container(
+      width: double.infinity,
+      height: 30,
+      margin: const EdgeInsets.only(bottom: 10),
+      child: Center(child: Text("${"App Version".tr} $appVersion", style: tsAppVersion)),
+    );
+  }
+
+  _buildLogout() {
+    return _buildSettingItem(
+      title: "logout",
+      func: () {
+        debugPrint("로그아웃");
+      },
+    );
+  }
+
+  Container _buildSettingItem({required String title, String subTitle = "", Function()? func}) {
+    return Container(
+      // height: 50,
+      // margin: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.all(15),
+      color: Colors.white,
+      // decoration: BoxDecoration(
+      //   color: Colors.white,
+      //   borderRadius: BorderRadius.circular(10),
+      // ),
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: func,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(title.tr, style: tsSettingTitle),
+            const Spacer(),
+            Text(subTitle.tr, style: tsSettingSubTitle),
+            SizedBox(width: subTitle.isEmpty ? 0 : 10),
+            func != null ? const Icon(Icons.arrow_forward_ios, size: 20, color: Colors.grey) : Container(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _showBottomSheet() {
+    Get.bottomSheet(
+      SizedBox(
+        height: 200,
+        child: Column(
+          children: [
+            WidgetFactory.gripBar(color: Colors.black12), //
+            const SizedBox(height: 10),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                debugPrint("한국어");
+                setState(() {
+                  AppController.to.changeLanguage(lang: "ko");
+                  Get.back();
+                });
+              },
+              child:
+                  _buildBottomItem(title: "kor".tr, icon: Utils.ImageAsset("korea_round.png", width: 30, height: 30)),
+            ),
+            const Divider(height: 1, color: Colors.grey),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                debugPrint("영어");
+                setState(() {
+                  AppController.to.changeLanguage(lang: "en");
+                  Get.back();
+                });
+              },
+              child: _buildBottomItem(title: "eng".tr, icon: Utils.ImageAsset("us_round.png", width: 30, height: 30)),
+            ),
+            const SizedBox(height: 15),
+          ],
+        ),
+      ),
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(15.0),
+        ),
+        // borderRadius: BorderRadius.circular(20),
+      ),
+    );
+  }
+
+  _buildBottomItem({required String title, Image? icon}) {
+    return SizedBox(
+      // color: Colors.amber,
+      height: 60,
+      // color: Colors.orange,
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            icon ?? Container(),
+            const SizedBox(width: 10),
+            Text(title, style: tsBottomSheetItem),
+          ],
+        ),
+      ),
+    );
+  }
+
+  getLanguage() {
+    String language = AppController.to.language;
+
+    switch (language) {
+      case "ko":
+        return "kor";
+      case "en":
+        return "eng";
+      case "ja":
+        return "jap";
+      default:
+        return "kor";
+    }
   }
 }

@@ -117,7 +117,7 @@ class _PageInvenState extends State<PageInven> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("수량", style: tsInvenItemTotalCount),
+                    Text("quantity".tr, style: tsInvenItemTotalCount),
                     Text("275", style: tsInvenItemTotalCount),
                   ],
                 ),

@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 Map<String, String> enUS = <String, String>{
-  'hello': 'Hello World',
+  'Hello': 'Hello ',
   'login': 'LOGIN',
   'signin': 'SIGN IN',
   'logintoyouraccount': 'Login to your account',
@@ -20,4 +20,21 @@ Map<String, String> enUS = <String, String>{
   'setting': 'setting',
   'alarm': 'alarm',
   'search': 'search',
+  'QR Scan': 'QR Scan',
+  'search hint': 'Search for products',
+  'Status of in and out': 'Status of in and out',
+  'Last week': 'Last week',
+  'Product Status': 'Product Status',
+  'Recently shipped products': 'Recently shipped products',
+  'notice': 'notice',
+  'kor': '한국어',
+  'eng': 'English',
+  'jap': '日本語',
+  'App Version': 'App Version',
+  'logout': 'logout',
+  'language': 'language',
+  'scan to qr': 'Scan to QR',
+  'Please input QR or Barcode in camera': 'Please input QR or Barcode in camera',
+  'Direct': 'Direct',
+  'quantity': 'quantity',
 };

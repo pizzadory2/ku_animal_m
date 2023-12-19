@@ -7,9 +7,11 @@ import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
+import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/chart/chart_sample.dart';
 import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
+import 'package:ku_animal_m/src/ui/qr/page_qr.dart';
 import 'package:ku_animal_m/src/ui/search/page_search.dart';
 import 'package:ku_animal_m/src/ui/setting/page_setting.dart';
 
@@ -63,17 +65,7 @@ class _PageHomeState extends State<PageHome> {
         children: [
           const FaIcon(FontAwesomeIcons.thumbsUp, color: ColorsEx.primaryColor),
           const SizedBox(width: 10),
-          Text(
-            name,
-            style: const TextStyle(
-              fontSize: 22,
-              color: ColorsEx.primaryColorBold,
-              fontWeight: FontWeight.bold,
-              height: 1.4,
-            ),
-          ),
-          const Text("님 안녕하세요", style: TextStyle(fontSize: 22, height: 1.3)),
-          // const FaIcon(FontAwesomeIcons.faceGrin, color: ColorsEx.primaryColor),
+          _buildHello(name: name),
         ],
       ),
     );
@@ -98,8 +90,8 @@ class _PageHomeState extends State<PageHome> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("물품 입출고 현황", style: tsMainBoxTitle),
-                  Text("최근 1주일", style: tsMainBoxNormal),
+                  Text("Status of in and out".tr, style: tsMainBoxTitle),
+                  Text("Last week".tr, style: tsMainBoxNormal),
                 ],
               ),
             ),
@@ -110,14 +102,15 @@ class _PageHomeState extends State<PageHome> {
                   child: Center(
                     child: Column(
                       children: [
-                        const Icon(Icons.arrow_downward, color: Colors.blue),
+                        // const Icon(Icons.arrow_downward, color: Colors.blue),
+                        const Icon(Icons.file_download_rounded, color: Colors.blue),
                         SizedBox(
                           height: 40,
                           child: Text("187", style: tsMainBoxInOutCount),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 20,
-                          child: Text("입고"),
+                          child: Text("in".tr),
                         ),
                       ],
                     ),
@@ -128,14 +121,15 @@ class _PageHomeState extends State<PageHome> {
                   child: Center(
                     child: Column(
                       children: [
-                        const Icon(Icons.arrow_upward, color: Colors.red),
+                        // const Icon(Icons.arrow_upward, color: Colors.red),
+                        const Icon(Icons.file_upload_rounded, color: Colors.red),
                         SizedBox(
                           height: 40,
                           child: Text("356", style: tsMainBoxInOutCount),
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 20,
-                          child: Text("출고"),
+                          child: Text("out".tr),
                         ),
                       ],
                     ),
@@ -166,7 +160,7 @@ class _PageHomeState extends State<PageHome> {
             SizedBox(
               width: double.infinity,
               height: Dimens.boxTitleHeight,
-              child: Text("제품 현황", style: tsMainBoxTitle),
+              child: Text("Product Status".tr, style: tsMainBoxTitle),
             ),
             const SizedBox(height: 10),
             _buildSelectItem(
@@ -230,7 +224,7 @@ class _PageHomeState extends State<PageHome> {
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   width: double.infinity,
                   height: 20,
-                  child: const Text("제품을 검색해 주세요", style: TextStyle(color: Colors.grey, fontSize: 18)),
+                  child: Text("search hint".tr, style: tsSearchHint),
                 ),
               ),
             ),
@@ -239,6 +233,7 @@ class _PageHomeState extends State<PageHome> {
               behavior: HitTestBehavior.translucent,
               onTap: () {
                 debugPrint("검색");
+                Get.to(() => const PageQR());
               },
               child: const Icon(Icons.qr_code_scanner_sharp, color: Colors.grey),
             ),
@@ -263,7 +258,7 @@ class _PageHomeState extends State<PageHome> {
             SizedBox(
               width: double.infinity,
               height: Dimens.boxTitleHeight,
-              child: Text("최근 입출고 제품", style: tsMainBoxTitle),
+              child: Text("Recently shipped products".tr, style: tsMainBoxTitle),
             ),
             const SizedBox(height: 10),
             recentlyCount == 0
@@ -323,6 +318,7 @@ class _PageHomeState extends State<PageHome> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Utils.ImageAsset("product_in.png", width: 20, height: 20),
               data.productIn
                   ? const Icon(Icons.keyboard_double_arrow_down, color: Colors.blue)
                   : const Icon(Icons.keyboard_double_arrow_up, color: Colors.red),
@@ -369,6 +365,42 @@ class _PageHomeState extends State<PageHome> {
         regUser: listUser[i],
         productIn: listProductIn[i],
       ));
+    }
+  }
+
+  _buildHello({required String name}) {
+    if (AppController.to.language == "ko") {
+      return Row(
+        children: [
+          Text(
+            name,
+            style: const TextStyle(
+              fontSize: 22,
+              color: ColorsEx.primaryColorBold,
+              fontWeight: FontWeight.bold,
+              height: 1.4,
+            ),
+          ),
+          Text("Hello".tr, style: const TextStyle(fontSize: 22, height: 1.3)),
+          // const FaIcon(FontAwesomeIcons.faceGrin, color: ColorsEx.primaryColor),
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          Text("Hello".tr, style: const TextStyle(fontSize: 22, height: 1.3)),
+          Text(
+            name,
+            style: const TextStyle(
+              fontSize: 22,
+              color: ColorsEx.primaryColorBold,
+              fontWeight: FontWeight.bold,
+              height: 1.5,
+            ),
+          ),
+          // const FaIcon(FontAwesomeIcons.faceGrin, color: ColorsEx.primaryColor),
+        ],
+      );
     }
   }
 }

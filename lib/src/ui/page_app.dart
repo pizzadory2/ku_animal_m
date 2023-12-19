@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/enums.dart';
+import 'package:ku_animal_m/src/common/permission_manager.dart';
+import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/alarm/page_alarm.dart';
@@ -25,8 +28,15 @@ class _PageAppState extends State<PageApp> {
     const PageHome(),
     const PageProductInOut(),
     const PageInven(),
-    const PageSetting(),
+    // const PageSetting(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    PermissionManager().requestCameraPermission(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +64,7 @@ class _PageAppState extends State<PageApp> {
               },
             ),
           ],
-          title: const Text("KU VMTH"),
+          title: Text(ePageTitle[_selectIndex].tr, style: tsAppbarTitle),
         ),
         body: IndexedStack(
           index: _selectIndex,
@@ -84,7 +94,7 @@ class _PageAppState extends State<PageApp> {
             // _buildBottomItem(label: "out".tr, icon: FontAwesomeIcons.upload, index: 2),
             // _buildBottomItem(label: "inven".tr, icon: FontAwesomeIcons.inbox, index: 2),
             _buildBottomItem(label: "inven".tr, icon: FontAwesomeIcons.boxesStacked, index: 2),
-            _buildBottomItem(label: "setting".tr, icon: FontAwesomeIcons.gear, index: 3),
+            // _buildBottomItem(label: "setting".tr, icon: FontAwesomeIcons.gear, index: 3),
             // _buildBottomItem(label: "home".tr, icon: "icons/home_3.svg", index: 0),
             // _buildBottomItem(label: "in".tr, icon: "icons/import.svg", index: 1),
             // _buildBottomItem(label: "out".tr, icon: "icons/export.svg", index: 2),

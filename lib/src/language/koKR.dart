@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 Map<String, String> koKR = <String, String>{
-  'hello': '안녕하세요',
+  'Hello': '님 안녕하세요',
   'login': 'Login',
   // 'signin': 'SIGN IN',
   'signin': 'Login',
@@ -22,4 +22,21 @@ Map<String, String> koKR = <String, String>{
   'setting': '설정',
   'alarm': '알람',
   'search': '검색',
+  'QR Scan': 'QR 스캔',
+  'search hint': '제품을 검색해보세요',
+  'Status of in and out': '물품 입출고 현황',
+  'Last week': '물품 입출고 현황',
+  'Product Status': '제품 현황',
+  'Recently shipped products': '최근 입출고 제품',
+  'notice': '공지사항',
+  'kor': '한국어',
+  'eng': 'English',
+  'jap': '日本語',
+  'App Version': '앱 버전',
+  'logout': '로그아웃',
+  'language': '언어선택',
+  'scan to qr': 'QR 스캔',
+  'Please input QR or Barcode in camera': '카메라에 QR 또는 바코드를 위치해주세요',
+  'Direct': '직접 등록',
+  'quantity': '수량',
 };

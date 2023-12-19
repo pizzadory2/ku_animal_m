@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
+import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
+import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
 
@@ -14,20 +16,32 @@ class PageProductInOut extends StatefulWidget {
 }
 
 class _PageProductInOutState extends State<PageProductInOut> {
+  final TextEditingController _controllerSearch = TextEditingController();
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controllerSearch.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         // floatingActionButton: _buildFAB(),
         backgroundColor: Colors.white,
-        body: Container(
-          child: Column(
-            children: [
-              _buildSearch(),
-              Divider(height: 1, color: Colors.grey[400]),
-              _buildList(),
-              _buildInOut(),
-            ],
-          ),
+        body: Column(
+          children: [
+            _buildSearch(),
+            Divider(height: 1, color: Colors.grey[400]),
+            _buildList(),
+            _buildInOut(),
+          ],
         ));
   }
 
@@ -99,8 +113,8 @@ class _PageProductInOutState extends State<PageProductInOut> {
                           height: 50,
                           child: Center(
                             child: Text(
-                              "입고",
-                              style: tsInvenItemTotalCount.copyWith(color: Colors.red),
+                              "in".tr,
+                              style: tsInvenItemTotalCount.copyWith(color: Colors.blue),
                             ),
                           )),
                     ),
@@ -114,8 +128,8 @@ class _PageProductInOutState extends State<PageProductInOut> {
                           height: 50,
                           child: Center(
                             child: Text(
-                              "출고",
-                              style: tsInvenItemTotalCount.copyWith(color: Colors.blue),
+                              "out".tr,
+                              style: tsInvenItemTotalCount.copyWith(color: Colors.red),
                             ),
                           )),
                     ),
@@ -131,33 +145,116 @@ class _PageProductInOutState extends State<PageProductInOut> {
 
   _buildSearch() {
     return Container(
-      color: Colors.white,
-      height: 50,
-    );
+        color: Colors.white,
+        height: 55,
+        padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.only(right: 10),
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.search),
+                    ),
+                    Expanded(
+                      child: TextField(
+                        controller: _controllerSearch,
+                        onChanged: (value) {
+                          setState(() {});
+                        },
+                        cursorColor: Colors.black,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          hintText: "search hint".tr,
+                          hintStyle: tsSearchHint,
+                        ),
+                      ),
+                    ),
+                    _controllerSearch.text.isNotEmpty
+                        ? GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _controllerSearch.clear();
+                              });
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: const Icon(
+                                  Icons.clear,
+                                  size: 24,
+                                  color: Colors.black54,
+                                )),
+                          )
+                        : Container(),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            SizedBox(
+              width: AppController.to.language == "ko" ? 80 : 90,
+              child: ElevatedButton(
+                onPressed: () {
+                  //
+                },
+                child: Text(
+                  "search".tr,
+                  style: tsSearch,
+                ),
+              ),
+            ),
+            WidgetFactory.dividerVer(height: 30, color: Colors.black12, margin: 10),
+            SizedBox(
+              // width: 50,
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  debugPrint("QR");
+                },
+                child: const Icon(Icons.qr_code_rounded, size: 30, color: Colors.black54),
+              ),
+            ),
+          ],
+        ));
   }
 
   _buildInOut() {
     return Container(
       color: Colors.white,
-      height: 80,
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      height: 50,
       child: Row(children: [
         Expanded(
-          child: Container(
-            margin: const EdgeInsets.only(left: 10, right: 10),
+          child: SizedBox(
+            height: double.infinity,
             child: ElevatedButton(
               onPressed: () {
                 _showBottomSheet();
               },
-              child: Text("in".tr),
+              child: Text("in".tr, style: tsButtonDef),
             ),
           ),
         ),
+        const SizedBox(width: 10),
         Expanded(
-          child: Container(
-            margin: const EdgeInsets.only(left: 10, right: 10),
+          child: SizedBox(
+            height: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
-              child: Text("out".tr),
+              onPressed: () {
+                _showBottomSheet();
+              },
+              child: Text("out".tr, style: tsButtonDef),
             ),
           ),
         ),
@@ -168,33 +265,36 @@ class _PageProductInOutState extends State<PageProductInOut> {
   _showBottomSheet() {
     Get.bottomSheet(
       SizedBox(
-        height: 150,
+        height: 170,
         child: Column(
           children: [
             WidgetFactory.gripBar(color: Colors.black12), //
+            const SizedBox(height: 5),
             Row(
-              mainAxisSize: MainAxisSize.min,
+              // mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
                       Get.back();
                     },
-                    child: _buildBottomItem(title: "QR 스캔", icon: Icons.qr_code),
+                    child: _buildBottomItem(title: "scan to qr".tr, icon: Icons.qr_code),
                   ),
                 ),
+                const SizedBox(width: 10),
                 Expanded(
                   child: GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {
                       Get.back();
                     },
-                    child: _buildBottomItem(title: "직접 등록", icon: Icons.list_alt_sharp),
+                    child: _buildBottomItem(title: "Direct".tr, icon: Icons.list_alt_sharp),
                   ),
                 ),
+                const SizedBox(width: 10),
               ],
             ),
           ],
@@ -212,8 +312,15 @@ class _PageProductInOutState extends State<PageProductInOut> {
 
   _buildBottomItem({required String title, required IconData icon}) {
     return Container(
+      height: 80,
+      decoration: BoxDecoration(
+        color: const Color.fromRGBO(247, 248, 250, 1),
+        border: Border.all(color: const Color.fromRGBO(234, 236, 237, 1)),
+        borderRadius: BorderRadius.circular(5),
+      ),
       child: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, size: 50),
             Text(title),
