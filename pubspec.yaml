@@ -52,6 +52,7 @@ dependencies:
   flutter_svg: ^2.0.9
   fl_chart: ^0.60.0
   mobile_scanner: ^3.5.5
+  lottie: ^2.6.0
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +81,7 @@ flutter:
       - assets/sounds/
       - assets/icons/
       - assets/images/
+      - assets/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

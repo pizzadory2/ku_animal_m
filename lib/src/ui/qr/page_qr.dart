@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,8 @@ class PageQR extends StatefulWidget {
 }
 
 class _PageQRState extends State<PageQR> {
+  final _audioPlayer = AudioPlayer();
+
   final MobileScannerController _controller = MobileScannerController(
     detectionSpeed: DetectionSpeed.normal,
   );
@@ -24,6 +27,23 @@ class _PageQRState extends State<PageQR> {
   @override
   void initState() {
     super.initState();
+
+    _audioPlayer.onPlayerStateChanged.listen((event) {
+      setState(() {
+        //
+        // isPlaying = event == PlayerState.playing;
+      });
+
+      setAudio();
+    });
+  }
+
+  Future setAudio() async {
+    _audioPlayer.setReleaseMode(ReleaseMode.stop);
+
+    final player = AudioCache(prefix: "assets/sounds/");
+    // final url = await player.load("page_effect_02.mp3");
+    // _audioPlayer.setSourceAsset(url.path);
   }
 
   @override
@@ -94,12 +114,16 @@ class _PageQRState extends State<PageQR> {
             //   torchEnabled: _isTorch,
             // ),
             controller: _controller,
-            onDetect: (capture) {
+            onDetect: (capture) async {
               final List<Barcode> barcodes = capture.barcodes;
               // final Uint8List? image = capture.image;
               for (final barcode in barcodes) {
                 debugPrint('Barcode found! ${barcode.rawValue}');
                 if (!_isScanning) {
+                  // String alarmName = "sounds/sori.mp3";
+                  String alarmName = "sounds/qr_effect_01.wav";
+                  await _audioPlayer.play(AssetSource(alarmName), volume: 1);
+
                   _isScanning = true;
                   // Navigator.pop(context, barcode.rawValue);
                   String data = barcode.rawValue ?? "---";

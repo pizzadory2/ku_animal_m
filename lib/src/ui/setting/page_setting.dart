@@ -1,5 +1,6 @@
 // ignore_for_file: unused_element
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
@@ -62,6 +63,7 @@ class _PageSettingState extends State<PageSetting> {
                   _buildNotice(),
                   _buildLanguage(),
                   // _buildVersion(),
+                  kDebugMode ? _buildTheme() : Container(),
                   _buildLogout(),
                 ],
               ),
@@ -173,10 +175,21 @@ class _PageSettingState extends State<PageSetting> {
     );
   }
 
+  _buildTheme() {
+    return _buildSettingItem(
+      title: "dark mode",
+      func: () {
+        AppController.to.changeTheme(!AppController.to.isDarkMode);
+        debugPrint("다크모드");
+      },
+    );
+  }
+
   _buildLogout() {
     return _buildSettingItem(
       title: "logout",
       func: () {
+        Get.offAllNamed("/login");
         debugPrint("로그아웃");
       },
     );

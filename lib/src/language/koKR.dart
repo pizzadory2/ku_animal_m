@@ -33,6 +33,7 @@ Map<String, String> koKR = <String, String>{
   'eng': 'English',
   'jap': '日本語',
   'App Version': '앱 버전',
+  'dark mode': '다크모드',
   'logout': '로그아웃',
   'language': '언어선택',
   'scan to qr': 'QR 스캔',

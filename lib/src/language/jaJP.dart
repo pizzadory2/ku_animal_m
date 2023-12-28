@@ -31,6 +31,7 @@ Map<String, String> jaJP = <String, String>{
   'eng': 'English',
   'jap': '日本語',
   'App Version': 'App Version',
+  'dark mode': 'dark mode',
   'logout': 'Logout',
   'language': 'language',
   'scan to qr': 'Scan to QR',

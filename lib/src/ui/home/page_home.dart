@@ -211,10 +211,13 @@ class _PageHomeState extends State<PageHome> {
 
   _buildSearch() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: Dimens.boxPadding, vertical: Dimens.boxPadding),
+      // padding: const EdgeInsets.symmetric(horizontal: Dimens.boxPadding, vertical: Dimens.boxPadding),
+      padding: const EdgeInsets.symmetric(horizontal: Dimens.boxPadding),
+      height: 60,
       decoration: WidgetFactory.boxDecoration(),
       child: Center(
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Icon(Icons.search, color: Colors.grey),
             Expanded(
@@ -222,20 +225,27 @@ class _PageHomeState extends State<PageHome> {
                 onTap: () => Get.to(const PageSearch()),
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
+                  // padding: const EdgeInsets.symmetric(horizontal: Dimens.boxPadding, vertical: Dimens.boxPadding),
                   width: double.infinity,
                   height: 20,
                   child: Text("search hint".tr, style: tsSearchHint),
                 ),
               ),
             ),
-            WidgetFactory.dividerVer(color: Colors.grey, height: 20, margin: 10),
+            WidgetFactory.dividerVer(color: Colors.grey, height: 20, margin: 0),
             GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () {
                 debugPrint("검색");
                 Get.to(() => const PageQR());
               },
-              child: const Icon(Icons.qr_code_scanner_sharp, color: Colors.grey),
+              child: Container(
+                padding: const EdgeInsets.only(left: 10),
+                color: Colors.white,
+                height: double.infinity,
+                // width: 50,
+                child: const Icon(Icons.qr_code_scanner_sharp, color: Colors.grey),
+              ),
             ),
           ],
         ),
