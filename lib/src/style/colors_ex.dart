@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 class ColorsEx {
   static const Color primaryColor = Color(0xFF639372);
   static const Color primaryColorBold = Color.fromRGBO(66, 111, 82, 1);
-  static const Color primaryColorLow = Color.fromARGB(255, 17, 133, 64);
+  static const Color primaryColorLow = Color.fromARGB(255, 101, 195, 139);
   static const Color primaryColorLowWhite = Color(0xFFFFFCF4);
   static const Color primaryColorSystem = Color(0xFF000000);
   static const Color primaryColorSystemDim = Color(0x4D161616);
   static const Color primaryColorDim = Color(0x50B08D4A);
+  static const Color primaryColorGrey = Color.fromRGBO(210, 210, 210, 1);
   static const Color primaryText = Color(0xFFFFE8D4);
   static const Color mainBg = Color.fromARGB(255, 245, 247, 248);
   static const Color calDayBg = Color.fromARGB(255, 218, 228, 231);

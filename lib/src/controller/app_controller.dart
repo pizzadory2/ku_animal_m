@@ -7,10 +7,12 @@ class AppController extends GetxController {
   final _isDarkMode = false.obs;
   final _isEnglish = true.obs;
   final _isSystemTheme = true.obs;
+  final _isFixQRScanMode = false.obs; // QR 스캔 모드 고정(누르고 있는 동안만 스캔 유무)
 
   bool get isDarkMode => _isDarkMode.value;
   bool get isEnglish => _isEnglish.value;
   bool get isSystemTheme => _isSystemTheme.value;
+  bool get isFixQRScanMode => _isFixQRScanMode.value;
 
   String classSeq = "";
   String className = "";

@@ -291,7 +291,8 @@ class _PageProductInOutState extends State<PageProductInOut> {
                     onTap: () {
                       Get.back();
                     },
-                    child: _buildBottomItem(title: "Direct".tr, icon: Icons.list_alt_sharp),
+                    // child: _buildBottomItem(title: "Direct".tr, icon: Icons.list_alt_sharp),
+                    child: _buildBottomItem(title: "Direct".tr, icon: Icons.keyboard),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -322,7 +323,11 @@ class _PageProductInOutState extends State<PageProductInOut> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 50),
+            Icon(
+              icon,
+              size: 50,
+              color: Colors.black54,
+            ),
             Text(title),
           ],
         ),

@@ -25,7 +25,7 @@ Map<String, String> koKR = <String, String>{
   'QR Scan': 'QR 스캔',
   'search hint': '제품을 검색해보세요',
   'Status of in and out': '물품 입출고 현황',
-  'Last week': '물품 입출고 현황',
+  'Last week': '지난주',
   'Product Status': '제품 현황',
   'Recently shipped products': '최근 입출고 제품',
   'notice': '공지사항',

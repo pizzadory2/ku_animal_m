@@ -1,49 +1,39 @@
-import 'package:flutter/material.dart';
-import 'package:ku_animal_m/src/style/colors_ex.dart';
+// ignore_for_file: must_be_immutable
 
-class QRScannerOverlay extends StatelessWidget {
-  const QRScannerOverlay({Key? key, required this.overlayColour}) : super(key: key);
+import 'package:flutter/material.dart';
+
+class QRScannerOverlay3 extends StatelessWidget {
+  QRScannerOverlay3({Key? key, required this.overlayColour, required this.scanWidth, this.enableScan = false})
+      : super(key: key);
 
   final Color overlayColour;
   // final Color borderColor = ColorsEx.primaryColor;
+  final double scanWidth;
+  bool enableScan;
   final Color borderColor = Colors.white;
+  final Color borderColorFocus = Colors.lightGreenAccent;
+  final double _radius = 25.0;
+  final double _framePadding = 30.0;
 
   @override
   Widget build(BuildContext context) {
-    double scanArea =
-        (MediaQuery.of(context).size.width < 400 || MediaQuery.of(context).size.height < 400) ? 200.0 : 330.0;
+    // double scanArea =
+    //     (MediaQuery.of(context).size.width < 400 || MediaQuery.of(context).size.height < 400) ? 200.0 : 330.0;
+    // scanArea -= (_framePadding * 2);
+    double scanArea = scanWidth - (_framePadding * 2);
+
     return Stack(
       children: [
         ColorFiltered(
           colorFilter: ColorFilter.mode(overlayColour, BlendMode.srcOut), // This one will create the magic
-          child: Stack(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                    color: Colors.red,
-                    backgroundBlendMode: BlendMode.dstOut), // This one will handle background + difference out
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: scanArea,
-                  width: scanArea,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
         Align(
           alignment: Alignment.center,
           child: CustomPaint(
-            foregroundPainter: BorderPainter(borderColor: borderColor),
+            foregroundPainter: BorderPainter(borderColor: enableScan ? borderColorFocus : borderColor),
             child: SizedBox(
-              width: scanArea + 25,
-              height: scanArea + 25,
+              width: scanArea + _radius,
+              height: scanArea + _radius,
             ),
           ),
         ),
@@ -61,8 +51,8 @@ class BorderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     const width = 4.0;
-    const radius = 20.0;
-    const tRadius = 3 * radius;
+    const radius = 20.0; // 길이
+    const tRadius = 2 * radius;
     final rect = Rect.fromLTWH(
       width,
       width,

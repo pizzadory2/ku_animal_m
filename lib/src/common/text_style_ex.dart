@@ -137,9 +137,16 @@ TextStyle get tsBottomSheetItem => const TextStyle(
     );
 
 // QR
+TextStyle get tsQRTitle => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+    );
+
 TextStyle get tsQRDescription => const TextStyle(
       fontFamily: "NotoSansKR",
-      fontSize: 18,
-      fontWeight: FontWeight.w500,
-      color: Colors.white, //Color.fromARGB(255, 0, 17, 13),
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
     );

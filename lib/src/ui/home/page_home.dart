@@ -1,19 +1,14 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
-import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
-import 'package:ku_animal_m/src/ui/chart/chart_sample.dart';
 import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
-import 'package:ku_animal_m/src/ui/qr/page_qr.dart';
+import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
 import 'package:ku_animal_m/src/ui/search/page_search.dart';
-import 'package:ku_animal_m/src/ui/setting/page_setting.dart';
 
 class PageHome extends StatefulWidget {
   const PageHome({super.key});
@@ -34,25 +29,30 @@ class _PageHomeState extends State<PageHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        padding: const EdgeInsets.all(20),
-        children: [
-          Column(
+    return Stack(
+      children: [
+        Scaffold(
+          body: ListView(
+            padding: const EdgeInsets.all(20),
             children: [
-              _buildGreeting(),
-              const SizedBox(height: 10),
-              _buildProductInOutStatus(),
-              const SizedBox(height: 20),
-              _buildInventoryStatus(),
-              const SizedBox(height: 20),
-              _buildSearch(),
-              const SizedBox(height: 20),
-              _buildRecentlyInOut(),
+              Column(
+                children: [
+                  _buildGreeting(),
+                  const SizedBox(height: 10),
+                  _buildProductInOutStatus(),
+                  const SizedBox(height: 20),
+                  _buildInventoryStatus(),
+                  const SizedBox(height: 20),
+                  _buildSearch(),
+                  const SizedBox(height: 20),
+                  _buildRecentlyInOut(),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
+        ),
+        // const Loading(),
+      ],
     );
   }
 
@@ -237,7 +237,7 @@ class _PageHomeState extends State<PageHome> {
               behavior: HitTestBehavior.translucent,
               onTap: () {
                 debugPrint("검색");
-                Get.to(() => const PageQR());
+                Get.to(() => const PageQR2());
               },
               child: Container(
                 padding: const EdgeInsets.only(left: 10),

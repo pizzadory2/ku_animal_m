@@ -180,6 +180,30 @@ class WidgetFactory {
     // );
   }
 
+  static loadingWidget({String? title, bool isLoading = true}) {
+    if (!isLoading) {
+      return Container();
+    }
+
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: Colors.black.withOpacity(0.5),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CircularProgressIndicator(
+              color: Colors.white,
+            ),
+            if (title != null) const SizedBox(height: 20),
+            if (title != null) Text(title, style: const TextStyle(color: Colors.white)),
+          ],
+        ),
+      ),
+    );
+  }
+
   static Widget get spacerWidth => const SizedBox(width: 5);
   static Widget get spacerHeight => const SizedBox(height: 5);
 }

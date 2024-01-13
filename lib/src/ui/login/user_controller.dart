@@ -25,7 +25,7 @@ class UserController extends GetxController {
 
     clear();
 
-    debugPrint("로그인로그인로그인777777777777777");
+    debugPrint("[animal] 로그인로그인로그인777777777777777");
 
     await repository.reqLogin(id: id, pw: pw).then((value) {
       isLoading.value = false;

@@ -55,7 +55,7 @@ class UserRepository {
   }
 
   Future reqLogin({required String id, required String pw}) async {
-    debugPrint("[ku_pad::device_repository 명령어 전송] API 호출");
+    debugPrint("[animal::user_repository] login API 호출");
 
     FormData formData = FormData.fromMap({
       "user_id": id,

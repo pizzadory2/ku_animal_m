@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
+import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_result.dart';
 import 'package:ku_animal_m/src/ui/qr/qr_scanner_overlay.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -21,6 +22,7 @@ class _PageQRState extends State<PageQR> {
     detectionSpeed: DetectionSpeed.normal,
   );
   bool _isScanning = false;
+  bool _enableScan = false;
   // bool _isTorch = false;
   // bool _cameraFront = false;
 
@@ -115,6 +117,10 @@ class _PageQRState extends State<PageQR> {
             // ),
             controller: _controller,
             onDetect: (capture) async {
+              if (_enableScan == false) {
+                return;
+              }
+
               final List<Barcode> barcodes = capture.barcodes;
               // final Uint8List? image = capture.image;
               for (final barcode in barcodes) {
@@ -127,22 +133,77 @@ class _PageQRState extends State<PageQR> {
                   _isScanning = true;
                   // Navigator.pop(context, barcode.rawValue);
                   String data = barcode.rawValue ?? "---";
-                  Get.to(() => PageQRResult(barcodeData: data));
+                  debugPrint("[animal] data: $data");
+                  var result = await Get.to(() => PageQRResult(barcodeData: data));
+                  if (result == null) {
+                    _isScanning = false;
+                  }
+                  // Get.off(() => PageQRResult(barcodeData: data));
                 }
               }
             },
           ),
           QRScannerOverlay(overlayColour: Colors.black.withOpacity(0.4)),
           Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.topCenter,
             // top: height - appbar3 - 70,
             // left: 50,
             child: Container(
-              margin: const EdgeInsets.only(bottom: 20),
+              margin: const EdgeInsets.only(top: 20),
               child: Text(
-                "Please input QR or Barcode in camera".tr,
+                _enableScan ? "Scanning...".tr : "Ready".tr,
                 style: tsQRDescription,
               ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            // top: height - appbar3 - 70,
+            // left: 50,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 20),
+                  child: Text(
+                    "Please input QR or Barcode in camera".tr,
+                    style: tsQRDescription,
+                  ),
+                ),
+                Container(
+                    child: GestureDetector(
+                  onTapDown: (details) {
+                    debugPrint("onTapDown");
+                    setState(() {
+                      _enableScan = true;
+                    });
+                  },
+                  onTapUp: (details) => setState(() {
+                    debugPrint("onTapUp");
+                    setState(() {
+                      _enableScan = false;
+                    });
+                  }),
+                  // onTap: () {
+                  //   setState(() {
+                  //     _enableScan = !_enableScan;
+                  //   });
+                  // },
+                  child: Container(
+                    width: 70,
+                    height: 70,
+                    decoration: BoxDecoration(
+                      color: _enableScan ? ColorsEx.primaryColor.withOpacity(0.5) : Colors.grey,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: const Icon(
+                      Icons.qr_code_scanner_rounded,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                  ),
+                )),
+              ],
             ),
           ),
         ],
