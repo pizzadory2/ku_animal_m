@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,10 +12,8 @@ class _PageProductOutState extends State<PageProductOut> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Center(
-          child: Text("out".tr),
-        ),
+      body: Center(
+        child: Text("out".tr),
       ),
     );
   }

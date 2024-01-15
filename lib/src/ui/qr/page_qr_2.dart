@@ -1,11 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_result.dart';
-import 'package:ku_animal_m/src/ui/qr/qr_scanner_overlay.dart';
 import 'package:ku_animal_m/src/ui/qr/qr_scanner_overlay3.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -46,17 +44,17 @@ class _PageQR2State extends State<PageQR2> {
   Future setAudio() async {
     _audioPlayer.setReleaseMode(ReleaseMode.stop);
 
-    final player = AudioCache(prefix: "assets/sounds/");
+    // final player = AudioCache(prefix: "assets/sounds/");
     // final url = await player.load("page_effect_02.mp3");
     // _audioPlayer.setSourceAsset(url.path);
   }
 
   @override
   Widget build(BuildContext context) {
-    double height = Get.height;
-    double height2 = MediaQuery.of(context).size.height;
-    double appbar = kToolbarHeight;
-    double appbar2 = AppBar().preferredSize.height;
+    // double height = Get.height;
+    // double height2 = MediaQuery.of(context).size.height;
+    // double appbar = kToolbarHeight;
+    // double appbar2 = AppBar().preferredSize.height;
     double appbar3 = MediaQuery.of(context).padding.top + kToolbarHeight;
 
     _scanWidth = Get.width * 0.8;
@@ -201,7 +199,7 @@ class _PageQR2State extends State<PageQR2> {
   }
 
   buildMask() {
-    return Container(
+    return SizedBox(
       width: 300,
       height: 300,
       child: Stack(
@@ -211,7 +209,7 @@ class _PageQR2State extends State<PageQR2> {
             child: Container(
               width: 50,
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   top: BorderSide(color: Colors.white, width: 3),
                   left: BorderSide(color: Colors.white, width: 3),
@@ -224,7 +222,7 @@ class _PageQR2State extends State<PageQR2> {
             child: Container(
               width: 50,
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   top: BorderSide(color: Colors.white, width: 3),
                   right: BorderSide(color: Colors.white, width: 3),
@@ -237,7 +235,7 @@ class _PageQR2State extends State<PageQR2> {
             child: Container(
               width: 50,
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(color: Colors.white, width: 3),
                   left: BorderSide(color: Colors.white, width: 3),

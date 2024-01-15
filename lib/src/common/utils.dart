@@ -45,7 +45,7 @@ class Utils {
       filename += defaultSuffix;
     }
 
-    String fullFilePath = "assets/" + filename;
+    String fullFilePath = "assets/$filename";
     return Image.asset(
       fullFilePath,
       width: width,
@@ -60,7 +60,7 @@ class Utils {
       filename += defaultSuffix;
     }
 
-    String fullFilePath = "assets/icons/" + filename;
+    String fullFilePath = "assets/icons/$filename";
     return Image.asset(
       fullFilePath,
       width: width,
@@ -76,7 +76,7 @@ class Utils {
       filename += defaultSuffix;
     }
 
-    String fullFilePath = "assets/gif/" + filename;
+    String fullFilePath = "assets/gif/$filename";
     return Image.asset(
       fullFilePath,
       width: width,
@@ -110,7 +110,7 @@ class Utils {
       errorBuilder: (context, error, stackTrace) {
         // return Text("에러에러");
         return Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           // child: Util.ImageAsset("icon.png", width: 60, height: 80),
           child: Image.asset(
             "assets/images/icon.png",
@@ -196,7 +196,7 @@ class Utils {
       age--;
     }
 
-    print(age);
+    debugPrint("$age");
 
     bool finalResult = age >= 14;
 
@@ -248,7 +248,7 @@ class Utils {
       msg: msg,
       toastLength: isShotTime ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG,
       fontSize: 14,
-      backgroundColor: Color(0xB2727277),
+      backgroundColor: const Color(0xB2727277),
       gravity: isCenter ? ToastGravity.CENTER : ToastGravity.BOTTOM,
     );
   }

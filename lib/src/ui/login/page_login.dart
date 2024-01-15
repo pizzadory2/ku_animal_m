@@ -195,25 +195,25 @@ class _PageLoginState extends State<PageLogin> {
     );
   }
 
-  Row _buildSignUp() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Text('first'.tr, style: GoogleFonts.aBeeZee(fontSize: 18)),
-        Text('first'.tr),
-        const SizedBox(width: 5),
-        TextButton(
-          onPressed: () {
-            //
-          },
-          child: Text(
-            "Create an account".tr,
-            style: const TextStyle(color: ColorsEx.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ],
-    );
-  }
+  // Row _buildSignUp() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       // Text('first'.tr, style: GoogleFonts.aBeeZee(fontSize: 18)),
+  //       Text('first'.tr),
+  //       const SizedBox(width: 5),
+  //       TextButton(
+  //         onPressed: () {
+  //           //
+  //         },
+  //         child: Text(
+  //           "Create an account".tr,
+  //           style: const TextStyle(color: ColorsEx.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   _buildInputText({
     required TextEditingController controller,
@@ -235,7 +235,7 @@ class _PageLoginState extends State<PageLogin> {
       child: Row(
         children: [
           icon != null
-              ? Container(
+              ? SizedBox(
                   width: tfHeight - 5,
                   height: tfHeight,
                   // color: Colors.grey,

@@ -27,7 +27,7 @@ class ThemeEx {
     appBarTheme: AppBarTheme(
       // backgroundColor: Colors.deepOrange,
       backgroundColor: ColorsEx.primaryColor,
-      titleTextStyle: textTheme.headline1?.copyWith(color: Colors.white),
+      titleTextStyle: textTheme.displayLarge?.copyWith(color: Colors.white),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: ColorsEx.primaryColor,
@@ -43,8 +43,8 @@ class ThemeEx {
     textTheme: textTheme,
     scaffoldBackgroundColor: const Color.fromRGBO(31, 31, 31, 1),
     appBarTheme: AppBarTheme(
-      backgroundColor: Color.fromRGBO(51, 51, 51, 1),
-      titleTextStyle: textTheme.headline1?.copyWith(color: Colors.deepOrange),
+      backgroundColor: const Color.fromRGBO(51, 51, 51, 1),
+      titleTextStyle: textTheme.displayLarge?.copyWith(color: Colors.deepOrange),
       iconTheme: const IconThemeData(color: Colors.deepOrange),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(

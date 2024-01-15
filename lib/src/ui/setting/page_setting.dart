@@ -8,7 +8,6 @@ import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
-import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/notice/page_notice.dart';
 
 // 언어 선택
@@ -26,8 +25,8 @@ class PageSetting extends StatefulWidget {
 class _PageSettingState extends State<PageSetting> {
   final TextEditingController _controllerIP = TextEditingController();
 
-  int _selectClass = -1;
-  bool _isLoading = true;
+  // int _selectClass = -1;
+  // bool _isLoading = true;
 
   @override
   void initState() {

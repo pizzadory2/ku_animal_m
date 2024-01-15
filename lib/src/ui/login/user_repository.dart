@@ -27,8 +27,8 @@ class UserRepository {
 
       if (result.data != null) {
         var parseData = jsonDecode(result.toString());
-        var code = parseData["result"].toString();
-        var msg = parseData["msg"].toString();
+        // var code = parseData["result"].toString();
+        // var msg = parseData["msg"].toString();
         var dataList = parseData["data"];
         debugPrint(dataList.toString());
 

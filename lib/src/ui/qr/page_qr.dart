@@ -1,5 +1,4 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
@@ -43,18 +42,18 @@ class _PageQRState extends State<PageQR> {
   Future setAudio() async {
     _audioPlayer.setReleaseMode(ReleaseMode.stop);
 
-    final player = AudioCache(prefix: "assets/sounds/");
+    // final player = AudioCache(prefix: "assets/sounds/");
     // final url = await player.load("page_effect_02.mp3");
     // _audioPlayer.setSourceAsset(url.path);
   }
 
   @override
   Widget build(BuildContext context) {
-    double height = Get.height;
-    double height2 = MediaQuery.of(context).size.height;
-    double appbar = kToolbarHeight;
-    double appbar2 = AppBar().preferredSize.height;
-    double appbar3 = MediaQuery.of(context).padding.top + kToolbarHeight;
+    // double height = Get.height;
+    // double height2 = MediaQuery.of(context).size.height;
+    // double appbar = kToolbarHeight;
+    // double appbar2 = AppBar().preferredSize.height;
+    // double appbar3 = MediaQuery.of(context).padding.top + kToolbarHeight;
 
     return Scaffold(
       appBar: AppBar(
@@ -170,8 +169,7 @@ class _PageQRState extends State<PageQR> {
                     style: tsQRDescription,
                   ),
                 ),
-                Container(
-                    child: GestureDetector(
+                GestureDetector(
                   onTapDown: (details) {
                     debugPrint("onTapDown");
                     setState(() {
@@ -202,7 +200,7 @@ class _PageQRState extends State<PageQR> {
                       size: 50,
                     ),
                   ),
-                )),
+                ),
               ],
             ),
           ),

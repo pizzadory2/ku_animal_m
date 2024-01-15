@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';

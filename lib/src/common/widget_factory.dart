@@ -12,7 +12,7 @@ class WidgetFactory {
 
   static Widget dividerVer({double width = 1, double height = double.infinity, Color? color, double margin = 0}) {
     return Container(
-      color: color ?? Color(0xFF606066),
+      color: color ?? const Color(0xFF606066),
       height: height,
       width: width,
       margin: EdgeInsets.symmetric(horizontal: margin),
@@ -23,7 +23,7 @@ class WidgetFactory {
     return Container(
       width: 12.0,
       height: 12.0,
-      margin: EdgeInsets.only(right: 5.0),
+      margin: const EdgeInsets.only(right: 5.0),
       decoration: BoxDecoration(
         color: Color(color),
         shape: BoxShape.circle,
@@ -35,7 +35,7 @@ class WidgetFactory {
     return Container(
       width: 12.0,
       height: 12.0,
-      margin: EdgeInsets.only(right: 5.0),
+      margin: const EdgeInsets.only(right: 5.0),
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
@@ -47,13 +47,13 @@ class WidgetFactory {
     return Container(
       width: 15.0,
       height: 15.0,
-      margin: EdgeInsets.only(right: 5.0),
+      margin: const EdgeInsets.only(right: 5.0),
       decoration: BoxDecoration(
         color: Color(color),
         shape: BoxShape.circle,
       ),
       child: repeat
-          ? Icon(
+          ? const Icon(
               Icons.cached,
               size: 12,
               color: Colors.white,
@@ -66,13 +66,13 @@ class WidgetFactory {
     return Container(
       width: 12.0,
       height: 12.0,
-      margin: EdgeInsets.only(right: 5.0),
+      margin: const EdgeInsets.only(right: 5.0),
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
       ),
       child: repeat
-          ? Icon(
+          ? const Icon(
               Icons.cached,
               size: 11,
               color: Colors.white,
@@ -89,20 +89,17 @@ class WidgetFactory {
           height: 3,
           decoration: BoxDecoration(
               color: color,
-              borderRadius: BorderRadius.all(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(12.0),
               ))),
     );
   }
 
   static Widget emptyWidget({String title = ""}) {
-    return Container(
-      // color: Colors.amber,
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(color: Colors.grey, fontSize: 30, fontFamily: "KCCEunyoung"),
-        ),
+    return Center(
+      child: Text(
+        title,
+        style: const TextStyle(color: Colors.grey, fontSize: 30, fontFamily: "KCCEunyoung"),
       ),
     );
   }

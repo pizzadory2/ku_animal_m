@@ -4,12 +4,10 @@ import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/permission_manager.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
-import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/alarm/page_alarm.dart';
 import 'package:ku_animal_m/src/ui/home/page_home.dart';
 import 'package:ku_animal_m/src/ui/inventory/page_inven.dart';
-import 'package:ku_animal_m/src/ui/product/page_product_in_out.dart';
 import 'package:ku_animal_m/src/ui/product_in/page_product_in.dart';
 import 'package:ku_animal_m/src/ui/product_out/page_product_out.dart';
 import 'package:ku_animal_m/src/ui/setting/page_setting.dart';
@@ -26,7 +24,9 @@ class _PageAppState extends State<PageApp> {
 
   final List<Widget> _pages = [
     const PageHome(),
-    const PageProductInOut(),
+    const PageProductIn(),
+    const PageProductOut(),
+    // const PageProductInOut(),
     const PageInven(),
     // const PageSetting(),
   ];

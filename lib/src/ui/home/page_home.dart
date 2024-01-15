@@ -298,7 +298,7 @@ class _PageHomeState extends State<PageHome> {
     //   regUser: "superman",
     // );
 
-    return Container(
+    return SizedBox(
       height: 80,
       // color: Colors.amber,
       // margin: EdgeInsets.only(bottom: index == 4 ? 0 : 10),

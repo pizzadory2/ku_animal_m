@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
@@ -26,10 +25,8 @@ class _PageAlarmState extends State<PageAlarm> {
         centerTitle: true,
         title: Text("alarm".tr),
       ),
-      body: Container(
-        child: Center(
-          child: Text("alarm".tr),
-        ),
+      body: Center(
+        child: Text("alarm".tr),
       ),
     );
   }

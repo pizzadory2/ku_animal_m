@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ku_animal_m/src/ui/login/page_login.dart';
 
 class StartUp extends StatefulWidget {
   const StartUp({super.key});

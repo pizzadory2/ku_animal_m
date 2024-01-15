@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,14 +16,12 @@ class _PageSearchState extends State<PageSearch> {
         title: Text("search".tr),
         centerTitle: true,
       ),
-      body: Container(
-        child: Center(
-          child: TextField(
-            autofocus: true,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: "search".tr,
-            ),
+      body: Center(
+        child: TextField(
+          autofocus: true,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: "search".tr,
           ),
         ),
       ),

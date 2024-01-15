@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class PageQRResult extends StatefulWidget {

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,10 +17,8 @@ class _PageNoticeState extends State<PageNotice> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Container(
-          child: Center(
-            child: Text("notice".tr),
-          ),
+        child: Center(
+          child: Text("notice".tr),
         ),
       ),
     );
