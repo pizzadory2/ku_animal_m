@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/utils.dart';
+import 'package:ku_animal_m/src/ui/login/user_model.dart';
 import 'package:ku_animal_m/src/ui/login/user_repository.dart';
 
 class UserController extends GetxController {
@@ -22,6 +24,7 @@ class UserController extends GetxController {
 
     isLoading.value = true;
     bool isSuccess = false;
+    String resultMsg = "네트워크 상태를 확인해주세요.";
 
     clear();
 
@@ -31,23 +34,39 @@ class UserController extends GetxController {
       isLoading.value = false;
 
       if (value != null) {
-        if (value.resultMsg == "SUCCESS") {
-          userName = value.result.tu_name;
-          // className = value.className;
-          // classSeq = value.result.tu_seq;
-          // className = value.result.tu_class_seq;
-          userSeq = int.parse(value.result.tu_seq);
-          userID = id;
-          userPW = pw;
+        if (value is UserModel) {
+          debugPrint("value is UserModel");
 
-          isSuccess = true;
+          resultMsg = value.msg ?? "";
+
+          if (value.result == "SUCCESS") {
+            userName = value.data.tu_name;
+            // className = value.className;
+            // classSeq = value.result.tu_seq;
+            // className = value.result.tu_class_seq;
+            userSeq = int.parse(value.data.tu_seq);
+            userID = id;
+            userPW = pw;
+
+            isSuccess = true;
+          } else {
+            isSuccess = false;
+          }
         } else {
+          debugPrint("value is not UserModel");
           isSuccess = false;
         }
       } else {
         isSuccess = false;
+        // resultMsg = "네트워크 상태를 확인해주세요.";
+        // Get.snackbar("login failed".tr, resultMsg);
       }
     });
+
+    if (isSuccess == false) {
+      // Utils.showToast(resultMsg);
+      Get.snackbar("login failed".tr, resultMsg);
+    }
 
     return isSuccess;
   }

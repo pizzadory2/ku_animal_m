@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:ku_animal_m/src/common/constants.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
 import 'package:ku_animal_m/src/ui/login/user_model.dart';
 
@@ -63,7 +64,7 @@ class UserRepository {
     });
 
     try {
-      var api = "/reqLogin";
+      var api = Constants.api_login;
       var result = await RestClient().dio.post(
             api,
             options: Options(headers: {
@@ -74,8 +75,8 @@ class UserRepository {
 
       if (result != null) {
         var parseData = jsonDecode(result.toString());
-        var code = parseData["result"].toString();
-        var msg = parseData["msg"].toString();
+        // var code = parseData["result"].toString();
+        // var msg = parseData["msg"].toString();
 
         UserModel userModel = UserModel.fromJson(parseData);
 

@@ -1,19 +1,26 @@
-class UserModel {
-  UserModelResult? result;
-  String? resultMsg;
-  String? msg;
+// ignore_for_file: non_constant_identifier_names
 
-  UserModel({this.result});
+import 'package:ku_animal_m/src/model/base_model.dart';
+
+class UserModel extends BaseModel {
+  UserData data = UserData();
+  // String? resultMsg;
+  // String? msg;
+
+  UserModel({required this.data});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     // if (json['data'] != null) {
     //   resultMsg = json['result'] ?? "";
     //   msg = json['msg'] ?? "";
     // }
-    resultMsg = json['result'] ?? "";
+    result = json['result'] ?? "";
     msg = json['msg'] ?? "";
 
-    result = json['data'] != null ? UserModelResult.fromJson(json['data']) : null;
+    // data = json['data'] != null ? UserData.fromJson(json['data']) : UserData();
+    if (json['data'] != null) {
+      data = UserData.fromJson(json['data']);
+    }
   }
 
   // Map<String, dynamic> toJson() {
@@ -25,15 +32,14 @@ class UserModel {
   // }
 }
 
-class UserModelResult {
-  String? tu_seq;
-  String? tu_id;
-  String? tu_name;
-  int coe = 0;
+class UserData {
+  String tu_seq = "";
+  String tu_id = "";
+  String tu_name = "";
 
-  UserModelResult({this.tu_seq, this.tu_id, this.tu_name});
+  UserData({this.tu_seq = "", this.tu_id = "", this.tu_name = ""});
 
-  UserModelResult.fromJson(Map<String, dynamic> json) {
+  UserData.fromJson(Map<String, dynamic> json) {
     tu_seq = json['tu_seq'] ?? "";
     tu_id = json['tu_id'] ?? "";
     tu_name = json['tu_name'] ?? "";

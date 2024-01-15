@@ -75,7 +75,7 @@ class _PageLoginState extends State<PageLogin> {
                       ),
                       const SizedBox(height: 50),
                       Container(
-                        height: 20,
+                        height: 25,
                         margin: const EdgeInsets.only(left: 5, bottom: 10),
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -85,7 +85,7 @@ class _PageLoginState extends State<PageLogin> {
                       ),
                       _buildInputText(controller: _controllerID, hint: "email or id".tr, icon: Icons.person),
                       const SizedBox(height: 10),
-                      _buildInputText(controller: _controllerPW, hint: "password".tr, icon: Icons.lock),
+                      _buildInputText(controller: _controllerPW, hint: "password".tr, icon: Icons.lock, pw: true),
                       const SizedBox(height: 5),
                       SizedBox(
                         height: 40,
@@ -126,33 +126,41 @@ class _PageLoginState extends State<PageLogin> {
                           //   "서버IP를 입력해주세요.",
                           //   "설정에서 서버IP를 입력해주세요.",
                           // );
+                          if (kDebugMode) {
+                            Get.off(const PageApp());
+                            return;
+                          }
 
                           String id = _controllerID.text;
                           String pw = _controllerPW.text;
 
                           if (id.isEmpty) {
-                            Get.snackbar("로그인 실패", "아이디를 입력해주세요.",
-                                backgroundColor: Colors.pink[300], colorText: Colors.white);
+                            Get.snackbar("login failed".tr, "please input id".tr);
                             return;
                           }
 
                           if (pw.isEmpty) {
-                            Get.snackbar("로그인 실패", "비밀번호를 입력해주세요.",
-                                backgroundColor: Colors.pink[300], colorText: Colors.white);
+                            Get.snackbar("login failed".tr, "please input password".tr);
                             return;
                           }
 
-                          setState(() {
-                            _isLoading = true;
-                          });
+                          // setState(() {
+                          //   _isLoading = true;
+                          // });
+
+                          Utils.keyboardHide();
 
                           UserController.to.login(id: id, pw: pw).then((value) {
                             if (value) {
+                              if (_autoLogin) {
+                                Preference().setString("userId", id);
+                                Preference().setString("userPw", pw);
+                              }
+
                               Get.off(const PageApp());
                               // Get.off(const PageHome(), transition: Transition.rightToLeft);
                             } else {
-                              Get.snackbar("로그인 실패", "아이디와 비밀번호를 확인해주세요.",
-                                  backgroundColor: Colors.pink[300], colorText: Colors.white);
+                              // Get.snackbar("login failed".tr, "아이디와 비밀번호를 확인해주세요.");
 
                               setState(() {
                                 _isLoading = false;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/constants.dart';
 
 class AppController extends GetxController {
   static AppController get to => Get.find();
@@ -19,7 +20,8 @@ class AppController extends GetxController {
   String language = "ko";
 
   // String serverUrl = "http://ctl.today25.com/Ajax/AjaxApi";
-  String serverUrl = "";
+  String serverUrl = Constants.baseUrl;
+  // String serverUrl = "";
 
   void changeTheme(bool value) {
     _isDarkMode.value = value;

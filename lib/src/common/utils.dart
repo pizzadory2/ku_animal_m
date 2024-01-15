@@ -238,6 +238,11 @@ class Utils {
     return finalResult;
   }
 
+  static void keyboardHide() {
+    // 키보드 내려가~
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
   static showToast(String msg, {bool isCenter = false, bool isShotTime = true}) {
     Fluttertoast.showToast(
       msg: msg,
