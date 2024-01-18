@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ku_animal_m/src/common/utils.dart';
+import 'package:ku_animal_m/src/common/preference.dart';
 import 'package:ku_animal_m/src/ui/login/user_model.dart';
 import 'package:ku_animal_m/src/ui/login/user_repository.dart';
 
@@ -17,7 +17,12 @@ class UserController extends GetxController {
   String userID = "";
   String userPW = "";
 
-  Future<bool> login({required String id, required String pw}) async {
+  Future<bool> login(
+      {required String id,
+      required String pw,
+      required String pushToken,
+      required String deviceName,
+      required String appVer}) async {
     // return Future.delayed(const Duration(seconds: 1), () {
     //   return true;
     // });
@@ -30,7 +35,9 @@ class UserController extends GetxController {
 
     debugPrint("[animal] 로그인로그인로그인777777777777777");
 
-    await repository.reqLogin(id: id, pw: pw).then((value) {
+    await repository
+        .reqLogin(id: id, pw: pw, pushToken: pushToken, deviceName: deviceName, appVer: appVer)
+        .then((value) {
       isLoading.value = false;
 
       if (value != null) {
@@ -79,6 +86,9 @@ class UserController extends GetxController {
   }
 
   void logout() {
+    Preference().setString("userId", "");
+    Preference().setString("userPw", "");
+
     clear();
   }
 }

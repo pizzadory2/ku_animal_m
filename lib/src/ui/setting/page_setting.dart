@@ -8,6 +8,7 @@ import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
+import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/notice/page_notice.dart';
 
 // 언어 선택
@@ -188,6 +189,7 @@ class _PageSettingState extends State<PageSetting> {
     return _buildSettingItem(
       title: "logout",
       func: () {
+        UserController.to.logout();
         Get.offAllNamed("/login");
         debugPrint("로그아웃");
       },

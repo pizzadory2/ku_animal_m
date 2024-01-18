@@ -15,9 +15,15 @@ class AppController extends GetxController {
   bool get isSystemTheme => _isSystemTheme.value;
   bool get isFixQRScanMode => _isFixQRScanMode.value;
 
+  RxBool isLoading = false.obs;
+
   String classSeq = "";
   String className = "";
   String language = "ko";
+
+  String _fcmToken = "";
+  String get fcmToken => _fcmToken;
+  String versionInfo = "";
 
   // String serverUrl = "http://ctl.today25.com/Ajax/AjaxApi";
   String serverUrl = Constants.baseUrl;
@@ -57,5 +63,13 @@ class AppController extends GetxController {
   void changeThemeBySystem(bool value) {
     _isSystemTheme.value = value;
     Get.changeThemeMode(value ? ThemeMode.system : ThemeMode.light);
+  }
+
+  setLoading(bool value) {
+    isLoading.value = value;
+  }
+
+  void setFcmToken(String pushToken) {
+    _fcmToken = pushToken;
   }
 }

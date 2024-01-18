@@ -6,6 +6,7 @@ import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
+import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
 import 'package:ku_animal_m/src/ui/search/page_search.dart';
@@ -20,9 +21,13 @@ class PageHome extends StatefulWidget {
 class _PageHomeState extends State<PageHome> {
   final List<ProductHistoryModel> _listDummy = [];
 
+  bool _isLoading = true;
+
   @override
   void initState() {
     _funcMakeDummyData();
+
+    // refreshData();
 
     super.initState();
   }
@@ -57,7 +62,7 @@ class _PageHomeState extends State<PageHome> {
   }
 
   _buildGreeting() {
-    String name = "홍길동";
+    String name = UserController.to.userName;
     return SizedBox(
       height: 50,
       width: double.infinity,
@@ -413,4 +418,12 @@ class _PageHomeState extends State<PageHome> {
       );
     }
   }
+
+  // void refreshData() async {
+  //   AppController.to.setLoading(true);
+
+  //   Future.delayed(const Duration(seconds: 3), () {
+  //     AppController.to.setLoading(false);
+  //   });
+  // }
 }

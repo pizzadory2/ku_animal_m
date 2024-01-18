@@ -182,20 +182,24 @@ class WidgetFactory {
       return Container();
     }
 
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      color: Colors.black.withOpacity(0.5),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const CircularProgressIndicator(
-              color: Colors.white,
-            ),
-            if (title != null) const SizedBox(height: 20),
-            if (title != null) Text(title, style: const TextStyle(color: Colors.white)),
-          ],
+    return Scaffold(
+      // extendBodyBehindAppBar: true,
+      backgroundColor: Colors.transparent,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.black.withOpacity(0.5),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(
+                color: Colors.white,
+              ),
+              if (title != null) const SizedBox(height: 20),
+              if (title != null) Text(title, style: const TextStyle(color: Colors.white)),
+            ],
+          ),
         ),
       ),
     );

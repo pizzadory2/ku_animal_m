@@ -54,6 +54,7 @@ dependencies:
   mobile_scanner: ^3.5.5
   lottie: ^2.6.0
   flutter_spinkit: ^5.2.0
+  package_info_plus: ^4.2.0
 
 dev_dependencies:
   flutter_test:

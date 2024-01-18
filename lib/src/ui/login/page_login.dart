@@ -150,7 +150,14 @@ class _PageLoginState extends State<PageLogin> {
 
                           Utils.keyboardHide();
 
-                          UserController.to.login(id: id, pw: pw).then((value) {
+                          UserController.to
+                              .login(
+                                  id: id,
+                                  pw: pw,
+                                  pushToken: AppController.to.fcmToken,
+                                  deviceName: "",
+                                  appVer: AppController.to.versionInfo)
+                              .then((value) {
                             if (value) {
                               if (_autoLogin) {
                                 Preference().setString("userId", id);

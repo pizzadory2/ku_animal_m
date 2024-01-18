@@ -248,7 +248,7 @@ class _PageQR2State extends State<PageQR2> {
             child: Container(
               width: 50,
               height: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(color: Colors.white, width: 3),
                   right: BorderSide(color: Colors.white, width: 3),

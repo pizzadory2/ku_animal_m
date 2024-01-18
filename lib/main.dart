@@ -8,6 +8,7 @@ import 'package:ku_animal_m/firebase_options.dart';
 import 'package:ku_animal_m/src/binding/init_binding.dart';
 import 'package:ku_animal_m/src/common/preference.dart';
 import 'package:ku_animal_m/src/common/theme_ex.dart';
+import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/language/languages.dart';
 import 'package:ku_animal_m/src/ui/login/page_login.dart';
 import 'package:ku_animal_m/src/ui/startup/start_up.dart';
@@ -55,6 +56,7 @@ Future<void> setupFlutterNotifications() async {
     badge: true,
     sound: true,
   );
+
   isFlutterLocalNotificationsInitialized = true;
 }
 
@@ -123,7 +125,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeEx.dark,
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       initialBinding: InitBinding(),
-      initialRoute: '/login',
+      initialRoute: '/start_up',
       getPages: [
         GetPage(name: '/start_up', page: () => const StartUp()),
         GetPage(name: '/login', page: () => const PageLogin()),

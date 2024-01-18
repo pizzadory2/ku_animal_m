@@ -30,7 +30,7 @@ class _PageInvenState extends State<PageInven> {
         color: Colors.white,
         height: 50,
         child: Container(
-          margin: EdgeInsets.only(left: 10, right: 10),
+          margin: const EdgeInsets.only(left: 10, right: 10),
           child: Row(
             children: [
               Expanded(
@@ -43,7 +43,7 @@ class _PageInvenState extends State<PageInven> {
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.search),
+                icon: const Icon(Icons.search),
               ),
             ],
           ),
