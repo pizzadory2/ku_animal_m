@@ -1,13 +1,13 @@
 // ignore_for_file: constant_identifier_names
 
 class Constants {
-  static const baseUrl = "http://ctl.today25.com";
+  static const baseUrl = "http://vmth.today25.com";
 
   // api
-  static const apiPrefix = "/Ajax/AjaxApi";
+  static const apiPrefix = "/Ajax/AjaxMobile";
   static const api_login = "$apiPrefix/reqLogin";
   static const api_dashboard = "$apiPrefix/reqAllSpace";
-  static const api_product = "$apiPrefix/reqLogin";
+  static const api_product = "$apiPrefix/reqStock";
   static const api_qr_search = "$apiPrefix/reqLogin";
   static const api_search = "$apiPrefix/reqLogin";
   static const api_product_in = "$apiPrefix/reqLogin";

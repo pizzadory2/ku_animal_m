@@ -13,6 +13,10 @@ class ColorsEx {
   static const Color mainBg = Color.fromARGB(255, 245, 247, 248);
   static const Color calDayBg = Color.fromARGB(255, 218, 228, 231);
 
+  // 입고, 출고
+  static const Color clrIn = Color.fromRGBO(102, 158, 233, 1);
+  static const Color clrOut = Color.fromRGBO(237, 129, 127, 1);
+
   static const Color divider = Color(0xFF3C3C40);
 
   static const List<Color> colorPickerList = [

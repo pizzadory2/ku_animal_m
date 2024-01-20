@@ -13,9 +13,10 @@ class UserController extends GetxController {
   RxBool isLoading = false.obs;
 
   String userName = "Samantha";
-  int userSeq = -1;
+  String userSeq = "";
   String userID = "";
   String userPW = "";
+  UserData userData = UserData();
 
   Future<bool> login(
       {required String id,
@@ -47,11 +48,14 @@ class UserController extends GetxController {
           resultMsg = value.msg ?? "";
 
           if (value.result == "SUCCESS") {
-            userName = value.data.tu_name;
+            userData = value.data;
+
+            userName = userData.name;
             // className = value.className;
             // classSeq = value.result.tu_seq;
             // className = value.result.tu_class_seq;
-            userSeq = int.parse(value.data.tu_seq);
+            // userSeq = int.parse(value.data.seq);
+            userSeq = userData.seq;
             userID = id;
             userPW = pw;
 
@@ -80,9 +84,11 @@ class UserController extends GetxController {
 
   void clear() {
     userName = "";
-    userSeq = -1;
+    userSeq = "";
     userID = "";
     userPW = "";
+
+    userData.clear();
   }
 
   void logout() {

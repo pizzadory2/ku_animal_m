@@ -18,7 +18,7 @@ class InterceptorEx extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
-    debugPrint("RESPONSE-Data: ${response.data}");
+    // debugPrint("RESPONSE-Data: ${response.data}");
     debugPrint('RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
 
     // final responseBody = jsonDecode(response.toString());

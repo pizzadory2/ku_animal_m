@@ -23,6 +23,7 @@ class AppController extends GetxController {
 
   String _fcmToken = "";
   String get fcmToken => _fcmToken;
+  String deviceName = "";
   String versionInfo = "";
 
   // String serverUrl = "http://ctl.today25.com/Ajax/AjaxApi";
@@ -67,6 +68,10 @@ class AppController extends GetxController {
 
   setLoading(bool value) {
     isLoading.value = value;
+  }
+
+  getLoading() {
+    return isLoading.value;
   }
 
   void setFcmToken(String pushToken) {

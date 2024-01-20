@@ -11,7 +11,9 @@ import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/alarm/page_alarm.dart';
 import 'package:ku_animal_m/src/ui/home/home_controller.dart';
 import 'package:ku_animal_m/src/ui/home/page_home.dart';
+import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
 import 'package:ku_animal_m/src/ui/inventory/page_inven.dart';
+import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product/page_product_in_out.dart';
 import 'package:ku_animal_m/src/ui/product_in/page_product_in.dart';
 import 'package:ku_animal_m/src/ui/product_out/page_product_out.dart';
@@ -29,17 +31,12 @@ class _PageAppState extends State<PageApp> {
 
   int _selectIndex = 0;
 
-  final List<Widget> _pages = [
-    const PageHome(),
-    const PageProductIn(),
-    // const PageProductOut(),
-    const PageProductInOut(),
-    const PageInven(),
-    // const PageSetting(),
-  ];
+  final List<Widget> _pages = [];
+  // final List<BottomNavigationBarItem> _bottomNavigations = [];
 
   @override
   void initState() {
+    initPage();
     refreshData();
     PermissionManager().requestCameraPermission(context);
 
@@ -78,10 +75,11 @@ class _PageAppState extends State<PageApp> {
                 ],
                 title: Text(ePageTitle[_selectIndex].tr, style: tsAppbarTitle),
               ),
-              body: IndexedStack(
-                index: _selectIndex,
-                children: _pages,
-              ),
+              // body: IndexedStack(
+              //   index: _selectIndex,
+              //   children: _pages,
+              // ),
+              body: _pages[_selectIndex],
               bottomNavigationBar: BottomNavigationBar(
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
@@ -92,36 +90,37 @@ class _PageAppState extends State<PageApp> {
                 currentIndex: _selectIndex,
                 enableFeedback: false,
                 onTap: (value) {
-                  setState(() {
-                    _selectIndex = value;
-                    refreshData();
-                  });
+                  debugPrint("0000000001111");
+                  _selectIndex = value;
+                  refreshData();
+                  debugPrint("00000000022222");
                 },
-                items: [
-                  // BottomNavigationBarItem(
-                  //   icon: const Icon(Icons.home),
-                  //   label: "home".tr,
-                  // ),
-                  _buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: 0),
-                  // _buildBottomItem(label: "inout".tr, icon: FontAwesomeIcons.arrowsUpDown, index: 1),
-                  _buildBottomItem(label: "in".tr, icon: FontAwesomeIcons.download, index: 1),
-                  _buildBottomItem(label: "out".tr, icon: FontAwesomeIcons.upload, index: 2),
-                  // _buildBottomItem(label: "out".tr, icon: FontAwesomeIcons.inbox, index: 2),
-                  _buildBottomItem(label: "inven".tr, icon: FontAwesomeIcons.boxesStacked, index: 3),
-                  // _buildBottomItem(label: "setting".tr, icon: FontAwesomeIcons.gear, index: 3),
-                  // _buildBottomItem(label: "home".tr, icon: "icons/home_3.svg", index: 0),
-                  // _buildBottomItem(label: "in".tr, icon: "icons/import.svg", index: 1),
-                  // _buildBottomItem(label: "out".tr, icon: "icons/export.svg", index: 2),
-                  // _buildBottomItem(label: "inven".tr, icon: "icons/inventory_2.svg", index: 3),
-                  // BottomNavigationBarItem(
-                  //   icon: const Icon(Icons.qr_code),
-                  //   label: "inven".tr,
-                  // ),
-                  // BottomNavigationBarItem(
-                  //   icon: Icon(Icons.qr_code),
-                  //   label: "QR",
-                  // ),
-                ],
+                items: _buildBottomNavigation(),
+                // items: [
+                //   // BottomNavigationBarItem(
+                //   //   icon: const Icon(Icons.home),
+                //   //   label: "home".tr,
+                //   // ),
+                //   _buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: 0),
+                //   // _buildBottomItem(label: "inout".tr, icon: FontAwesomeIcons.arrowsUpDown, index: 1),
+                //   _buildBottomItem(label: "in list".tr, icon: FontAwesomeIcons.download, index: 1),
+                //   _buildBottomItem(label: "out list".tr, icon: FontAwesomeIcons.upload, index: 2),
+                //   // _buildBottomItem(label: "out".tr, icon: FontAwesomeIcons.inbox, index: 2),
+                //   _buildBottomItem(label: "inven".tr, icon: FontAwesomeIcons.boxesStacked, index: 3),
+                //   // _buildBottomItem(label: "setting".tr, icon: FontAwesomeIcons.gear, index: 3),
+                //   // _buildBottomItem(label: "home".tr, icon: "icons/home_3.svg", index: 0),
+                //   // _buildBottomItem(label: "in".tr, icon: "icons/import.svg", index: 1),
+                //   // _buildBottomItem(label: "out".tr, icon: "icons/export.svg", index: 2),
+                //   // _buildBottomItem(label: "inven".tr, icon: "icons/inventory_2.svg", index: 3),
+                //   // BottomNavigationBarItem(
+                //   //   icon: const Icon(Icons.qr_code),
+                //   //   label: "inven".tr,
+                //   // ),
+                //   // BottomNavigationBarItem(
+                //   //   icon: Icon(Icons.qr_code),
+                //   //   label: "QR",
+                //   // ),
+                // ],
               )),
         ),
         Obx(() => WidgetFactory.loadingWidget(isLoading: AppController.to.isLoading.value, title: "로딩중입니다.")),
@@ -168,6 +167,7 @@ class _PageAppState extends State<PageApp> {
   }
 
   void refreshData() async {
+    debugPrint("000000000333333333");
     AppController.to.setLoading(true);
 
     var result = false;
@@ -183,21 +183,71 @@ class _PageAppState extends State<PageApp> {
         // await AppController.to.getOutData();
         break;
       case PageType.ProductInven:
-        // await AppController.to.getInvenData();
+        result = await InvenController.to.refreshData();
         break;
       case PageType.Setting:
         // await AppController.to.getSettingData();
         break;
     }
 
+    debugPrint("000000000444444444");
+
     if (result == false) {
       Utils.showToast("데이터를 가져오는데 실패했습니다.");
     }
 
-    AppController.to.setLoading(false);
+    setState(() {
+      AppController.to.setLoading(false);
+    });
+
+    debugPrint("0000000005555555");
 
     // Future.delayed(const Duration(seconds: 3), () {
     //   AppController.to.setLoading(false);
     // });
+  }
+
+  _buildBottomNavigation() {
+    List<BottomNavigationBarItem> items = [];
+    int pageIndex = 0;
+
+    items.add(_buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: pageIndex++));
+
+    if (UserController.to.userData.inList) {
+      items.add(_buildBottomItem(label: "in list".tr, icon: FontAwesomeIcons.download, index: pageIndex++));
+    }
+
+    if (UserController.to.userData.outList) {
+      items.add(_buildBottomItem(label: "out list".tr, icon: FontAwesomeIcons.upload, index: pageIndex++));
+    }
+
+    // if (UserController.to.userData.invenList) {
+    items.add(_buildBottomItem(label: "inven".tr, icon: FontAwesomeIcons.boxesStacked, index: pageIndex++));
+    // }
+
+    return items;
+  }
+
+  void initPage() {
+    int pageIndex = 0;
+    _pages.add(const PageHome());
+    // _bottomNavigations.add(_buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: pageIndex++));
+
+    if (UserController.to.userData.inList) {
+      _pages.add(const PageProductIn());
+      // _bottomNavigations
+      //     .add(_buildBottomItem(label: "in list".tr, icon: FontAwesomeIcons.download, index: pageIndex++));
+    }
+
+    if (UserController.to.userData.outList) {
+      _pages.add(const PageProductOut());
+      // _bottomNavigations.add(_buildBottomItem(label: "out list".tr, icon: FontAwesomeIcons.upload, index: pageIndex++));
+    }
+
+    // if (UserController.to.userData.invenList) {
+    _pages.add(const PageInven());
+    // _bottomNavigations
+    //     .add(_buildBottomItem(label: "inven".tr, icon: FontAwesomeIcons.boxesStacked, index: pageIndex++));
+    // }
   }
 }

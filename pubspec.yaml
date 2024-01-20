@@ -55,6 +55,8 @@ dependencies:
   lottie: ^2.6.0
   flutter_spinkit: ^5.2.0
   package_info_plus: ^4.2.0
+  device_info_plus: ^9.1.1
+  pull_to_refresh: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -146,6 +148,22 @@ flutter:
           - asset: assets/fonts/SCoreDream/SCDream8.otf
             weight: 800
           - asset: assets/fonts/SCoreDream/SCDream9.otf
+            weight: 900
+      - family: Pretendard
+        fonts:
+          - asset: assets/fonts/Pretendard/Pretendard-Thin.otf
+            weight: 100
+          - asset: assets/fonts/Pretendard/Pretendard-Light.otf
+            weight: 300
+          - asset: assets/fonts/Pretendard/Pretendard-Regular.otf
+            weight: 400
+          - asset: assets/fonts/Pretendard/Pretendard-Medium.otf
+            weight: 500
+          - asset: assets/fonts/Pretendard/Pretendard-Bold.otf
+            weight: 700
+          - asset: assets/fonts/Pretendard/Pretendard-ExtraBold.otf
+            weight: 800
+          - asset: assets/fonts/Pretendard/Pretendard-Black.otf
             weight: 900
   # fonts:
   #   - family: Schyler

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ku_animal_m/src/common/text_style_ex.dart';
 
 class WidgetFactory {
   static Widget divider({double weight = 1, Color color = Colors.white, double topMargin = 0}) {
@@ -203,6 +204,59 @@ class WidgetFactory {
         ),
       ),
     );
+  }
+
+  static Widget inputText(
+      {required TextEditingController controller,
+      String value = "",
+      bool autoFocus = false,
+      TextInputType inputType = TextInputType.text,
+      bool readOnly = false}) {
+    controller.text = value;
+
+    controller.selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));
+
+    return SizedBox(
+      height: 45,
+      child: TextField(
+          controller: controller,
+          keyboardType: inputType,
+          autofocus: autoFocus,
+          maxLines: 1,
+          readOnly: readOnly,
+          cursorColor: Colors.black,
+          obscureText: false,
+          decoration: InputDecoration(
+            // hintText: "${title}을 입력해 주세요",
+            hintStyle: tsDialogHint,
+            contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            // enabledBorder: UnderlineInputBorder(
+            //   borderSide: BorderSide(width: 1, color: Colors.grey),
+            // ),
+            enabledBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
+            border: InputBorder.none,
+          )),
+    );
+  }
+
+  static searchClearButton() {
+    Color colorBack = Colors.black54;
+    Color colorFront = Colors.white;
+
+    // Color colorBack = Colors.white;
+    // Color colorFront = Colors.black54;
+
+    return Container(
+        decoration: BoxDecoration(
+          color: colorBack,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Icon(
+          Icons.clear,
+          size: 24,
+          color: colorFront,
+        ));
   }
 
   static Widget get spacerWidth => const SizedBox(width: 5);

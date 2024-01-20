@@ -29,10 +29,10 @@ class _PageLoginState extends State<PageLogin> {
 
   @override
   void initState() {
-    // if (kDebugMode) {
-    //   _controllerID.text = "admin";
-    //   _controllerPW.text = "admin";
-    // }
+    if (kDebugMode) {
+      _controllerID.text = "test13";
+      _controllerPW.text = "1111";
+    }
 
     String ip = Preference().getString("ip");
     if (ip.isNotEmpty) {
@@ -83,7 +83,11 @@ class _PageLoginState extends State<PageLogin> {
                           style: GoogleFonts.aBeeZee(fontSize: 17, color: Colors.grey[500]),
                         ),
                       ),
-                      _buildInputText(controller: _controllerID, hint: "email or id".tr, icon: Icons.person),
+                      _buildInputText(
+                          controller: _controllerID,
+                          inputType: TextInputType.emailAddress,
+                          hint: "email or id".tr,
+                          icon: Icons.person),
                       const SizedBox(height: 10),
                       _buildInputText(controller: _controllerPW, hint: "password".tr, icon: Icons.lock, pw: true),
                       const SizedBox(height: 5),
@@ -126,10 +130,10 @@ class _PageLoginState extends State<PageLogin> {
                           //   "서버IP를 입력해주세요.",
                           //   "설정에서 서버IP를 입력해주세요.",
                           // );
-                          if (kDebugMode) {
-                            Get.off(const PageApp());
-                            return;
-                          }
+                          // if (kDebugMode) {
+                          //   Get.off(const PageApp());
+                          //   return;
+                          // }
 
                           String id = _controllerID.text;
                           String pw = _controllerPW.text;
@@ -155,7 +159,7 @@ class _PageLoginState extends State<PageLogin> {
                                   id: id,
                                   pw: pw,
                                   pushToken: AppController.to.fcmToken,
-                                  deviceName: "",
+                                  deviceName: AppController.to.deviceName,
                                   appVer: AppController.to.versionInfo)
                               .then((value) {
                             if (value) {
@@ -224,9 +228,10 @@ class _PageLoginState extends State<PageLogin> {
 
   _buildInputText({
     required TextEditingController controller,
+    TextInputType inputType = TextInputType.text,
+    bool pw = false,
     String hint = "",
     IconData? icon,
-    bool pw = false,
   }) {
     double tfHeight = 50;
 
@@ -253,6 +258,7 @@ class _PageLoginState extends State<PageLogin> {
             child: TextField(
               controller: controller,
               obscureText: pw,
+              keyboardType: inputType,
               textInputAction: TextInputAction.next,
               // cursorColor: Colors.black,
               decoration: InputDecoration(

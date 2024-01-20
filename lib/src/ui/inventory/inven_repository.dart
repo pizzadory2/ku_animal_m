@@ -4,22 +4,35 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
-import 'package:ku_animal_m/src/ui/login/user_model.dart';
+import 'package:ku_animal_m/src/ui/product/product_model.dart';
 
-class UserRepository {
-  Future reqReadAll({required String thsSeq}) async {
-    debugPrint("[ku_pad::user_repository 디바이스 싹다가져와] API 호출");
+class InvenRepository {
+  Future reqReadAll({
+    required String year,
+    required String month,
+    String gubun = "",
+    String type = "",
+    String txt = "",
+  }) async {
+    debugPrint("[ku_pad::InvenRepository 제품정보 싹다가져와] API 호출");
+
+    String month2 = month.padLeft(2, '0');
 
     var param = {
-      "ths_seq": thsSeq,
+      "sch_year": year,
+      "sch_month": month2,
+      "sch_class": gubun,
+      "sch_type": type,
+      "sch_txt": txt,
     };
 
     try {
-      var api = "/reqDeviceList";
+      var api = Constants.api_product;
       var result = await RestClient().dio.get(
             api,
             options: Options(headers: {
               Headers.contentTypeHeader: Headers.jsonContentType,
+              // Headers.contentTypeHeader: Headers.textPlainContentType,
             }),
             queryParameters: param,
             // data: jsonEncode(param),
@@ -30,13 +43,13 @@ class UserRepository {
         // var code = parseData["result"].toString();
         // var msg = parseData["msg"].toString();
         var dataList = parseData["data"];
-        debugPrint(dataList.toString());
+        // debugPrint(dataList.toString());
 
-        // List<DeviceModel> items = List<DeviceModel>.from(dataList.map((model) => DeviceModel.fromJson(model)));
+        List<ProductModel> items = List<ProductModel>.from(dataList.map((model) => ProductModel.fromJson(model)));
 
         // // var data = UserInfoModel.fromJson(result.data);
         // return items;
-        return null;
+        return items;
       } else {
         return null; // Map()
       }
@@ -55,59 +68,49 @@ class UserRepository {
     return null;
   }
 
-  Future reqLogin(
-      {required String id,
-      required String pw,
-      required String pushToken,
-      required String deviceName,
-      required String appVer}) async {
-    debugPrint("[animal::user_repository] login API 호출");
+  Future reqSearchBarcode({
+    required String year,
+    required String month,
+    String gubun = "",
+    String type = "mst_barcode",
+    String txt = "",
+  }) async {
+    debugPrint("[ku_pad::InvenRepository 제품정보 싹다가져와] API 호출");
 
-    // FormData formData = FormData.fromMap({
-    //   "user_id": id,
-    //   "user_pw": pw,
-    //   "push_token": pushToken,
-    //   "device_name": deviceName,
-    //   "app_ver": appVer,
-    // });
+    String month2 = month.padLeft(2, '0');
 
     var param = {
-      "userId": id,
-      "userPw": pw,
-      "pushToken": pushToken,
-      "deviceName": deviceName,
-      "appVer": appVer,
+      "sch_year": year,
+      "sch_month": month2,
+      "sch_class": gubun,
+      "sch_type": type,
+      "sch_text": txt,
     };
 
     try {
-      // var api = Constants.api_login;
-      // var result = await RestClient().dio.post(
-      //       api,
-      //       options: Options(headers: {
-      //         Headers.contentTypeHeader: "multipart/form-data",
-      //       }),
-      //       data: formData,
-      //     );
-
-      var api = Constants.api_login;
-      var result = await RestClient().dio.post(
+      var api = Constants.api_product;
+      var result = await RestClient().dio.get(
             api,
             options: Options(headers: {
-              // Headers.contentTypeHeader: "multipart/form-data",
-              Headers.contentTypeHeader: Headers.formUrlEncodedContentType,
+              // Headers.contentTypeHeader: Headers.jsonContentType,
+              Headers.contentTypeHeader: Headers.textPlainContentType,
             }),
-            data: param,
+            queryParameters: param,
+            // data: jsonEncode(param),
           );
 
-      if (result != null) {
+      if (result.data != null) {
         var parseData = jsonDecode(result.toString());
         // var code = parseData["result"].toString();
         // var msg = parseData["msg"].toString();
+        var dataList = parseData["data"];
+        // debugPrint(dataList.toString());
 
-        UserModel userModel = UserModel.fromJson(parseData);
+        List<ProductModel> items = List<ProductModel>.from(dataList.map((model) => ProductModel.fromJson(model)));
 
-        // var data = UserInfoModel.fromJson(result.data);
-        return userModel;
+        // // var data = UserInfoModel.fromJson(result.data);
+        // return items;
+        return items;
       } else {
         return null; // Map()
       }

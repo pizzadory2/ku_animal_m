@@ -61,8 +61,9 @@ TextStyle get tsInvenItemName => const TextStyle(
     // fontFamily: "SCoreDream",
     // fontFamily: "GmarketSans",
     // fontFamily: "NotoSansKR",
+    fontFamily: "Pretendard",
     fontSize: 20,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w700,
     color: Colors.black,
     overflow: TextOverflow.ellipsis);
 
@@ -98,6 +99,15 @@ TextStyle get tsButtonDef => const TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
       color: Colors.white, //Color.fromRGBA(0, 17, 13, 1),
+    );
+
+// 메인 main
+TextStyle get tsMainFabTitle => const TextStyle(
+      fontFamily: "Pretendard",
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      // color: Color.fromRGBO(36, 41, 40, 1),
+      color: Colors.white,
     );
 
 // 설정
@@ -148,5 +158,34 @@ TextStyle get tsQRDescription => const TextStyle(
       fontFamily: "NotoSansKR",
       fontSize: 16,
       fontWeight: FontWeight.w400,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+    );
+
+// dialog
+TextStyle get tsDialogTitle => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+    );
+
+TextStyle get tsDialogBody => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+    );
+
+TextStyle get tsDialogButton => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+    );
+
+TextStyle get tsDialogHint => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
       color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
     );

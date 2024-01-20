@@ -269,4 +269,14 @@ class Utils {
     String result = DateFormat(format).format(dateTime);
     return result;
   }
+
+  static bool YN2Bool(String? data) {
+    if (data == null) return false;
+
+    if (data == "Y") {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -1,14 +1,22 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
+import 'package:ku_animal_m/src/ui/dialog/search_dialog.dart';
+import 'package:ku_animal_m/src/ui/home/home_controller.dart';
+import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_result.dart';
 import 'package:ku_animal_m/src/ui/qr/qr_scanner_overlay3.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class PageQR2 extends StatefulWidget {
-  const PageQR2({super.key});
+  PageQR2({super.key, this.useDirect = true, required this.pageType});
+  bool useDirect;
+  PageType pageType;
 
   @override
   State<PageQR2> createState() => _PageQR2State();
@@ -63,6 +71,7 @@ class _PageQR2State extends State<PageQR2> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: padding),
         margin: EdgeInsets.only(top: appbar3, bottom: 30),
@@ -138,15 +147,19 @@ class _PageQR2State extends State<PageQR2> {
                       _isScanning = true;
                       _enableScan = false;
                       // Navigator.pop(context, barcode.rawValue);
-                      String data = barcode.rawValue ?? "---";
+                      // String data = barcode.rawValue ?? "---";
+                      String data = barcode.rawValue ?? "";
                       debugPrint("[animal] data: $data");
-                      var result = await Get.to(() => PageQRResult(barcodeData: data));
-                      if (result == null) {
-                        setState(() {
-                          _isScanning = false;
-                          _enableScan = false;
-                        });
-                      }
+                      // var result = await Get.to(() => PageQRResult(barcodeData: data));
+                      // if (result == null) {
+                      //   setState(() {
+                      //     _isScanning = false;
+                      //     _enableScan = false;
+                      //   });
+                      // }
+
+                      getController().searchBarcode(searchData: data);
+
                       // Get.off(() => PageQR2Result(barcodeData: data));
                     }
                   }
@@ -262,10 +275,15 @@ class _PageQR2State extends State<PageQR2> {
   }
 
   _buildDirectInputButton() {
+    if (widget.useDirect == false) {
+      return Container();
+    }
+
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
         // Get.to(() => PageQRResult(barcodeData: "1234567890"));
+        var result = _showDirectInputDialog(context);
       },
       child: Container(
         padding: const EdgeInsets.only(right: 10),
@@ -277,5 +295,33 @@ class _PageQR2State extends State<PageQR2> {
         ),
       ),
     );
+  }
+
+  _showDirectInputDialog(BuildContext context) async {
+    bool result = await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return SearchDialog();
+        });
+
+    if (result) {}
+
+    return result;
+  }
+
+  getController() {
+    switch (widget.pageType) {
+      case PageType.Home:
+        return HomeController.to;
+      case PageType.ProductIn:
+        return InvenController.to;
+      case PageType.ProductOut:
+        return InvenController.to;
+      case PageType.ProductInven:
+        return InvenController.to;
+      case PageType.Setting:
+        return HomeController.to;
+    }
   }
 }

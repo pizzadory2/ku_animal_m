@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/dimens.dart';
+import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
+import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
+import 'package:ku_animal_m/src/ui/dialog/search_dialog.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
+import 'package:ku_animal_m/src/ui/product/page_product_list.dart';
 import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
+import 'package:ku_animal_m/src/ui/product_in/page_product_reg_in.dart';
+import 'package:ku_animal_m/src/ui/product_out/page_product_reg_out.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
+import 'package:ku_animal_m/src/ui/safe/page_safe_list.dart';
 import 'package:ku_animal_m/src/ui/search/page_search.dart';
+import 'package:ku_animal_m/src/ui/search/page_search_result.dart';
 
 class PageHome extends StatefulWidget {
   const PageHome({super.key});
@@ -37,6 +45,7 @@ class _PageHomeState extends State<PageHome> {
     return Stack(
       children: [
         Scaffold(
+          floatingActionButton: _buildFAB(),
           body: ListView(
             padding: const EdgeInsets.all(20),
             children: [
@@ -169,18 +178,20 @@ class _PageHomeState extends State<PageHome> {
             ),
             const SizedBox(height: 10),
             _buildSelectItem(
-              title: "안전재고 미충족",
+              title: "Safety stock not met".tr,
               count: 10,
               func: () {
                 // Get.toNamed("/inven");
                 debugPrint("안전재고 미충족");
+                Get.to(PageSafeList());
               },
             ),
             _buildSelectItem(
-              title: "전체 품목수",
+              title: "Product Total Count".tr,
               count: 256,
               func: () {
                 debugPrint("전체 품목수");
+                Get.to(PageProductList());
               },
             ),
           ],
@@ -227,12 +238,15 @@ class _PageHomeState extends State<PageHome> {
             const Icon(Icons.search, color: Colors.grey),
             Expanded(
               child: GestureDetector(
-                onTap: () => Get.to(const PageSearch()),
+                // onTap: () => Get.to(const PageSearch()),
+                onTap: () {
+                  var result = _showDirectInputDialog(context);
+                },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   // padding: const EdgeInsets.symmetric(horizontal: Dimens.boxPadding, vertical: Dimens.boxPadding),
                   width: double.infinity,
-                  height: 20,
+                  // height: 25,
                   child: Text("search hint".tr, style: tsSearchHint),
                 ),
               ),
@@ -242,7 +256,7 @@ class _PageHomeState extends State<PageHome> {
               behavior: HitTestBehavior.translucent,
               onTap: () {
                 debugPrint("검색");
-                Get.to(() => const PageQR2());
+                Get.to(() => PageQR2(useDirect: false, pageType: PageType.Home));
               },
               child: Container(
                 padding: const EdgeInsets.only(left: 10),
@@ -417,6 +431,63 @@ class _PageHomeState extends State<PageHome> {
         ],
       );
     }
+  }
+
+  _showDirectInputDialog(BuildContext context) async {
+    String result = await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return SearchDialog();
+        });
+
+    // Utils.keyboardHide();
+
+    if (result.isNotEmpty) {
+      Get.to(PageSearchResult(searchText: result));
+    }
+
+    return result;
+  }
+
+  _buildFAB() {
+    return Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Visibility(
+            visible: UserController.to.userData.inReg,
+            child: FloatingActionButton(
+              // mini: true,
+              heroTag: "fab_out",
+              backgroundColor: ColorsEx.clrOut,
+              onPressed: () {
+                // Get.bottomSheet();
+                Get.to(() => const PageProductRegOut());
+                // var result = _showDirectInputDialog(context);
+              },
+              child: Text("out".tr, style: tsMainFabTitle),
+            ),
+          ),
+          SizedBox(height: 10),
+          Visibility(
+            visible: UserController.to.userData.outReg,
+            child: FloatingActionButton(
+              // mini: true,
+              heroTag: "fab_in",
+              backgroundColor: ColorsEx.clrIn,
+              onPressed: () {
+                // Get.bottomSheet();
+                Get.to(() => const PageProductRegIn());
+                // var result = _showDirectInputDialog(context);
+              },
+              child: Text("in".tr, style: tsMainFabTitle),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   // void refreshData() async {

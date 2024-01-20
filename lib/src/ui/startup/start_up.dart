@@ -1,5 +1,8 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/preference.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
@@ -69,9 +72,11 @@ class _StartUpState extends State<StartUp> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 130,
-            child: Utils.ImageAsset("logo.png", width: 130, height: 130),
+          Center(
+            child: SizedBox(
+              height: 130,
+              child: Utils.ImageAsset("logo.png", width: 130, height: 130),
+            ),
           ),
           // CircularProgressIndicator(),
           // Util.ImageAsset("login_bi_hand.png"),
@@ -88,6 +93,92 @@ class _StartUpState extends State<StartUp> {
     AppController.to.versionInfo = packageInfo.version;
 
     debugPrint("[animal] ::initPackageInfo after - (4)");
+  }
+
+  _initPlatformState() async {
+    debugPrint("[animal] ::initPlatformState before - (5)");
+
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+
+    var deviceData = <String, dynamic>{};
+
+    try {
+      if (defaultTargetPlatform == TargetPlatform.android) {
+        // var deviceIdentifier = 'unknown';
+        // var deviceInfo = DeviceInfoPlugin();
+        // var androidInfo = await deviceInfo.androidInfo;
+        // deviceIdentifier = androidInfo!;
+        deviceData = _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
+        print(deviceData.toString());
+      } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+        deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
+      }
+
+      // AppController.to.deviceToken = deviceData["display"].toString();
+      AppController.to.deviceName = deviceData["model"].toString();
+
+      // print(deviceData);
+    } on PlatformException {
+      deviceData = <String, dynamic>{'Error:': 'Failed to get platform version.'};
+    }
+
+    debugPrint("[animal] ::initPlatformState after - (6)");
+  }
+
+  Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {
+    return <String, dynamic>{
+      'version.securityPatch': build.version.securityPatch,
+      'version.sdkInt': build.version.sdkInt,
+      'version.release': build.version.release,
+      'version.previewSdkInt': build.version.previewSdkInt,
+      'version.incremental': build.version.incremental,
+      'version.codename': build.version.codename,
+      'version.baseOS': build.version.baseOS,
+      'board': build.board,
+      'bootloader': build.bootloader,
+      'brand': build.brand,
+      'device': build.device,
+      'display': build.display,
+      'fingerprint': build.fingerprint,
+      'hardware': build.hardware,
+      'host': build.host,
+      'id': build.id,
+      'manufacturer': build.manufacturer,
+      'model': build.model,
+      'product': build.product,
+      'supported32BitAbis': build.supported32BitAbis,
+      'supported64BitAbis': build.supported64BitAbis,
+      'supportedAbis': build.supportedAbis,
+      'tags': build.tags,
+      'type': build.type,
+      'isPhysicalDevice': build.isPhysicalDevice,
+      'systemFeatures': build.systemFeatures,
+      'displaySizeInches': ((build.displayMetrics.sizeInches * 10).roundToDouble() / 10),
+      'displayWidthPixels': build.displayMetrics.widthPx,
+      'displayWidthInches': build.displayMetrics.widthInches,
+      'displayHeightPixels': build.displayMetrics.heightPx,
+      'displayHeightInches': build.displayMetrics.heightInches,
+      'displayXDpi': build.displayMetrics.xDpi,
+      'displayYDpi': build.displayMetrics.yDpi,
+      'serialNumber': build.serialNumber,
+    };
+  }
+
+  Map<String, dynamic> _readIosDeviceInfo(IosDeviceInfo data) {
+    return <String, dynamic>{
+      'name': data.name,
+      'systemName': data.systemName,
+      'systemVersion': data.systemVersion,
+      'model': data.model,
+      'localizedModel': data.localizedModel,
+      'identifierForVendor': data.identifierForVendor,
+      'isPhysicalDevice': data.isPhysicalDevice,
+      'utsname.sysname:': data.utsname.sysname,
+      'utsname.nodename:': data.utsname.nodename,
+      'utsname.release:': data.utsname.release,
+      'utsname.version:': data.utsname.version,
+      'utsname.machine:': data.utsname.machine,
+    };
   }
 
   void goLoginPage() {
@@ -114,13 +205,14 @@ class _StartUpState extends State<StartUp> {
     debugPrint("[animal] 스타트업::processRun() before");
     await initPushToken();
     await _initPackageInfo();
+    await _initPlatformState();
 
-    debugPrint("[animal] processRun::00000000 - (5)");
+    debugPrint("[animal] processRun::00000000 - (7)");
 
     var id = Preference().getString("userId");
     var pw = Preference().getString("userPw");
 
-    debugPrint("[animal] processRun::1111111 - (6)");
+    debugPrint("[animal] processRun::1111111 - (8)");
     if (id.isEmpty || pw.isEmpty) {
       goLoginPage();
     } else {
@@ -129,7 +221,7 @@ class _StartUpState extends State<StartUp> {
               id: id,
               pw: pw,
               pushToken: AppController.to.fcmToken,
-              deviceName: "",
+              deviceName: AppController.to.deviceName,
               appVer: AppController.to.versionInfo)
           .then((value) {
         if (value) {

@@ -54,17 +54,17 @@ class _PageProductInOutState extends State<PageProductInOut> {
   }
 
   _buildProductItem(int index) {
-    ProductModel data = ProductModel(
-      id: "1",
-      name: "맥시부펜",
-      company: "한미양행",
-      safeCount: "30",
-      quantity: "275",
-      element: "염산, 요오드, 토마토",
-      regDate: "2021-09-01",
-      description: "오늘 내일 매일 사용",
-      // mainIngredient: "염산, 요오드, 토마토",
-    );
+    // ProductModel data = ProductModel(
+    //   id: "1",
+    //   name: "맥시부펜",
+    //   company: "한미양행",
+    //   safeCount: "30",
+    //   quantity: "275",
+    //   element: "염산, 요오드, 토마토",
+    //   regDate: "2021-09-01",
+    //   description: "오늘 내일 매일 사용",
+    //   // mainIngredient: "염산, 요오드, 토마토",
+    // );
 
     return GestureDetector(
       onTap: () {
@@ -84,13 +84,13 @@ class _PageProductInOutState extends State<PageProductInOut> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(data.name, style: tsInvenItemName),
-                    Text(data.company, style: tsInvenItemCompany),
-                    const Spacer(),
-                    Text("안전재고 (${data.safeCount})", style: tsInvenItemCompany),
-                    Text("주요성분 (${data.element})", style: tsInvenItemCompany),
-                    const SizedBox(height: 5),
-                    Text("등록일 (${data.regDate})", style: tsInvenItemCompany.copyWith(color: Colors.black)),
+                    // Text(data.name, style: tsInvenItemName),
+                    // Text(data.company, style: tsInvenItemCompany),
+                    // const Spacer(),
+                    // Text("안전재고 (${data.safeCount})", style: tsInvenItemCompany),
+                    // Text("주요성분 (${data.element})", style: tsInvenItemCompany),
+                    // const SizedBox(height: 5),
+                    // Text("등록일 (${data.regDate})", style: tsInvenItemCompany.copyWith(color: Colors.black)),
                   ],
                 ),
               ),
