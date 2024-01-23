@@ -53,4 +53,9 @@ Map<String, String> jaJP = <String, String>{
   'safe list': 'safe list',
   'product list': 'product list',
   'empty': 'empty',
+  'filter code': '의약품코드',
+  'filter name': '의약품명',
+  'filter element': '성분',
+  'filter company': '제조사',
+  'filter barcode': '바코드',
 };

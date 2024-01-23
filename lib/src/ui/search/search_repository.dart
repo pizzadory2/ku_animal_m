@@ -4,30 +4,22 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
-import 'package:ku_animal_m/src/ui/product/inven_model.dart';
+import 'package:ku_animal_m/src/ui/product/product_model.dart';
 
-class InvenRepository {
+class SearchRepository {
   Future reqReadAll({
-    required String year,
-    required String month,
-    String gubun = "",
-    String type = "",
-    String txt = "",
+    required String condition,
+    required String searchData,
   }) async {
-    debugPrint("[ku_pad::InvenRepository 제품정보 싹다가져와] API 호출");
-
-    String month2 = month.padLeft(2, '0');
+    debugPrint("[animal] SearchRepository 제품정보 싹다가져와] API 호출");
 
     var param = {
-      "sch_year": year,
-      "sch_month": month2,
-      "sch_class": gubun,
-      "sch_type": type,
-      "sch_txt": txt,
+      "sch_condition": condition,
+      "sch_txt": searchData,
     };
 
     try {
-      var api = Constants.api_product;
+      var api = Constants.api_search;
       var result = await RestClient().dio.get(
             api,
             options: Options(headers: {
@@ -45,7 +37,7 @@ class InvenRepository {
         var dataList = parseData["data"];
         // debugPrint(dataList.toString());
 
-        List<InvenModel> items = List<InvenModel>.from(dataList.map((model) => InvenModel.fromJson(model)));
+        List<ProductModel> items = List<ProductModel>.from(dataList.map((model) => ProductModel.fromJson(model)));
 
         // // var data = UserInfoModel.fromJson(result.data);
         // return items;
@@ -75,7 +67,7 @@ class InvenRepository {
     String type = "mst_barcode",
     String txt = "",
   }) async {
-    debugPrint("[ku_pad::InvenRepository 제품정보 싹다가져와] API 호출");
+    debugPrint("[ku_pad::SearchRepository 제품정보 싹다가져와] API 호출");
 
     String month2 = month.padLeft(2, '0');
 
@@ -106,7 +98,7 @@ class InvenRepository {
         var dataList = parseData["data"];
         // debugPrint(dataList.toString());
 
-        List<InvenModel> items = List<InvenModel>.from(dataList.map((model) => InvenModel.fromJson(model)));
+        List<ProductModel> items = List<ProductModel>.from(dataList.map((model) => ProductModel.fromJson(model)));
 
         // // var data = UserInfoModel.fromJson(result.data);
         // return items;

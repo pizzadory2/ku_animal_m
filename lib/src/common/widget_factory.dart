@@ -211,6 +211,7 @@ class WidgetFactory {
       String value = "",
       bool autoFocus = false,
       TextInputType inputType = TextInputType.text,
+      Function(String)? onSubmit,
       bool readOnly = false}) {
     controller.text = value;
 
@@ -222,6 +223,7 @@ class WidgetFactory {
           controller: controller,
           keyboardType: inputType,
           autofocus: autoFocus,
+          onSubmitted: onSubmit,
           maxLines: 1,
           readOnly: readOnly,
           cursorColor: Colors.black,

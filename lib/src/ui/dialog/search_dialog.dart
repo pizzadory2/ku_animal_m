@@ -97,7 +97,12 @@ class SearchDialog extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: Column(
         children: [
-          WidgetFactory.inputText(autoFocus: true, controller: _controllerInput),
+          WidgetFactory.inputText(
+              autoFocus: true,
+              controller: _controllerInput,
+              onSubmit: (value) {
+                Get.back(result: _controllerInput.text);
+              }),
           SizedBox(height: 1, child: Divider(color: Colors.black, thickness: 1)),
         ],
       ),

@@ -5,8 +5,9 @@ import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
+import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
-import 'package:ku_animal_m/src/ui/product/product_model.dart';
+import 'package:ku_animal_m/src/ui/product/inven_model.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -21,6 +22,7 @@ class _PageInvenState extends State<PageInven> {
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   final TextEditingController _controllerSearch = TextEditingController();
+  int _filterIndex = 0;
 
   @override
   void initState() {
@@ -43,6 +45,7 @@ class _PageInvenState extends State<PageInven> {
           body: Column(
             children: [
               _buildSearch(),
+              _buildFilter(),
               Divider(height: 1, color: Colors.grey[400]),
               _buildList(),
             ],
@@ -167,6 +170,48 @@ class _PageInvenState extends State<PageInven> {
         ));
   }
 
+  _buildFilter() {
+    int filterCount = 4;
+    List<String> filterList = ["filter name".tr, "filter code".tr, "filter element".tr, "filter company".tr];
+
+    return Container(
+      height: 42,
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      alignment: Alignment.centerLeft,
+      color: Colors.white,
+      // color: Colors.grey[100],
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  _filterIndex = index;
+                });
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                margin: EdgeInsets.only(left: index == 0 ? 0 : 5, top: 3, bottom: 3),
+                decoration: BoxDecoration(
+                  color: _filterIndex == index ? ColorsEx.primaryColorLowGreen : Colors.grey[100],
+                  border: Border.all(width: 1, color: Colors.grey[300]!),
+                  borderRadius: BorderRadius.circular(45),
+                ),
+                child: Text(
+                  filterList[index],
+                  style: tsDefault.copyWith(
+                    color: _filterIndex == index ? Colors.black : Colors.grey,
+                    fontWeight: _filterIndex == index ? FontWeight.bold : FontWeight.normal,
+                  ),
+                ),
+              ),
+            );
+          },
+          itemCount: filterCount),
+    );
+  }
+
   _buildList() {
     // if (AppController.to.getLoading()) {
     //   return Container();
@@ -207,7 +252,7 @@ class _PageInvenState extends State<PageInven> {
       return Container();
     }
 
-    ProductModel data = InvenController.to.getItem(index);
+    InvenModel data = InvenController.to.getItem(index);
     String amount = data.mst_content.isEmpty ? "-" : "(${data.mst_content})";
 
     return GestureDetector(

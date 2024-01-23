@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
-import 'package:ku_animal_m/src/ui/product/product_model.dart';
+import 'package:ku_animal_m/src/ui/product/inven_model.dart';
 
 class PageProductInOut extends StatefulWidget {
   const PageProductInOut({super.key});
@@ -54,7 +54,7 @@ class _PageProductInOutState extends State<PageProductInOut> {
   }
 
   _buildProductItem(int index) {
-    // ProductModel data = ProductModel(
+    // InvenModel data = InvenModel(
     //   id: "1",
     //   name: "맥시부펜",
     //   company: "한미양행",

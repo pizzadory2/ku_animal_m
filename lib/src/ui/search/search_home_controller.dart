@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ku_animal_m/src/ui/inventory/inven_repository.dart';
-import 'package:ku_animal_m/src/ui/product/inven_model.dart';
+import 'package:ku_animal_m/src/ui/product/product_model.dart';
+import 'package:ku_animal_m/src/ui/search/search_repository.dart';
 
-class InvenController extends GetxController {
-  static InvenController get to => Get.find();
+class SearchHomeController extends GetxController {
+  static SearchHomeController get to => Get.find();
 
-  final InvenRepository repository;
-  InvenController({required this.repository});
+  final SearchRepository repository;
+  SearchHomeController({required this.repository});
 
   RxBool isLoading = false.obs;
 
-  List<InvenModel> _list = [];
+  List<ProductModel> _list = [];
 
   clearData() {
     isLoading.value = true;
@@ -19,26 +19,6 @@ class InvenController extends GetxController {
 
     isLoading.value = false;
     return true;
-  }
-
-  Future<bool> refreshData() async {
-    isLoading.value = true;
-    bool isSuccess = false;
-    _list.clear();
-
-    await repository.reqReadAll(year: "2024", month: "1").then((value) async {
-      isLoading.value = false;
-
-      if (value != null) {
-        _list = value;
-        isSuccess = true;
-      } else {
-        isSuccess = false;
-      }
-    });
-
-    isLoading.value = false;
-    return isSuccess;
   }
 
   Future<bool> searchBarcode({required String searchData}) async {
@@ -60,12 +40,12 @@ class InvenController extends GetxController {
     return isSuccess;
   }
 
-  Future<bool> searchData({required String searchData}) async {
+  Future<bool> searchData({String type = "mi_name", required String searchData}) async {
     isLoading.value = true;
     bool isSuccess = false;
     _list.clear();
 
-    await repository.reqReadAll(year: "2024", month: "1", type: "mst_name", txt: searchData).then((value) async {
+    await repository.reqReadAll(condition: type, searchData: searchData).then((value) async {
       isLoading.value = false;
 
       if (value != null) {

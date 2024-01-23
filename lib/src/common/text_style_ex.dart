@@ -2,6 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 
+TextStyle get tsDefault => const TextStyle(
+      fontFamily: "Pretendard",
+      fontSize: 16,
+      fontWeight: FontWeight.w300,
+      color: Colors.black,
+    );
+
 // 메인
 TextStyle get tsAppbarTitle => const TextStyle(
       fontFamily: "SCoreDream",

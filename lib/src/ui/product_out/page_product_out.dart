@@ -6,7 +6,7 @@ import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
-import 'package:ku_animal_m/src/ui/product/product_model.dart';
+import 'package:ku_animal_m/src/ui/product/inven_model.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
 
 class PageProductOut extends StatefulWidget {

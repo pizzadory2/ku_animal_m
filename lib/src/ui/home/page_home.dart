@@ -16,8 +16,8 @@ import 'package:ku_animal_m/src/ui/product_in/page_product_reg_in.dart';
 import 'package:ku_animal_m/src/ui/product_out/page_product_reg_out.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
 import 'package:ku_animal_m/src/ui/safe/page_safe_list.dart';
-import 'package:ku_animal_m/src/ui/search/page_search.dart';
 import 'package:ku_animal_m/src/ui/search/page_search_result.dart';
+import 'package:ku_animal_m/src/ui/search/search_home_controller.dart';
 
 class PageHome extends StatefulWidget {
   const PageHome({super.key});
@@ -444,10 +444,27 @@ class _PageHomeState extends State<PageHome> {
     // Utils.keyboardHide();
 
     if (result.isNotEmpty) {
-      Get.to(PageSearchResult(searchText: result));
+      // Get.to(PageSearchResult(searchText: result), transition: Transition.fade);
+      searchData(result);
     }
 
     return result;
+  }
+
+  void searchData(String searchText) {
+    if (searchText.isEmpty) {
+      Utils.showToast("Please input product name".tr);
+      return;
+    }
+
+    AppController.to.setLoading(true);
+
+    SearchHomeController.to.searchData(searchData: searchText).then((value) {
+      setState(() {
+        AppController.to.setLoading(false);
+        Get.to(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
+      });
+    });
   }
 
   _buildFAB() {
