@@ -9,6 +9,8 @@ import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/search_dialog.dart';
+import 'package:ku_animal_m/src/ui/dialog/search_filter_dialog.dart';
+import 'package:ku_animal_m/src/ui/dialog/search_result_data.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product/page_product_list.dart';
 import 'package:ku_animal_m/src/ui/product/product_recently_model.dart';
@@ -435,24 +437,25 @@ class _PageHomeState extends State<PageHome> {
   }
 
   _showDirectInputDialog(BuildContext context) async {
-    String result = await showDialog(
+    SearchResultData result = await showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return SearchDialog();
+          // return SearchDialog();
+          return SearchFilterDialog();
         });
 
     // Utils.keyboardHide();
 
     if (result.isNotEmpty) {
       // Get.to(PageSearchResult(searchText: result), transition: Transition.fade);
-      searchData(result);
+      searchData(result.txt, result.type);
     }
 
     return result;
   }
 
-  void searchData(String searchText) {
+  void searchData(String searchText, String type) {
     if (searchText.isEmpty) {
       Utils.showToast("Please input product name".tr);
       return;
@@ -460,7 +463,7 @@ class _PageHomeState extends State<PageHome> {
 
     AppController.to.setLoading(true);
 
-    SearchHomeController.to.searchData(searchData: searchText).then((value) {
+    SearchHomeController.to.searchData(type: type, searchData: searchText).then((value) {
       setState(() {
         AppController.to.setLoading(false);
         Get.to(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);

@@ -56,7 +56,7 @@ class SearchHomeController extends GetxController {
       }
     });
 
-    debugPrint("[animal] 검색 데이터는: ${_list.length}");
+    debugPrint("[animal] 메인 검색 데이터는: ${_list.length}");
 
     isLoading.value = false;
     return isSuccess;

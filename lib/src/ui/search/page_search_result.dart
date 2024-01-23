@@ -22,7 +22,10 @@ class _PageSearchResultState extends State<PageSearchResult> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.searchText),
+        title: Text(
+          "검색어(${widget.searchText})",
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
       body: SafeArea(
         child: Column(
