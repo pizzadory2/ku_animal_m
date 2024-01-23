@@ -240,7 +240,8 @@ class _PageHomeState extends State<PageHome> {
               child: GestureDetector(
                 // onTap: () => Get.to(const PageSearch()),
                 onTap: () {
-                  var result = _showDirectInputDialog(context);
+                  // var result = _showDirectInputDialog(context);
+                  _showDirectInputDialog(context);
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),

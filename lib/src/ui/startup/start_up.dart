@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/preference.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
-import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/login/page_login.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/page_app.dart';

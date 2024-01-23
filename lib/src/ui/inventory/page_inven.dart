@@ -161,7 +161,8 @@ class _PageInvenState extends State<PageInven> {
                 behavior: HitTestBehavior.translucent,
                 onTap: () {
                   debugPrint("[animal] [입고내역] Click QR");
-                  var result = Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductInven));
+                  // var result = Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductInven));
+                  Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductInven));
                 },
                 child: const Icon(Icons.qr_code_rounded, size: 30, color: Colors.black54),
               ),

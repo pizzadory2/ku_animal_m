@@ -9,7 +9,6 @@ import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/search_dialog.dart';
 import 'package:ku_animal_m/src/ui/home/home_controller.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
-import 'package:ku_animal_m/src/ui/qr/page_qr_result.dart';
 import 'package:ku_animal_m/src/ui/qr/qr_scanner_overlay3.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -283,7 +282,8 @@ class _PageQR2State extends State<PageQR2> {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         // Get.to(() => PageQRResult(barcodeData: "1234567890"));
-        var result = _showDirectInputDialog(context);
+        // var result = _showDirectInputDialog(context);
+        _showDirectInputDialog(context);
       },
       child: Container(
         padding: const EdgeInsets.only(right: 10),

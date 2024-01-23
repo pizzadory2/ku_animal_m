@@ -14,7 +14,6 @@ import 'package:ku_animal_m/src/ui/home/page_home.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
 import 'package:ku_animal_m/src/ui/inventory/page_inven.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
-import 'package:ku_animal_m/src/ui/product/page_product_in_out.dart';
 import 'package:ku_animal_m/src/ui/product_in/page_product_in.dart';
 import 'package:ku_animal_m/src/ui/product_out/page_product_out.dart';
 import 'package:ku_animal_m/src/ui/setting/page_setting.dart';
@@ -229,7 +228,7 @@ class _PageAppState extends State<PageApp> {
   }
 
   void initPage() {
-    int pageIndex = 0;
+    // int pageIndex = 0;
     _pages.add(const PageHome());
     // _bottomNavigations.add(_buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: pageIndex++));
 

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
@@ -15,7 +14,6 @@ class _PageAddProductState extends State<PageAddProduct> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

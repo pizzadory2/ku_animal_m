@@ -5,7 +5,6 @@ import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
-import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
 
 // 입고 페이지
@@ -52,22 +51,22 @@ class _PageProductInState extends State<PageProductIn> {
     });
   }
 
-  _buildFAB() {
-    return Padding(
-      padding: const EdgeInsets.all(1.0),
-      child: FloatingActionButton(
-        // mini: true,
-        heroTag: "fab_add",
-        backgroundColor: ColorsEx.primaryColorBold,
-        onPressed: () {
-          // Get.bottomSheet();
-          Get.to(() => PageQR2(pageType: PageType.ProductInven));
-          // var result = _showDirectInputDialog(context);
-        },
-        child: const Icon(Icons.add, color: Colors.white, size: 50),
-      ),
-    );
-  }
+  // _buildFAB() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(1.0),
+  //     child: FloatingActionButton(
+  //       // mini: true,
+  //       heroTag: "fab_add",
+  //       backgroundColor: ColorsEx.primaryColorBold,
+  //       onPressed: () {
+  //         // Get.bottomSheet();
+  //         Get.to(() => PageQR2(pageType: PageType.ProductInven));
+  //         // var result = _showDirectInputDialog(context);
+  //       },
+  //       child: const Icon(Icons.add, color: Colors.white, size: 50),
+  //     ),
+  //   );
+  // }
 
   _buildSearch() {
     return Container(
