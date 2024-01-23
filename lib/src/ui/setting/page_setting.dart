@@ -48,6 +48,10 @@ class _PageSettingState extends State<PageSetting> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: (() => Get.back()),
+          icon: const Icon(Icons.close),
+        ),
         title: Text("setting".tr, style: tsAppbarTitle),
         centerTitle: true,
       ),

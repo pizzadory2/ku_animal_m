@@ -16,6 +16,13 @@ TextStyle get tsBold => const TextStyle(
       color: Colors.black,
     );
 
+TextStyle get tsBoldWhite => const TextStyle(
+      fontFamily: "Pretendard",
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    );
+
 // 메인
 TextStyle get tsAppbarTitle => const TextStyle(
       fontFamily: "SCoreDream",

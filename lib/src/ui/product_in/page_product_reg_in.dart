@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
+import 'package:ku_animal_m/src/style/colors_ex.dart';
+import 'package:ku_animal_m/src/ui/dialog/input_count_dialog.dart';
+import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PageProductRegIn extends StatefulWidget {
   const PageProductRegIn({super.key});
@@ -12,7 +17,10 @@ class PageProductRegIn extends StatefulWidget {
 }
 
 class _PageProductRegInState extends State<PageProductRegIn> {
+  final RefreshController _refreshController = RefreshController(initialRefresh: false);
+
   final TextEditingController _controllerSearch = TextEditingController();
+  int _filterIndex = 0;
 
   @override
   void initState() {
@@ -21,7 +29,9 @@ class _PageProductRegInState extends State<PageProductRegIn> {
 
   @override
   void dispose() {
+    _refreshController.dispose();
     _controllerSearch.dispose();
+
     super.dispose();
   }
 
@@ -29,7 +39,12 @@ class _PageProductRegInState extends State<PageProductRegIn> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: (() => Get.back()),
+            icon: const Icon(Icons.close),
+          ),
           title: Text("in".tr, style: tsAppbarTitle),
+          centerTitle: true,
         ),
         backgroundColor: Colors.white,
         body: SafeArea(
@@ -38,6 +53,7 @@ class _PageProductRegInState extends State<PageProductRegIn> {
               _buildSearch(),
               Divider(height: 1, color: Colors.grey[400]),
               _buildList(),
+              _buildRegButton(),
             ],
           ),
         ));
@@ -46,7 +62,7 @@ class _PageProductRegInState extends State<PageProductRegIn> {
   _buildSearch() {
     return Container(
         color: Colors.white,
-        height: 55,
+        height: Dimens.searchHeight,
         padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
         child: Row(
           children: [
@@ -130,6 +146,54 @@ class _PageProductRegInState extends State<PageProductRegIn> {
   }
 
   _buildList() {
-    return Container();
+    return Expanded(child: Container());
+  }
+
+  _buildRegButton() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      height: 50,
+      child: ElevatedButton(
+          onPressed: () {
+            _showInputCountDialog(context);
+          },
+          child: Center(
+            child: Text(
+              "in reg".tr,
+              style: tsButtonDef,
+            ),
+          )
+          // child: Container(
+          //   width: double.infinity,
+          //   decoration: BoxDecoration(
+          //     color: ColorsEx.primaryColor,
+          //     borderRadius: BorderRadius.circular(12),
+          //   ),
+          //   child: Text("입고등록"),
+          // ),
+          ),
+    );
+  }
+
+  searchData() {
+    //
+  }
+
+  _showInputCountDialog(BuildContext context) async {
+    ProductResultData result = await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return InputCountDialog();
+        });
+
+    // Utils.keyboardHide();
+
+    if (result.isNotEmpty) {
+      // Get.to(PageSearchResult(searchText: result), transition: Transition.fade);
+      // searchData(result.txt, result.type);
+    }
+
+    // return result;
   }
 }

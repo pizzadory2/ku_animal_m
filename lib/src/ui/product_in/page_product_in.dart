@@ -36,6 +36,7 @@ class _PageProductInState extends State<PageProductIn> {
   void dispose() {
     _refreshController.dispose();
     _controllerSearch.dispose();
+
     super.dispose();
   }
 

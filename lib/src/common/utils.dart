@@ -321,4 +321,8 @@ class Utils {
         return "mi_name";
     }
   }
+
+  static String numberFormatMoney(int src) {
+    return NumberFormat('###,###,###,###').format(src).replaceAll(' ', '');
+  }
 }
