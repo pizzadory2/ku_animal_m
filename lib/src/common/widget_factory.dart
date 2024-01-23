@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
+import 'package:ku_animal_m/src/common/utils.dart';
 
 class WidgetFactory {
   static Widget divider({double weight = 1, Color color = Colors.white, double topMargin = 0}) {
@@ -105,6 +106,26 @@ class WidgetFactory {
     );
   }
 
+  static Widget emptyWidgetWithFunc({required Function() onTap, String title = ""}) {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Utils.ImageAsset("empty_box.png", width: 100, height: 100),
+        SizedBox(height: 20),
+        GestureDetector(
+          onTap: onTap,
+          child: Icon(
+            Icons.refresh,
+            color: Colors.grey,
+            size: 50,
+          ),
+        ),
+        // Text("empty".tr),
+      ],
+    ));
+  }
+
   static Widget dividerDash({double width = 0.5, Color color = Colors.black}) {
     return Row(
       children: [
@@ -178,7 +199,7 @@ class WidgetFactory {
     // );
   }
 
-  static loadingWidget({String? title, bool isLoading = true}) {
+  static loadingWidget({String? title, bool isLoading = true, bool isBackground = true}) {
     if (!isLoading) {
       return Container();
     }
@@ -189,16 +210,16 @@ class WidgetFactory {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Colors.black.withOpacity(0.5),
+        color: isBackground ? Colors.black.withOpacity(0.5) : null,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CircularProgressIndicator(
-                color: Colors.white,
+              CircularProgressIndicator(
+                color: isBackground ? Colors.white : Colors.black,
               ),
               if (title != null) const SizedBox(height: 20),
-              if (title != null) Text(title, style: const TextStyle(color: Colors.white)),
+              if (title != null) Text(title, style: TextStyle(color: isBackground ? Colors.white : Colors.black)),
             ],
           ),
         ),

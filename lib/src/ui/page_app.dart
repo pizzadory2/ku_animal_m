@@ -15,7 +15,9 @@ import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
 import 'package:ku_animal_m/src/ui/inventory/page_inven.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product_in/page_product_in.dart';
+import 'package:ku_animal_m/src/ui/product_in/product_in_controller.dart';
 import 'package:ku_animal_m/src/ui/product_out/page_product_out.dart';
+import 'package:ku_animal_m/src/ui/product_out/product_out_controller.dart';
 import 'package:ku_animal_m/src/ui/setting/page_setting.dart';
 
 class PageApp extends StatefulWidget {
@@ -176,10 +178,10 @@ class _PageAppState extends State<PageApp> {
         result = await HomeController.to.refreshData();
         break;
       case PageType.ProductIn:
-        // await AppController.to.getInData();
+        result = await ProductInController.to.refreshData();
         break;
       case PageType.ProductOut:
-        // await AppController.to.getOutData();
+        result = await ProductOutController.to.refreshData();
         break;
       case PageType.ProductInven:
         result = await InvenController.to.refreshData();

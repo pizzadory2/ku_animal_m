@@ -281,6 +281,10 @@ class Utils {
   }
 
   static getSearchTypeInven({required int filterIndex}) {
+    if (filterIndex == -1) {
+      return "";
+    }
+
     switch (filterIndex) {
       case 0:
         return "mst_name";
@@ -297,7 +301,11 @@ class Utils {
     }
   }
 
-  static getSearchTypeMain({required int filterIndex}) {
+  static getSearchType({required int filterIndex}) {
+    if (filterIndex == -1) {
+      return "";
+    }
+
     switch (filterIndex) {
       case 0:
         return "mi_name";

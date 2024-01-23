@@ -60,7 +60,7 @@ class _PageSettingState extends State<PageSetting> {
               child: Column(
                 children: [
                   // _buildMyInfo(),
-                  _buildNotice(),
+                  // _buildNotice(),
                   _buildLanguage(),
                   // _buildVersion(),
                   kDebugMode ? _buildTheme() : Container(),

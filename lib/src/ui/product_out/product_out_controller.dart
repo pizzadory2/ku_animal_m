@@ -1,0 +1,102 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/utils.dart';
+import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
+import 'package:ku_animal_m/src/ui/product_out/product_out_repository.dart';
+
+class ProductOutController extends GetxController {
+  static ProductOutController get to => Get.find();
+
+  final ProductOutRepository repository;
+  ProductOutController({required this.repository});
+
+  RxBool isLoading = false.obs;
+
+  String filterYear = "2024";
+  String filterMonth = "1";
+
+  List<ProductHistoryModel> _list = [];
+
+  clearData() {
+    isLoading.value = true;
+    _list.clear();
+
+    isLoading.value = false;
+    return true;
+  }
+
+  Future<bool> refreshData({String searchData = "", int filterIndex = -1}) async {
+    isLoading.value = true;
+    bool isSuccess = false;
+    _list.clear();
+
+    String type = Utils.getSearchType(filterIndex: filterIndex);
+
+    await repository.reqReadAll(year: filterYear, month: filterMonth, type: type, txt: searchData).then((value) async {
+      isLoading.value = false;
+
+      if (value != null) {
+        _list = value;
+        isSuccess = true;
+      } else {
+        isSuccess = false;
+      }
+    });
+
+    debugPrint("[animal] 검색 데이터는: ${_list.length}");
+
+    isLoading.value = false;
+    return isSuccess;
+  }
+
+  Future<bool> searchBarcode({required String searchData}) async {
+    isLoading.value = true;
+    bool isSuccess = false;
+
+    await repository.reqSearchBarcode(year: filterYear, month: filterMonth, txt: searchData).then((value) async {
+      isLoading.value = false;
+
+      if (value != null) {
+        _list = value;
+        isSuccess = true;
+      } else {
+        isSuccess = false;
+      }
+    });
+
+    isLoading.value = false;
+    return isSuccess;
+  }
+
+  Future<bool> searchData({required String searchData, required int filterIndex}) async {
+    isLoading.value = true;
+    bool isSuccess = false;
+    _list.clear();
+
+    String type = Utils.getSearchType(filterIndex: filterIndex);
+
+    await repository.reqReadAll(year: filterYear, month: filterMonth, type: type, txt: searchData).then((value) async {
+      isLoading.value = false;
+
+      if (value != null) {
+        _list = value;
+        isSuccess = true;
+      } else {
+        isSuccess = false;
+      }
+    });
+
+    debugPrint("[animal] 검색 데이터는: ${_list.length}");
+
+    isLoading.value = false;
+    return isSuccess;
+  }
+
+  getCount() {
+    return _list.length;
+  }
+
+  getItem(int index) {
+    return _list[index];
+  }
+}

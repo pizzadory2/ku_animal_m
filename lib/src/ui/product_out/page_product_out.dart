@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/constants.dart';
+import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
+import 'package:ku_animal_m/src/style/colors_ex.dart';
+import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
+import 'package:ku_animal_m/src/ui/product_out/product_out_controller.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PageProductOut extends StatefulWidget {
   const PageProductOut({super.key});
@@ -15,7 +21,10 @@ class PageProductOut extends StatefulWidget {
 }
 
 class _PageProductOutState extends State<PageProductOut> {
+  final RefreshController _refreshController = RefreshController(initialRefresh: false);
+
   final TextEditingController _controllerSearch = TextEditingController();
+  int _filterIndex = 0;
 
   @override
   void initState() {
@@ -24,21 +33,34 @@ class _PageProductOutState extends State<PageProductOut> {
 
   @override
   void dispose() {
+    _refreshController.dispose();
     _controllerSearch.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            _buildSearch(),
-            Divider(height: 1, color: Colors.grey[400]),
-            _buildList(),
-          ],
-        ));
+    return Stack(
+      children: [
+        Scaffold(
+            backgroundColor: Colors.white,
+            body: Column(
+              children: [
+                _buildSearch(),
+                Row(children: [
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(left: 10),
+                    child: Text("filter condition".tr, style: tsBold),
+                  ),
+                  Expanded(child: _buildFilter()),
+                ]),
+                Divider(height: 1, color: Colors.grey[400]),
+                _buildList(),
+              ],
+            )),
+      ],
+    );
   }
 
   void initData() async {
@@ -51,8 +73,7 @@ class _PageProductOutState extends State<PageProductOut> {
 
   _buildSearch() {
     return Container(
-        color: Colors.white,
-        height: 55,
+        height: Dimens.searchHeight,
         padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
         child: Row(
           children: [
@@ -75,6 +96,9 @@ class _PageProductOutState extends State<PageProductOut> {
                         onChanged: (value) {
                           setState(() {});
                         },
+                        onSubmitted: (value) {
+                          searchData();
+                        },
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -89,18 +113,10 @@ class _PageProductOutState extends State<PageProductOut> {
                             onTap: () {
                               setState(() {
                                 _controllerSearch.clear();
+                                refreshData();
                               });
                             },
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: const Icon(
-                                  Icons.clear,
-                                  size: 24,
-                                  color: Colors.black54,
-                                )),
+                            child: WidgetFactory.searchClearButton(),
                           )
                         : Container(),
                   ],
@@ -112,7 +128,7 @@ class _PageProductOutState extends State<PageProductOut> {
               width: AppController.to.language == "ko" ? 80 : 90,
               child: ElevatedButton(
                 onPressed: () {
-                  refreshData();
+                  searchData();
                 },
                 child: Text(
                   "search".tr,
@@ -126,8 +142,9 @@ class _PageProductOutState extends State<PageProductOut> {
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onTap: () {
-                  debugPrint("[animal] [입고내역] Click QR");
-                  Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductOut));
+                  debugPrint("[animal] [출고내역] Click QR");
+                  // var result = Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductInven));
+                  Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductInven));
                 },
                 child: const Icon(Icons.qr_code_rounded, size: 30, color: Colors.black54),
               ),
@@ -136,18 +153,86 @@ class _PageProductOutState extends State<PageProductOut> {
         ));
   }
 
-  _buildList() {
-    return Expanded(
+  _buildFilter() {
+    int filterCount = 4;
+
+    return Container(
+      height: 42,
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      alignment: Alignment.centerLeft,
+      color: Colors.white,
+      // color: Colors.grey[100],
       child: ListView.builder(
-        itemCount: 35,
-        itemBuilder: (context, index) {
-          return _buildProductItem(index);
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  _filterIndex = index;
+                });
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                margin: EdgeInsets.only(left: index == 0 ? 0 : 5, top: 3, bottom: 3),
+                decoration: BoxDecoration(
+                  color: _filterIndex == index ? ColorsEx.primaryColorLowGreen : Colors.grey[100],
+                  border: Border.all(width: 1, color: Colors.grey[300]!),
+                  borderRadius: BorderRadius.circular(45),
+                ),
+                child: Text(
+                  Constants.filterList[index],
+                  style: tsDefault.copyWith(
+                    color: _filterIndex == index ? Colors.black : Colors.grey,
+                    fontWeight: _filterIndex == index ? FontWeight.bold : FontWeight.normal,
+                  ),
+                ),
+              ),
+            );
+          },
+          itemCount: filterCount),
+    );
+  }
+
+  _buildList() {
+    int itemCount = ProductOutController.to.getCount();
+
+    return Expanded(
+      child: SmartRefresher(
+        controller: _refreshController,
+        enablePullDown: false,
+        onRefresh: () async {
+          _controllerSearch.clear();
+          await ProductOutController.to.refreshData();
+          setState(() {
+            debugPrint("0000007777111111");
+            debugPrint("0000000777722222");
+            _refreshController.refreshCompleted();
+            debugPrint("000000777733333");
+          });
         },
+        onLoading: () {
+          _refreshController.loadComplete();
+        },
+        child: itemCount == 0
+            ? WidgetFactory.emptyWidgetWithFunc(onTap: () => refreshData())
+            : ListView.builder(
+                itemCount: itemCount,
+                itemBuilder: (context, index) {
+                  return _buildProductItem(index);
+                },
+              ),
       ),
     );
   }
 
   _buildProductItem(int index) {
+    if (index >= ProductOutController.to.getCount()) {
+      return Container();
+    }
+
+    ProductHistoryModel data = ProductOutController.to.getItem(index);
+
     return GestureDetector(
       onTap: () {
         //
@@ -167,11 +252,11 @@ class _PageProductOutState extends State<PageProductOut> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Text(data.name, style: tsInvenItemName.copyWith(color: ColorsEx.clrOut)),
-                    // Text(data.company, style: tsInvenItemCompany),
-                    // const Spacer(),
-                    // Text("안전재고 (${data.safeCount})", style: tsInvenItemCompany),
-                    // Text("주요성분 (${data.element})", style: tsInvenItemCompany),
+                    Text(data.mi_name, style: tsInvenItemName.copyWith(color: ColorsEx.clrOut)),
+                    Text(data.mi_manufacturer, style: tsInvenItemCompany),
+                    const Spacer(),
+                    Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
+                    Text("주요성분 (${data.mi_ingredients})", style: tsInvenItemCompany),
                   ],
                 ),
               ),
@@ -186,18 +271,29 @@ class _PageProductOutState extends State<PageProductOut> {
     );
   }
 
-  void refreshData() {
+  Future<void> refreshData() async {
+    AppController.to.setLoading(true);
+
+    _controllerSearch.clear();
+    await ProductOutController.to.refreshData().then((value) => setState(() {
+          // _controllerSearch.clear();
+          AppController.to.setLoading(false);
+        }));
+  }
+
+  void searchData() {
     Utils.keyboardHide();
 
     if (_controllerSearch.text.isEmpty) {
       Utils.showToast("Please input product name".tr);
       return;
     }
-    _controllerSearch.clear();
 
     AppController.to.setLoading(true);
-    Future.delayed(Duration(seconds: 3)).then((value) {
+
+    ProductOutController.to.refreshData(searchData: _controllerSearch.text, filterIndex: _filterIndex).then((value) {
       setState(() {
+        // _controllerSearch.clear();
         AppController.to.setLoading(false);
       });
     });

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// 전체 품목수
+// 메인화면(대시보드)에서 표시되는 전체 품목수 선택시 이동되는 화면
 class PageProductList extends StatefulWidget {
   const PageProductList({super.key});
 

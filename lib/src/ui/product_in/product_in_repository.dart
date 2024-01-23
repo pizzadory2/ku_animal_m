@@ -4,9 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
-import 'package:ku_animal_m/src/ui/product/inven_model.dart';
+import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
 
-class InvenRepository {
+class ProductInRepository {
   Future reqReadAll({
     required String year,
     required String month,
@@ -14,7 +14,7 @@ class InvenRepository {
     String type = "",
     String txt = "",
   }) async {
-    debugPrint("[ku_pad::InvenRepository 제품정보 싹다가져와] API 호출");
+    debugPrint("[animal] ::ProductIn 제품정보 싹다가져와] API 호출");
 
     String month2 = month.padLeft(2, '0');
 
@@ -24,10 +24,11 @@ class InvenRepository {
       "sch_class": gubun,
       "sch_type": type,
       "sch_txt": txt,
+      "msr_type": "IN", // [필수] IN: 입고내역, OUT: 출고내역
     };
 
     try {
-      var api = Constants.api_product;
+      var api = Constants.api_product_in_history;
       var result = await RestClient().dio.get(
             api,
             options: Options(headers: {
@@ -45,7 +46,8 @@ class InvenRepository {
         var dataList = parseData["data"];
         // debugPrint(dataList.toString());
 
-        List<InvenModel> items = List<InvenModel>.from(dataList.map((model) => InvenModel.fromJson(model)));
+        List<ProductHistoryModel> items =
+            List<ProductHistoryModel>.from(dataList.map((model) => ProductHistoryModel.fromJson(model)));
 
         // // var data = UserInfoModel.fromJson(result.data);
         // return items;
@@ -75,7 +77,7 @@ class InvenRepository {
     String type = "mst_barcode",
     String txt = "",
   }) async {
-    debugPrint("[ku_pad::InvenRepository 제품정보 싹다가져와] API 호출");
+    debugPrint("[animal] ::ProductIn 제품정보 싹다가져와] API 호출");
 
     String month2 = month.padLeft(2, '0');
 
@@ -106,7 +108,8 @@ class InvenRepository {
         var dataList = parseData["data"];
         // debugPrint(dataList.toString());
 
-        List<InvenModel> items = List<InvenModel>.from(dataList.map((model) => InvenModel.fromJson(model)));
+        List<ProductHistoryModel> items =
+            List<ProductHistoryModel>.from(dataList.map((model) => ProductHistoryModel.fromJson(model)));
 
         // // var data = UserInfoModel.fromJson(result.data);
         // return items;

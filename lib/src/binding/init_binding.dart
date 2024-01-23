@@ -6,6 +6,10 @@ import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_repository.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/login/user_repository.dart';
+import 'package:ku_animal_m/src/ui/product_in/product_in_controller.dart';
+import 'package:ku_animal_m/src/ui/product_in/product_in_repository.dart';
+import 'package:ku_animal_m/src/ui/product_out/product_out_controller.dart';
+import 'package:ku_animal_m/src/ui/product_out/product_out_repository.dart';
 import 'package:ku_animal_m/src/ui/search/search_home_controller.dart';
 import 'package:ku_animal_m/src/ui/search/search_repository.dart';
 
@@ -17,8 +21,8 @@ class InitBinding extends Bindings {
     Get.put(HomeController(repository: HomeRepository()), permanent: true);
     Get.put(SearchHomeController(repository: SearchRepository()), permanent: true);
     Get.put(InvenController(repository: InvenRepository()), permanent: true);
-    // Get.put(ProductInController(repository: ProductInRepository()), permanent: true);
-    // Get.put(ProductOutController(repository: ProductOutRepository()), permanent: true);
+    Get.put(ProductInController(repository: ProductInRepository()), permanent: true);
+    Get.put(ProductOutController(repository: ProductOutRepository()), permanent: true);
     Get.put(UserController(repository: UserRepository()), permanent: true);
   }
 }

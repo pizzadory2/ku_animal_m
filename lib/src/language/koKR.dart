@@ -61,4 +61,6 @@ Map<String, String> koKR = <String, String>{
   'filter element': '성분',
   'filter company': '제조사',
   'filter barcode': '바코드',
+  // 회원
+  'member': '회원',
 };

@@ -11,7 +11,7 @@ import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/search_dialog.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product/page_product_list.dart';
-import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
+import 'package:ku_animal_m/src/ui/product/product_recently_model.dart';
 import 'package:ku_animal_m/src/ui/product_in/page_product_reg_in.dart';
 import 'package:ku_animal_m/src/ui/product_out/page_product_reg_out.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
@@ -27,7 +27,7 @@ class PageHome extends StatefulWidget {
 }
 
 class _PageHomeState extends State<PageHome> {
-  final List<ProductHistoryModel> _listDummy = [];
+  final List<ProductRecentlyModel> _listDummy = [];
 
   bool _isLoading = true;
 
@@ -308,8 +308,8 @@ class _PageHomeState extends State<PageHome> {
   }
 
   // 품명, 입고/출고, 수량, 총수량, 날짜
-  _buildProductInfo({required ProductHistoryModel data, required int index}) {
-    // ProductHistoryModel model = ProductHistoryModel(
+  _buildProductInfo({required ProductRecentlyModel data, required int index}) {
+    // ProductRecentlyModel model = ProductRecentlyModel(
     //   name: "맥시부펜",
     //   company: "한국제약",
     //   inoutCount: "30",
@@ -386,7 +386,7 @@ class _PageHomeState extends State<PageHome> {
     List<bool> listProductIn = [true, false, true, false, true];
 
     for (int i = 0; i < 5; i++) {
-      _listDummy.add(ProductHistoryModel(
+      _listDummy.add(ProductRecentlyModel(
         name: listName[i],
         company: listCompany[i],
         inoutCount: listInoutCount[i],

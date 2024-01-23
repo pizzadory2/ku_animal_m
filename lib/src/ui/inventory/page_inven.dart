@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
+import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
@@ -100,7 +101,7 @@ class _PageInvenState extends State<PageInven> {
 
   _buildSearch() {
     return Container(
-        height: 55,
+        height: Dimens.searchHeight,
         padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
         child: Row(
           children: [
@@ -233,6 +234,7 @@ class _PageInvenState extends State<PageInven> {
         controller: _refreshController,
         enablePullDown: true,
         onRefresh: () async {
+          _controllerSearch.clear();
           await InvenController.to.refreshData();
           setState(() {
             debugPrint("0000007777111111");
@@ -245,7 +247,7 @@ class _PageInvenState extends State<PageInven> {
           _refreshController.loadComplete();
         },
         child: itemCount == 0
-            ? _buildEmpty()
+            ? WidgetFactory.emptyWidgetWithFunc(onTap: () => refreshData())
             : ListView.builder(
                 itemCount: itemCount,
                 itemBuilder: (context, index) {
@@ -368,27 +370,5 @@ class _PageInvenState extends State<PageInven> {
     // setState(() {
     //   AppController.to.setLoading(false);
     // });
-  }
-
-  _buildEmpty() {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Utils.ImageAsset("empty_box.png", width: 100, height: 100),
-        SizedBox(height: 20),
-        GestureDetector(
-          onTap: () {
-            refreshData();
-          },
-          child: Icon(
-            Icons.refresh,
-            color: Colors.grey,
-            size: 50,
-          ),
-        ),
-        // Text("empty".tr),
-      ],
-    ));
   }
 }

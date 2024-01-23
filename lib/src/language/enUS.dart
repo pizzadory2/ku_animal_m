@@ -59,4 +59,6 @@ Map<String, String> enUS = <String, String>{
   'filter element': 'element',
   'filter company': 'company',
   'filter barcode': 'barcode',
+  // 회원
+  'member': 'member',
 };
