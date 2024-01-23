@@ -63,4 +63,6 @@ Map<String, String> enUS = <String, String>{
   'filter barcode': 'barcode',
   // 회원
   'member': 'member',
+  // 로딩
+  'Loading...': 'Loading...',
 };

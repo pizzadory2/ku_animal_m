@@ -40,7 +40,7 @@ class SearchHomeController extends GetxController {
     return isSuccess;
   }
 
-  Future<bool> searchData({String type = "mi_name", required String searchData}) async {
+  Future<bool> searchData({String type = "", String searchData = ""}) async {
     isLoading.value = true;
     bool isSuccess = false;
     _list.clear();

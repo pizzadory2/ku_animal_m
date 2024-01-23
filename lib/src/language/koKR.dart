@@ -65,4 +65,6 @@ Map<String, String> koKR = <String, String>{
   'filter barcode': '바코드',
   // 회원
   'member': '회원',
+  // 로딩
+  'Loading...': '로딩중입니다...',
 };

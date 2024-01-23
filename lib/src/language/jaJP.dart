@@ -63,4 +63,6 @@ Map<String, String> jaJP = <String, String>{
   'filter barcode': '바코드',
   // 회원
   'member': 'member',
+  // 로딩
+  'Loading...': 'Loading...',
 };
