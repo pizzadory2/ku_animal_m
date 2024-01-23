@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:get/get.dart';
+
 class Constants {
   static const baseUrl = "http://vmth.today25.com";
 
@@ -28,4 +30,6 @@ class Constants {
   static const api_product_out = "$apiPrefix/reqLogin";
   static const api_product_out_history = "$apiPrefix/reqLogin";
   static const api_client = "$apiPrefix/reqLogin";
+
+  static List<String> filterList = ["filter name".tr, "filter code".tr, "filter element".tr, "filter company".tr];
 }

@@ -55,6 +55,7 @@ Map<String, String> koKR = <String, String>{
   'safe list': '안전재고',
   'product list': '전체품목',
   'empty': 'empty',
+  'filter condition': '검색조건',
   'filter code': '의약품코드',
   'filter name': '의약품명',
   'filter element': '성분',

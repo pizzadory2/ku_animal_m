@@ -279,4 +279,38 @@ class Utils {
       return false;
     }
   }
+
+  static getSearchTypeInven({required int filterIndex}) {
+    switch (filterIndex) {
+      case 0:
+        return "mst_name";
+      case 1:
+        return "mst_code";
+      case 2:
+        return "mst_ingrmst_nameedients";
+      case 3:
+        return "mst_manufacturer";
+      case 4:
+        return "mst_barcode";
+      default:
+        return "mst_name";
+    }
+  }
+
+  static getSearchTypeMain({required int filterIndex}) {
+    switch (filterIndex) {
+      case 0:
+        return "mi_name";
+      case 1:
+        return "mi_code";
+      case 2:
+        return "mi_ingrmst_nameedients";
+      case 3:
+        return "mi_manufacturer";
+      case 4:
+        return "mi_barcode";
+      default:
+        return "mi_name";
+    }
+  }
 }

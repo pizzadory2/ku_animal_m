@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_repository.dart';
 import 'package:ku_animal_m/src/ui/product/inven_model.dart';
 
@@ -60,12 +61,14 @@ class InvenController extends GetxController {
     return isSuccess;
   }
 
-  Future<bool> searchData({required String searchData}) async {
+  Future<bool> searchData({required String searchData, required int filterIndex}) async {
     isLoading.value = true;
     bool isSuccess = false;
     _list.clear();
 
-    await repository.reqReadAll(year: "2024", month: "1", type: "mst_name", txt: searchData).then((value) async {
+    String type = Utils.getSearchTypeInven(filterIndex: filterIndex);
+
+    await repository.reqReadAll(year: "2024", month: "1", type: type, txt: searchData).then((value) async {
       isLoading.value = false;
 
       if (value != null) {

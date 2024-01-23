@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/constants.dart';
 import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
@@ -42,10 +43,18 @@ class _PageInvenState extends State<PageInven> {
     return Stack(
       children: [
         Scaffold(
+          backgroundColor: Colors.white,
           body: Column(
             children: [
               _buildSearch(),
-              _buildFilter(),
+              Row(children: [
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text("filter condition".tr, style: tsBold),
+                ),
+                Expanded(child: _buildFilter()),
+              ]),
               Divider(height: 1, color: Colors.grey[400]),
               _buildList(),
             ],
@@ -91,7 +100,6 @@ class _PageInvenState extends State<PageInven> {
 
   _buildSearch() {
     return Container(
-        color: Colors.white,
         height: 55,
         padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
         child: Row(
@@ -132,6 +140,7 @@ class _PageInvenState extends State<PageInven> {
                             onTap: () {
                               setState(() {
                                 _controllerSearch.clear();
+                                refreshData();
                               });
                             },
                             child: WidgetFactory.searchClearButton(),
@@ -173,7 +182,6 @@ class _PageInvenState extends State<PageInven> {
 
   _buildFilter() {
     int filterCount = 4;
-    List<String> filterList = ["filter name".tr, "filter code".tr, "filter element".tr, "filter company".tr];
 
     return Container(
       height: 42,
@@ -200,7 +208,7 @@ class _PageInvenState extends State<PageInven> {
                   borderRadius: BorderRadius.circular(45),
                 ),
                 child: Text(
-                  filterList[index],
+                  Constants.filterList[index],
                   style: tsDefault.copyWith(
                     color: _filterIndex == index ? Colors.black : Colors.grey,
                     fontWeight: _filterIndex == index ? FontWeight.bold : FontWeight.normal,
@@ -350,7 +358,7 @@ class _PageInvenState extends State<PageInven> {
 
     AppController.to.setLoading(true);
 
-    InvenController.to.searchData(searchData: _controllerSearch.text).then((value) {
+    InvenController.to.searchData(searchData: _controllerSearch.text, filterIndex: _filterIndex).then((value) {
       setState(() {
         // _controllerSearch.clear();
         AppController.to.setLoading(false);

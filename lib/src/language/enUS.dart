@@ -53,6 +53,7 @@ Map<String, String> enUS = <String, String>{
   'safe list': 'safe list',
   'product list': 'product list',
   'empty': 'empty',
+  'filter condition': 'search condition',
   'filter code': 'code',
   'filter name': 'name',
   'filter element': 'element',
