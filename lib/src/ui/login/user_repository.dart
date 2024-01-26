@@ -8,7 +8,7 @@ import 'package:ku_animal_m/src/ui/login/user_model.dart';
 
 class UserRepository {
   Future reqReadAll({required String thsSeq}) async {
-    debugPrint("[ku_pad::user_repository 디바이스 싹다가져와] API 호출");
+    debugPrint("[animal] ::user_repository 디바이스 싹다가져와] API 호출");
 
     var param = {
       "ths_seq": thsSeq,

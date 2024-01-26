@@ -158,7 +158,18 @@ class _InputCountDialogState extends State<InputCountDialog> {
     if (isCancel) {
       return ProductResultData();
     }
-    return ProductResultData();
+
+    if (_controllerInput.text.isEmpty) {
+      _controllerInput.text = "0";
+    }
+
+    int value = int.parse(_controllerInput.text);
+    if (value == 0) {
+      return ProductResultData();
+    }
+
+    DateTime now = DateTime.now();
+    return ProductResultData(year: now.year.toString(), month: now.month.toString(), count: value);
   }
 
   _buildPlusMinusButton() {

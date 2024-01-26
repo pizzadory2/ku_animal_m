@@ -26,17 +26,20 @@ Map<String, String> koKR = <String, String>{
   'in reg': '입고등록',
   'in list': '입고내역',
   'Please enter the quantity received': '입고수량을 입력해주세요.',
+  'Please select the product you wish to stock': '입고할 제품을 선택해주세요',
   // 출고
   'out': '출고',
   'out reg': '출고등록',
   'out list': '출고내역',
   'Please enter the shipment quantity': '출고수량을 입력해주세요.',
+  'Please select the product you wish to ship': '출고할 제품을 선택해주세요',
   'inout': '입출고',
   'inven': '재고',
   'add product': '제품 추가',
   'setting': '설정',
   'alarm': '알람',
   'search': '검색',
+  'No search results': '검색 결과가 없습니다.',
   'QR Scan': 'QR 스캔',
   'search hint': '제품을 검색해보세요',
   'Status of in and out': '물품 입출고 현황',
@@ -74,4 +77,6 @@ Map<String, String> koKR = <String, String>{
   'member': '회원',
   // 로딩
   'Loading...': '로딩중입니다...',
+  // 검색
+  'Select': '선택',
 };

@@ -14,7 +14,7 @@ class InvenRepository {
     String type = "",
     String txt = "",
   }) async {
-    debugPrint("[ku_pad::InvenRepository 제품정보 싹다가져와] API 호출");
+    debugPrint("[animal] ::InvenRepository 제품정보 싹다가져와] API 호출");
 
     String month2 = month.padLeft(2, '0');
 
@@ -75,7 +75,7 @@ class InvenRepository {
     String type = "mst_barcode",
     String txt = "",
   }) async {
-    debugPrint("[ku_pad::InvenRepository 제품정보 싹다가져와] API 호출");
+    debugPrint("[animal] ::InvenRepository 제품정보 싹다가져와] API 호출");
 
     String month2 = month.padLeft(2, '0');
 

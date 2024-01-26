@@ -24,17 +24,20 @@ Map<String, String> jaJP = <String, String>{
   'in reg': 'in reg',
   'in list': 'in list',
   'Please enter the quantity received': 'Please enter the quantity received',
+  'Please select the product you wish to stock': '入庫する商品を選択してください',
   // 출고
   'out': 'out',
   'out reg': 'out reg',
   'out list': 'out list',
   'Please enter the shipment quantity': 'Please enter the shipment quantity',
+  'Please select the product you wish to ship': '出荷する商品を選択してください',
   'inout': 'inout',
   'inven': 'inven',
   'add product': 'add product',
   'setting': 'setting',
   'alarm': 'alarm',
   'search': 'search',
+  'No search results': 'No search results',
   'QR Scan': 'QR Scan',
   'search hint': 'Search for products',
   'Status of in and out': 'Status of in and out',
@@ -72,4 +75,6 @@ Map<String, String> jaJP = <String, String>{
   'member': 'member',
   // 로딩
   'Loading...': 'Loading...',
+  // 검색
+  'Select': 'Select',
 };

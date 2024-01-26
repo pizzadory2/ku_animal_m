@@ -186,6 +186,9 @@ class _PageAppState extends State<PageApp> {
       case PageType.ProductInven:
         result = await InvenController.to.refreshData();
         break;
+      case PageType.ProductRegIn:
+      case PageType.ProductRegOut:
+        break;
       case PageType.Setting:
         // await AppController.to.getSettingData();
         break;

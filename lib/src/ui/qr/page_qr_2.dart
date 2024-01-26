@@ -9,6 +9,10 @@ import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/search_dialog.dart';
 import 'package:ku_animal_m/src/ui/home/home_controller.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
+import 'package:ku_animal_m/src/ui/product_in/product_in_controller.dart';
+import 'package:ku_animal_m/src/ui/product_in/product_in_reg_controller.dart';
+import 'package:ku_animal_m/src/ui/product_out/product_out_controller.dart';
+import 'package:ku_animal_m/src/ui/product_out/product_out_reg_controller.dart';
 import 'package:ku_animal_m/src/ui/qr/qr_scanner_overlay3.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -311,17 +315,14 @@ class _PageQR2State extends State<PageQR2> {
   }
 
   getController() {
-    switch (widget.pageType) {
-      case PageType.Home:
-        return HomeController.to;
-      case PageType.ProductIn:
-        return InvenController.to;
-      case PageType.ProductOut:
-        return InvenController.to;
-      case PageType.ProductInven:
-        return InvenController.to;
-      case PageType.Setting:
-        return HomeController.to;
-    }
+    return switch (widget.pageType) {
+      PageType.Home => HomeController.to,
+      PageType.ProductIn => ProductInController.to,
+      PageType.ProductOut => ProductOutController.to,
+      PageType.ProductInven => InvenController.to,
+      PageType.ProductRegIn => ProductInRegController.to,
+      PageType.ProductRegOut => ProductOutRegController.to,
+      PageType.Setting => HomeController.to
+    };
   }
 }

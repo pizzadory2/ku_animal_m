@@ -21,6 +21,7 @@ class ProductModel {
   final String mi_type_name;
   final String mi_class_name;
   final String pc_main_name;
+  int inout_count = 0;
 
   ProductModel({
     required this.mi_seq,

@@ -4,22 +4,31 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
-import 'package:ku_animal_m/src/ui/product/product_model.dart';
+import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
 
-class SearchRepository {
+class ProductInRegRepository {
   Future reqReadAll({
-    required String condition,
-    required String searchData,
+    required String year,
+    required String month,
+    String gubun = "",
+    String type = "",
+    String txt = "",
   }) async {
-    debugPrint("[animal] SearchRepository 제품정보 싹다가져와] API 호출");
+    debugPrint("[animal] ::ProductIn 제품정보 싹다가져와] API 호출");
+
+    String month2 = month.padLeft(2, '0');
 
     var param = {
-      "sch_condition": condition,
-      "sch_txt": searchData,
+      "sch_year": year,
+      "sch_month": month2,
+      "sch_class": gubun,
+      "sch_type": type,
+      "sch_txt": txt,
+      "msr_type": "IN", // [필수] IN: 입고내역, OUT: 출고내역
     };
 
     try {
-      var api = Constants.api_search;
+      var api = Constants.api_product_in_history;
       var result = await RestClient().dio.get(
             api,
             options: Options(headers: {
@@ -37,7 +46,8 @@ class SearchRepository {
         var dataList = parseData["data"];
         // debugPrint(dataList.toString());
 
-        List<ProductModel> items = List<ProductModel>.from(dataList.map((model) => ProductModel.fromJson(model)));
+        List<ProductHistoryModel> items =
+            List<ProductHistoryModel>.from(dataList.map((model) => ProductHistoryModel.fromJson(model)));
 
         // // var data = UserInfoModel.fromJson(result.data);
         // return items;
@@ -67,7 +77,7 @@ class SearchRepository {
     String type = "mst_barcode",
     String txt = "",
   }) async {
-    debugPrint("[animal] ::SearchRepository 제품정보 싹다가져와] API 호출");
+    debugPrint("[animal] ::ProductIn 제품정보 싹다가져와] API 호출");
 
     String month2 = month.padLeft(2, '0');
 
@@ -98,7 +108,8 @@ class SearchRepository {
         var dataList = parseData["data"];
         // debugPrint(dataList.toString());
 
-        List<ProductModel> items = List<ProductModel>.from(dataList.map((model) => ProductModel.fromJson(model)));
+        List<ProductHistoryModel> items =
+            List<ProductHistoryModel>.from(dataList.map((model) => ProductHistoryModel.fromJson(model)));
 
         // // var data = UserInfoModel.fromJson(result.data);
         // return items;

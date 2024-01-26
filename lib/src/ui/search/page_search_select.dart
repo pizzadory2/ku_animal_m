@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/controllers.dart';
+import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
+import 'package:ku_animal_m/src/ui/dialog/input_count_dialog.dart';
+import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
 import 'package:ku_animal_m/src/ui/search/search_home_controller.dart';
 
-// 메인화면에서 검색어를 입력하여 검색시 이동되는 화면
-class PageSearchResult extends StatefulWidget {
-  const PageSearchResult({super.key, required this.searchText});
+// 입고, 등록시에 제품을 검색하여 선택하는 화면
+class PageSearchSelect extends StatefulWidget {
+  const PageSearchSelect({super.key, this.title = "", this.searchText = "", required this.pageType});
 
+  final String title;
   final String searchText;
+  final PageType pageType;
 
   @override
-  State<PageSearchResult> createState() => _PageSearchResultState();
+  State<PageSearchSelect> createState() => _PageSearchSelectState();
 }
 
-class _PageSearchResultState extends State<PageSearchResult> {
+class _PageSearchSelectState extends State<PageSearchSelect> {
+  // 입고 : Please select the product you wish to stock
+  // 출고 : Please select the product you wish to ship
+
   @override
   Widget build(BuildContext context) {
     int itemCount = SearchHomeController.to.getCount();
@@ -24,7 +33,7 @@ class _PageSearchResultState extends State<PageSearchResult> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "검색어(${widget.searchText})",
+          widget.title,
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -61,8 +70,14 @@ class _PageSearchResultState extends State<PageSearchResult> {
     }
 
     return GestureDetector(
-      onTap: () {
-        //
+      onTap: () async {
+        ProductResultData result = await _showInputCountDialog(context, code: data.mi_code);
+
+        if (result.isNotEmpty) {
+          Controllers.getController(type: widget.pageType).addProduct(data, result.count);
+          debugPrint("[animal] result: ${result.toString()}");
+          Get.back();
+        }
       },
       child: Container(
         margin: const EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
@@ -84,17 +99,15 @@ class _PageSearchResultState extends State<PageSearchResult> {
                     Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
                     Text("주요성분 (${data.mi_ingredients})", style: tsInvenItemCompany),
                     const SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
-                        Text(regDate, style: tsInvenItemCompany.copyWith(color: Colors.black)),
-                      ],
-                    ),
+                    Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
                   ],
                 ),
               ),
             ),
+            Container(
+                margin: EdgeInsets.only(left: 30, right: 10),
+                alignment: Alignment.centerRight,
+                child: Text("Select".tr, style: tsInvenItemCompany.copyWith(color: Colors.black))),
           ],
         ),
       ),
@@ -121,5 +134,18 @@ class _PageSearchResultState extends State<PageSearchResult> {
         // Text("empty".tr),
       ],
     ));
+  }
+
+  _showInputCountDialog(BuildContext context, {required String code}) async {
+    ProductResultData result = await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return InputCountDialog();
+        });
+
+    // Utils.keyboardHide();
+
+    return result;
   }
 }

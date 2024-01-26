@@ -1,5 +1,5 @@
 class ProductResultData {
-  final String code;
+  String code;
   final int count;
   final String year;
   final String month;
@@ -11,6 +11,12 @@ class ProductResultData {
     this.month = "",
   });
 
-  bool get isEmpty => code.isEmpty;
+  @override
+  String toString() {
+    String result = "code:$code, count:$count, year:$year, month:$month";
+    return result;
+  }
+
+  bool get isEmpty => count == 0;
   bool get isNotEmpty => !isEmpty;
 }
