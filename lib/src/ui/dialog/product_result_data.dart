@@ -17,6 +17,6 @@ class ProductResultData {
     return result;
   }
 
-  bool get isEmpty => count == 0;
+  bool get isEmpty => year.isEmpty || month.isEmpty;
   bool get isNotEmpty => !isEmpty;
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/preference.dart';
+import 'package:ku_animal_m/src/network/rest_client.dart';
 import 'package:ku_animal_m/src/ui/login/user_model.dart';
 import 'package:ku_animal_m/src/ui/login/user_repository.dart';
 
@@ -16,6 +17,7 @@ class UserController extends GetxController {
   String userSeq = "";
   String userID = "";
   String userPW = "";
+  String userToken = "";
   UserData userData = UserData();
 
   Future<bool> login(
@@ -58,6 +60,9 @@ class UserController extends GetxController {
             userSeq = userData.seq;
             userID = id;
             userPW = pw;
+            userToken = userData.token;
+
+            RestClient().setToken(userToken);
 
             isSuccess = true;
           } else {
@@ -94,6 +99,7 @@ class UserController extends GetxController {
   void logout() {
     Preference().setString("userId", "");
     Preference().setString("userPw", "");
+    RestClient().removeToken();
 
     clear();
   }

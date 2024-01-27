@@ -3,62 +3,92 @@
 import 'package:ku_animal_m/src/model/base_model.dart';
 
 class HomeModel extends BaseModel {
-  UserData data = UserData();
+  MonthData monthData = MonthData();
+  ItemStatusData itemStatusData = ItemStatusData();
+  List<RecentData> recentDatas = [];
 
-  HomeModel({required this.data});
+  HomeModel();
+  // HomeModel({required this.data});
 
   HomeModel.fromJson(Map<String, dynamic> json) {
-    // if (json['data'] != null) {
-    //   resultMsg = json['result'] ?? "";
-    //   msg = json['msg'] ?? "";
-    // }
     result = json['result'] ?? "";
     msg = json['msg'] ?? "";
 
     // data = json['data'] != null ? UserData.fromJson(json['data']) : UserData();
     if (json['data'] != null) {
-      data = UserData.fromJson(json['data']);
+      monthData = MonthData.fromJson(json['data']);
+      itemStatusData = ItemStatusData.fromJson(json['data']);
+      if (json['data']['recentItems'] != null) {
+        recentDatas = List<RecentData>.from(json['data']['recentItems'].map((model) => RecentData.fromJson(model)));
+      }
     }
   }
 
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = <String, dynamic>{};
-  //   if (result != null) {
-  //     data['data'] = result!.toJson();
-  //   }
-  //   return data;
-  // }
+  clear() {
+    monthData = MonthData();
+    itemStatusData = ItemStatusData();
+    recentDatas = [];
+  }
 }
 
-class UserData {
-  String tu_seq = "";
-  String tu_id = "";
-  String tu_name = "";
+class MonthData {
+  int inCount = 0;
+  int outCount = 0;
+  String start = "";
+  String end = "";
 
-  UserData({this.tu_seq = "", this.tu_id = "", this.tu_name = ""});
+  MonthData({this.inCount = 0, this.outCount = 0, this.start = "", this.end = ""});
 
-  UserData.fromJson(Map<String, dynamic> json) {
-    tu_seq = json['tu_seq'] ?? "";
-    tu_id = json['tu_id'] ?? "";
-    tu_name = json['tu_name'] ?? "";
+  MonthData.fromJson(Map<String, dynamic> json) {
+    if (json["monthStatus"] != null) {
+      inCount = json['monthStatus']['in'] ?? 0;
+      outCount = json['monthStatus']['out'] ?? 0;
+      start = json['monthStatus']['start'] ?? "";
+      end = json['monthStatus']['end'] ?? "";
+    }
   }
+}
 
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = <String, dynamic>{};
-  //   data['id'] = id;
-  //   data['refreshToken'] = tokenRefresh;
-  //   data['jwtToken'] = tokenJWT;
-  //   data['email'] = email;
-  //   data['nick'] = nick;
-  //   data['grade'] = grade;
-  //   data['birth'] = birth;
+class ItemStatusData {
+  int safeCount = 0;
+  int totalCount = 0;
 
-  //   return data;
-  // }
+  ItemStatusData({this.safeCount = 0, this.totalCount = 0});
 
-  clear() {
-    tu_seq = "";
-    tu_id = "";
-    tu_name = "";
+  ItemStatusData.fromJson(Map<String, dynamic> json) {
+    if (json["itemStatus"] != null) {
+      var safe = json['itemStatus']['safe'] ?? "0";
+      var total = json['itemStatus']['total'] ?? "0";
+
+      safeCount = int.parse(safe);
+      totalCount = int.parse(total);
+    }
+  }
+}
+
+class RecentData {
+  String mi_code = "";
+  String mi_name = "";
+  String msr_type = "";
+  String msr_qty = "";
+  String msr_man = "";
+  String msr_date = "";
+
+  RecentData({
+    this.mi_code = "",
+    this.mi_name = "",
+    this.msr_type = "",
+    this.msr_qty = "",
+    this.msr_man = "",
+    this.msr_date = "",
+  });
+
+  RecentData.fromJson(Map<String, dynamic> json) {
+    mi_code = json['mi_code'] ?? "";
+    mi_name = json['mi_name'] ?? "";
+    msr_type = json['msr_type'] ?? "";
+    msr_qty = json['msr_qty'] ?? "";
+    msr_man = json['msr_man'] ?? "";
+    msr_date = json['msr_date'] ?? "";
   }
 }

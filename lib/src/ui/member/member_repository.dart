@@ -25,12 +25,12 @@ class MemberRepository {
       "sch_type": type,
       "sch_txt": txt,
       "msr_type": "IN", // [필수] IN: 입고내역, OUT: 출고내역
+      "command": Constants.api_product_in_history,
     };
 
     try {
-      var api = Constants.api_product_in_history;
       var result = await RestClient().dio.get(
-            api,
+            Constants.api_command,
             options: Options(headers: {
               Headers.contentTypeHeader: Headers.jsonContentType,
               // Headers.contentTypeHeader: Headers.textPlainContentType,
@@ -87,12 +87,12 @@ class MemberRepository {
       "sch_class": gubun,
       "sch_type": type,
       "sch_text": txt,
+      "command": Constants.api_product,
     };
 
     try {
-      var api = Constants.api_product;
       var result = await RestClient().dio.get(
-            api,
+            Constants.api_command,
             options: Options(headers: {
               // Headers.contentTypeHeader: Headers.jsonContentType,
               Headers.contentTypeHeader: Headers.textPlainContentType,

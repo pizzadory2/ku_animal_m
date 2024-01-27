@@ -128,46 +128,57 @@ class _SearchFilterDialogState extends State<SearchFilterDialog> {
 
   _buildFilter() {
     return Container(
-      height: 42,
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      // height: 42,
+      margin: EdgeInsets.symmetric(horizontal: 30),
       alignment: Alignment.center,
       color: Colors.white,
       // color: Colors.grey[100],
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildFilterItem(0),
-            _buildFilterItem(1),
-            _buildFilterItem(2),
-            _buildFilterItem(3),
-          ],
-        ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildFilterItem(0),
+              _buildFilterItem(1),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildFilterItem(2),
+              _buildFilterItem(3),
+            ],
+          ),
+        ],
       ),
     );
   }
 
-  GestureDetector _buildFilterItem(int index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _filterIndex = index;
-        });
-      },
-      child: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        margin: EdgeInsets.only(left: index == 0 ? 0 : 5, top: 3, bottom: 3),
-        decoration: BoxDecoration(
-          color: _filterIndex == index ? ColorsEx.primaryColorLowGreen : Colors.grey[100],
-          border: Border.all(width: 1, color: Colors.grey[300]!),
-          borderRadius: BorderRadius.circular(45),
-        ),
-        child: Text(
-          Constants.filterList[index],
-          style: tsDefault.copyWith(
-            color: _filterIndex == index ? Colors.black : Colors.grey,
-            fontWeight: _filterIndex == index ? FontWeight.bold : FontWeight.normal,
+  _buildFilterItem(int index) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            _filterIndex = index;
+          });
+        },
+        child: Container(
+          height: 35,
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+          // margin: EdgeInsets.only(left: index == 0 ? 0 : 5, top: 3, bottom: 3),
+          decoration: BoxDecoration(
+            color: _filterIndex == index ? ColorsEx.primaryColorLowGreen : Colors.grey[100],
+            border: Border.all(width: 1, color: Colors.grey[300]!),
+            borderRadius: BorderRadius.circular(45),
+          ),
+          child: Text(
+            Constants.filterList[index],
+            style: tsDefault.copyWith(
+              color: _filterIndex == index ? Colors.black : Colors.grey,
+              fontWeight: _filterIndex == index ? FontWeight.bold : FontWeight.normal,
+            ),
           ),
         ),
       ),

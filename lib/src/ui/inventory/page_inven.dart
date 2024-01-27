@@ -8,6 +8,8 @@ import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
+import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
+import 'package:ku_animal_m/src/ui/dialog/select_month_dialog.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
 import 'package:ku_animal_m/src/ui/product/inven_model.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
@@ -25,9 +27,13 @@ class _PageInvenState extends State<PageInven> {
 
   final TextEditingController _controllerSearch = TextEditingController();
   int _filterIndex = 0;
+  String _selectYear = "1900";
+  String _selectMonth = "1";
 
   @override
   void initState() {
+    _selectYear = DateTime.now().year.toString();
+    _selectMonth = DateTime.now().month.toString();
     super.initState();
   }
 
@@ -55,6 +61,14 @@ class _PageInvenState extends State<PageInven> {
                   child: Text("filter condition".tr, style: tsBold),
                 ),
                 Expanded(child: _buildFilter()),
+              ]),
+              Row(children: [
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text("filter month".tr, style: tsBold),
+                ),
+                _buildYearMonth(),
               ]),
               Divider(height: 1, color: Colors.grey[400]),
               _buildList(),
@@ -125,6 +139,11 @@ class _PageInvenState extends State<PageInven> {
                           setState(() {});
                         },
                         onSubmitted: (value) {
+                          if (_controllerSearch.text.isEmpty) {
+                            Utils.showToast("Please input product name".tr);
+                            return;
+                          }
+
                           searchData();
                         },
                         cursorColor: Colors.black,
@@ -156,6 +175,11 @@ class _PageInvenState extends State<PageInven> {
               width: AppController.to.language == "ko" ? 80 : 90,
               child: ElevatedButton(
                 onPressed: () {
+                  if (_controllerSearch.text.isEmpty) {
+                    Utils.showToast("Please input product name".tr);
+                    return;
+                  }
+
                   searchData();
                 },
                 child: Text(
@@ -353,14 +377,12 @@ class _PageInvenState extends State<PageInven> {
   void searchData() {
     Utils.keyboardHide();
 
-    if (_controllerSearch.text.isEmpty) {
-      Utils.showToast("Please input product name".tr);
-      return;
-    }
-
     AppController.to.setLoading(true);
 
-    InvenController.to.searchData(searchData: _controllerSearch.text, filterIndex: _filterIndex).then((value) {
+    InvenController.to
+        .searchData(
+            searchData: _controllerSearch.text, filterIndex: _filterIndex, year: _selectYear, month: _selectMonth)
+        .then((value) {
       setState(() {
         // _controllerSearch.clear();
         AppController.to.setLoading(false);
@@ -370,5 +392,58 @@ class _PageInvenState extends State<PageInven> {
     // setState(() {
     //   AppController.to.setLoading(false);
     // });
+  }
+
+  _buildYearMonth() {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _showSelectMonthDialog(context);
+        });
+      },
+      child: Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(left: 10, top: 3, right: 3, bottom: 3),
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+        decoration: BoxDecoration(
+          color: ColorsEx.primaryColorLowGreen,
+          border: Border.all(width: 1, color: Colors.grey[300]!),
+          borderRadius: BorderRadius.circular(45),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "${_selectYear}년 ${_selectMonth}월",
+              style: tsDefault.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Icon(Icons.arrow_drop_down, color: Colors.black),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _showSelectMonthDialog(context) async {
+    Utils.keyboardHide();
+
+    ProductResultData result = await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return SelectMonthDialog(year: _selectYear, month: _selectMonth);
+        });
+
+    if (result.isNotEmpty) {
+      _selectYear = result.year;
+      _selectMonth = result.month;
+
+      searchData();
+    }
+
+    // return result;
   }
 }

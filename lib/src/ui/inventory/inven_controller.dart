@@ -61,14 +61,15 @@ class InvenController extends GetxController {
     return isSuccess;
   }
 
-  Future<bool> searchData({required String searchData, required int filterIndex}) async {
+  Future<bool> searchData(
+      {required String searchData, required int filterIndex, required String year, required String month}) async {
     isLoading.value = true;
     bool isSuccess = false;
     _list.clear();
 
     String type = Utils.getSearchTypeInven(filterIndex: filterIndex);
 
-    await repository.reqReadAll(year: "2024", month: "1", type: type, txt: searchData).then((value) async {
+    await repository.reqReadAll(year: year, month: month, type: type, txt: searchData).then((value) async {
       isLoading.value = false;
 
       if (value != null) {

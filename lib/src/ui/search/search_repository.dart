@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
+import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
 
 class SearchRepository {
@@ -16,19 +17,26 @@ class SearchRepository {
     var param = {
       "sch_condition": condition,
       "sch_txt": searchData,
+      "command": Constants.api_search,
     };
 
     try {
-      var api = Constants.api_search;
       var result = await RestClient().dio.get(
-            api,
+            Constants.api_command,
+            // options: Options(headers: {
+            //   Headers.contentTypeHeader: Headers.jsonContentType,
+            //   // Headers.contentTypeHeader: Headers.textPlainContentType,
+            //   // "Authorization": "Bearer ${UserController.to.userToken}",
+            // }),
             options: Options(headers: {
               Headers.contentTypeHeader: Headers.jsonContentType,
-              // Headers.contentTypeHeader: Headers.textPlainContentType,
+              // "Authorization": "Bearer ${UserController.to.userToken}"
             }),
             queryParameters: param,
             // data: jsonEncode(param),
           );
+
+      // 'Authorization' : 'Bearer Token'
 
       if (result.data != null) {
         var parseData = jsonDecode(result.toString());
@@ -36,6 +44,9 @@ class SearchRepository {
         // var msg = parseData["msg"].toString();
         var dataList = parseData["data"];
         // debugPrint(dataList.toString());
+        if (dataList == null) {
+          return null;
+        }
 
         List<ProductModel> items = List<ProductModel>.from(dataList.map((model) => ProductModel.fromJson(model)));
 
@@ -77,12 +88,12 @@ class SearchRepository {
       "sch_class": gubun,
       "sch_type": type,
       "sch_text": txt,
+      "command": Constants.api_product,
     };
 
     try {
-      var api = Constants.api_product;
       var result = await RestClient().dio.get(
-            api,
+            Constants.api_command,
             options: Options(headers: {
               // Headers.contentTypeHeader: Headers.jsonContentType,
               Headers.contentTypeHeader: Headers.textPlainContentType,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
@@ -11,6 +12,8 @@ import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/search_dialog.dart';
 import 'package:ku_animal_m/src/ui/dialog/search_filter_dialog.dart';
 import 'package:ku_animal_m/src/ui/dialog/search_result_data.dart';
+import 'package:ku_animal_m/src/ui/home/home_controller.dart';
+import 'package:ku_animal_m/src/ui/home/home_model.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product/page_product_list.dart';
 import 'package:ku_animal_m/src/ui/product/product_recently_model.dart';
@@ -88,8 +91,8 @@ class _PageHomeState extends State<PageHome> {
   }
 
   _buildProductInOutStatus() {
-    String start = "2021-09-01";
-    String end = "2021-09-07";
+    String start = HomeController.to.homeModel.monthData.start;
+    String end = HomeController.to.homeModel.monthData.end;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: Dimens.boxPadding, vertical: Dimens.boxPadding),
@@ -107,7 +110,7 @@ class _PageHomeState extends State<PageHome> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Status of in and out".tr, style: tsMainBoxTitle),
-                  Text("Last week".tr, style: tsMainBoxNormal),
+                  // Text("Last week".tr, style: tsMainBoxNormal),
                 ],
               ),
             ),
@@ -122,7 +125,7 @@ class _PageHomeState extends State<PageHome> {
                         const Icon(Icons.file_download_rounded, color: Colors.blue),
                         SizedBox(
                           height: 40,
-                          child: Text("187", style: tsMainBoxInOutCount),
+                          child: Text("${HomeController.to.homeModel.monthData.inCount}", style: tsMainBoxInOutCount),
                         ),
                         SizedBox(
                           height: 20,
@@ -141,7 +144,7 @@ class _PageHomeState extends State<PageHome> {
                         const Icon(Icons.file_upload_rounded, color: Colors.red),
                         SizedBox(
                           height: 40,
-                          child: Text("356", style: tsMainBoxInOutCount),
+                          child: Text("${HomeController.to.homeModel.monthData.outCount}", style: tsMainBoxInOutCount),
                         ),
                         SizedBox(
                           height: 20,
@@ -181,7 +184,7 @@ class _PageHomeState extends State<PageHome> {
             const SizedBox(height: 10),
             _buildSelectItem(
               title: "Safety stock not met".tr,
-              count: 10,
+              count: HomeController.to.homeModel.itemStatusData.safeCount,
               func: () {
                 // Get.toNamed("/inven");
                 debugPrint("안전재고 미충족");
@@ -190,7 +193,7 @@ class _PageHomeState extends State<PageHome> {
             ),
             _buildSelectItem(
               title: "Product Total Count".tr,
-              count: 256,
+              count: HomeController.to.homeModel.itemStatusData.totalCount,
               func: () {
                 debugPrint("전체 품목수");
                 Get.to(PageProductList());
@@ -240,16 +243,16 @@ class _PageHomeState extends State<PageHome> {
             const Icon(Icons.search, color: Colors.grey),
             Expanded(
               child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
                 // onTap: () => Get.to(const PageSearch()),
                 onTap: () {
-                  // var result = _showDirectInputDialog(context);
                   _showDirectInputDialog(context);
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
-                  // padding: const EdgeInsets.symmetric(horizontal: Dimens.boxPadding, vertical: Dimens.boxPadding),
                   width: double.infinity,
-                  // height: 25,
+                  height: double.infinity,
+                  alignment: Alignment.centerLeft,
                   child: Text("search hint".tr, style: tsSearchHint),
                 ),
               ),
@@ -258,7 +261,7 @@ class _PageHomeState extends State<PageHome> {
             GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () {
-                debugPrint("검색");
+                debugPrint("[animal] 바코드(QR) 검색");
                 Get.to(() => PageQR2(useDirect: false, pageType: PageType.Home));
               },
               child: Container(
@@ -277,7 +280,8 @@ class _PageHomeState extends State<PageHome> {
 
   _buildRecentlyInOut() {
     // 최대 5개
-    int recentlyCount = _listDummy.length;
+    // int recentlyCount = _listDummy.length;
+    int recentlyCount = HomeController.to.homeModel.recentDatas.length;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: Dimens.boxPadding, vertical: Dimens.boxPadding),
@@ -298,7 +302,6 @@ class _PageHomeState extends State<PageHome> {
                 : Column(
                     children: List.generate(recentlyCount, (i) {
                       return _buildProductInfo(
-                        data: _listDummy[i],
                         index: i,
                       );
                     }),
@@ -310,7 +313,7 @@ class _PageHomeState extends State<PageHome> {
   }
 
   // 품명, 입고/출고, 수량, 총수량, 날짜
-  _buildProductInfo({required ProductRecentlyModel data, required int index}) {
+  _buildProductInfo({required int index}) {
     // ProductRecentlyModel model = ProductRecentlyModel(
     //   name: "맥시부펜",
     //   company: "한국제약",
@@ -319,6 +322,9 @@ class _PageHomeState extends State<PageHome> {
     //   regDate: "2021-09-01",
     //   regUser: "superman",
     // );
+
+    RecentData data = HomeController.to.homeModel.recentDatas[index];
+    String date = Utils.getFormatDate(DateTime.parse(data.msr_date));
 
     return SizedBox(
       height: 80,
@@ -331,7 +337,7 @@ class _PageHomeState extends State<PageHome> {
               Expanded(
                 flex: 2,
                 child: Text(
-                  data.name,
+                  data.mi_name,
                   style: tsMainRecentlyName,
                 ),
               ),
@@ -340,7 +346,7 @@ class _PageHomeState extends State<PageHome> {
                 alignment: Alignment.centerRight,
                 width: 100,
                 child: Text(
-                  data.regDate,
+                  date,
                   style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               ),
@@ -351,22 +357,22 @@ class _PageHomeState extends State<PageHome> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Utils.ImageAsset("product_in.png", width: 20, height: 20),
-              data.productIn
+              data.msr_type == "IN"
                   ? const Icon(Icons.keyboard_double_arrow_down, color: Colors.blue)
                   : const Icon(Icons.keyboard_double_arrow_up, color: Colors.red),
               //const FaIcon(FontAwesomeIcons.arrow, color: Colors.blue)
               // : const FaIcon(FontAwesomeIcons.arrowUp, color: Colors.red),
               Text(
-                data.productIn ? "입고 ${data.inoutCount}건" : "출고 ${data.inoutCount}건",
+                data.msr_type == "IN" ? "입고 ${data.msr_qty}건" : "출고 ${data.msr_qty}건",
                 style: tsMainRecentlyCount,
               ),
-              Text(
-                "/전체 ${data.totalCount}개",
-                style: tsMainRecentlyCount,
-              ),
+              // Text(
+              //   "/전체 ${data.totalCount}개",
+              //   style: tsMainRecentlyCount,
+              // ),
               const Spacer(),
               Text(
-                data.regUser,
+                data.msr_man,
                 style: const TextStyle(fontSize: 18, color: Colors.grey),
               ),
             ],

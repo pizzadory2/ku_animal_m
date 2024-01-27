@@ -130,7 +130,7 @@ class _InputCountDialogState extends State<InputCountDialog> {
                 autofocus: true,
                 // onSubmitted: onSubmit,
                 maxLines: 1,
-                maxLength: 15,
+                maxLength: 3,
                 readOnly: false,
                 cursorColor: Colors.black,
                 obscureText: false,
@@ -206,6 +206,10 @@ class _InputCountDialogState extends State<InputCountDialog> {
             } else {
               int value = int.parse(_controllerInput.text);
               value++;
+              if (value > 999) {
+                value = 999;
+              }
+
               _controllerInput.text = value.toString();
             }
           },

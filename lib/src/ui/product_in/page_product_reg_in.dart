@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
@@ -257,7 +256,7 @@ class _PageProductRegInState extends State<PageProductRegIn> {
                 title: "Please select the product you wish to stock".tr,
                 pageType: PageType.ProductRegIn,
               ),
-              transition: Transition.rightToLeft)
+              transition: Transition.fade)
           ?.then((value) {
         setState(() {
           // _controllerSearch.clear();
@@ -284,6 +283,19 @@ class _PageProductRegInState extends State<PageProductRegIn> {
     }
 
     // return result;
+  }
+
+  _showInputCountDialog(BuildContext context, {required String code}) async {
+    ProductResultData result = await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return InputCountDialog();
+        });
+
+    // Utils.keyboardHide();
+
+    return result;
   }
 
   // _showInputCountDialog(BuildContext context) async {
@@ -402,22 +414,31 @@ class _PageProductRegInState extends State<PageProductRegIn> {
                 SizedBox(width: 5),
               ],
             ),
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(top: 3, right: 45),
+              child:
+                  Text("${data.mi_manufacturer} / ${data.mi_type_name} / ${data.mi_class_name}", style: tsProductItem),
+            ),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(data.mi_manufacturer, style: tsInvenItemCompany),
-                      const Spacer(),
-                      Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
-                      Text("주요성분 (${data.mi_ingredients})", style: tsInvenItemCompany),
-                      const SizedBox(height: 5),
-                      Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
-                    ],
+                  Expanded(
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Text(data.mi_manufacturer, style: tsProductItem),
+                          const Spacer(),
+                          // Text("(${data.mi_type_name}/${data.mi_class_name})", style: tsProductItem),
+                          Text("주요성분 (${data.mi_ingredients})", style: tsProductItem),
+                          const SizedBox(height: 5),
+                          Text("함량 ${amount}", style: tsProductItem),
+                        ],
+                      ),
+                    ),
                   ),
-                  Spacer(),
                   _buildInOutCount(data),
                 ],
               ),
@@ -432,12 +453,19 @@ class _PageProductRegInState extends State<PageProductRegIn> {
     String dspCount = Utils.numberFormatMoney(data.inout_count);
 
     return Container(
-      margin: EdgeInsets.only(left: 30, right: 10),
+      width: 120,
+      margin: EdgeInsets.only(left: 10, right: 10),
       alignment: Alignment.bottomRight,
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: () {
-          //
+        onTap: () async {
+          ProductResultData result = await _showInputCountDialog(context, code: data.mi_code);
+
+          if (result.isNotEmpty) {
+            setState(() {
+              data.inout_count = result.count;
+            });
+          }
         },
         child: Container(
           padding: EdgeInsets.only(left: 7, right: 7, top: 1, bottom: 3),
@@ -447,10 +475,11 @@ class _PageProductRegInState extends State<PageProductRegIn> {
           //   borderRadius: BorderRadius.circular(15),
           // ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                "입고수량 ${dspCount}",
-                style: tsInvenItemCompany.copyWith(color: Colors.black),
+                "${"Enter quantity".tr} ${dspCount}",
+                style: tsProductItemBold,
               ),
               SizedBox(width: 5),
               Container(

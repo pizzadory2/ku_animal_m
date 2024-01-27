@@ -27,12 +27,12 @@ class ProductInRegRepository {
       "sch_type": type,
       "sch_txt": txt,
       "msr_type": "IN", // [필수] IN: 입고내역, OUT: 출고내역
+      "command": Constants.api_product_in_history,
     };
 
     try {
-      var api = Constants.api_product_in_history;
       var result = await RestClient().dio.get(
-            api,
+            Constants.api_command,
             options: Options(headers: {
               Headers.contentTypeHeader: Headers.jsonContentType,
               // Headers.contentTypeHeader: Headers.textPlainContentType,
@@ -89,12 +89,12 @@ class ProductInRegRepository {
       "sch_class": gubun,
       "sch_type": type,
       "sch_text": txt,
+      "command": Constants.api_product,
     };
 
     try {
-      var api = Constants.api_product;
       var result = await RestClient().dio.get(
-            api,
+            Constants.api_command,
             options: Options(headers: {
               // Headers.contentTypeHeader: Headers.jsonContentType,
               Headers.contentTypeHeader: Headers.textPlainContentType,
@@ -137,30 +137,44 @@ class ProductInRegRepository {
   reqRegProduct(
       {required List<ProductModel> list, required String year, required String month, required String userSeq}) async {
     String month2 = month.padLeft(2, '0');
+    List<String> miCodeList = list.map((e) => e.mi_code).toList();
+    List<String> inoutCountList = list.map((e) => e.inout_count.toString()).toList();
 
     var param = {
       "sch_year": year,
       "sch_month": month2,
-      "mi_code": list.map((e) => e.mi_code).toList(),
-      "input_qty": list.map((e) => e.inout_count.toString()).toList(),
+      "mi_code[]": miCodeList,
+      "input_qty[]": inoutCountList,
       "user_seq": userSeq,
+      "command": Constants.api_product_in,
     };
 
+    debugPrint(jsonEncode(param).toString());
+
     try {
-      var api = Constants.api_product_in;
       var result = await RestClient().dio.post(
-            api,
+            Constants.api_command,
             options: Options(headers: {
               // Headers.contentTypeHeader: "multipart/form-data",
+              // Headers.contentTypeHeader: "application/json",
               Headers.contentTypeHeader: Headers.formUrlEncodedContentType,
             }),
             data: param,
+            // data: jsonEncode(param),
           );
 
       if (result != null) {
+        if (result.data != null) {
+          int a = 0;
+          a++;
+        }
+
         var parseData = jsonDecode(result.toString());
         // var code = parseData["result"].toString();
         // var msg = parseData["msg"].toString();
+        // if (parseData["result"] != "SUCCESS") {
+        //   return null;
+        // }
 
         ProductRegModel resulModel = ProductRegModel.fromJson(parseData);
 

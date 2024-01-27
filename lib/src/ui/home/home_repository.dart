@@ -4,39 +4,38 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
+import 'package:ku_animal_m/src/ui/home/home_model.dart';
 import 'package:ku_animal_m/src/ui/login/user_model.dart';
 
 class HomeRepository {
-  Future reqReadAll({required String thsSeq}) async {
-    debugPrint("[animal] ::user_repository 디바이스 싹다가져와] API 호출");
+  Future reqReadAll() async {
+    debugPrint("[animal] ::home_repository 대쉬보드 정보 가져오세요] API 호출");
 
     var param = {
-      "ths_seq": thsSeq,
+      "command": Constants.api_dashboard,
     };
 
     try {
-      var api = "/reqDeviceList";
       var result = await RestClient().dio.get(
-            api,
+            Constants.api_command,
             options: Options(headers: {
               Headers.contentTypeHeader: Headers.jsonContentType,
             }),
             queryParameters: param,
-            // data: jsonEncode(param),
           );
 
       if (result.data != null) {
         var parseData = jsonDecode(result.toString());
         // var code = parseData["result"].toString();
         // var msg = parseData["msg"].toString();
-        var dataList = parseData["data"];
-        debugPrint(dataList.toString());
+        // var dataList = parseData["data"];
+        // debugPrint(dataList.toString());
 
-        // List<DeviceModel> items = List<DeviceModel>.from(dataList.map((model) => DeviceModel.fromJson(model)));
+        HomeModel item = HomeModel.fromJson(parseData);
 
         // // var data = UserInfoModel.fromJson(result.data);
         // return items;
-        return null;
+        return item;
       } else {
         return null; // Map()
       }
@@ -103,14 +102,13 @@ class HomeRepository {
   loadAll({required String userSeq}) async {
     debugPrint("[animal::home_repository(대쉬보드)] dashboard API 호출");
 
-    // var param = {
-    //   "ths_seq": thsSeq,
-    // };
+    var param = {
+      "command": Constants.api_dashboard,
+    };
 
     try {
-      var api = Constants.api_dashboard;
       var result = await RestClient().dio.get(
-            api,
+            Constants.api_command,
             options: Options(headers: {
               Headers.contentTypeHeader: Headers.jsonContentType,
             }),

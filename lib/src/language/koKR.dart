@@ -23,6 +23,7 @@ Map<String, String> koKR = <String, String>{
   'email or id': 'email or id',
   'password': 'password',
   'home': '홈',
+
   // 입고
   'in': '입고',
   'in reg': '입고등록',
@@ -32,12 +33,16 @@ Map<String, String> koKR = <String, String>{
   'Do you want to delete it?': '삭제하시겠습니까?',
   'Stock registration has been completed': '입고등록이 완료되었습니다',
   'Registration failed': '등록에 실패했습니다',
+  'Enter quantity': '입고수량',
   // 출고
   'out': '출고',
   'out reg': '출고등록',
   'out list': '출고내역',
   'Please enter the shipment quantity': '출고수량을 입력해주세요.',
   'Please select the product you wish to ship': '출고할 제품을 선택해주세요',
+  'Delivery registration has been completed': '출고등록이 완료되었습니다',
+  'Shipping quantity': '출고수량',
+
   'inout': '입출고',
   'inven': '재고',
   'add product': '제품 추가',
@@ -72,6 +77,7 @@ Map<String, String> koKR = <String, String>{
   'safe list': '안전재고',
   'product list': '전체품목',
   'empty': 'empty',
+  'filter month': '검색년월',
   'filter condition': '검색조건',
   'filter code': '의약품코드',
   'filter name': '의약품명',

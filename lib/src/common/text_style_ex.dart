@@ -246,3 +246,20 @@ TextStyle get tsMemberId => const TextStyle(
       fontWeight: FontWeight.w300,
       color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
     );
+
+// 제품(입고,출고)
+TextStyle get tsProductItem => const TextStyle(
+      // fontFamily: "Pretendard",
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: Colors.black54,
+      overflow: TextOverflow.ellipsis,
+    );
+
+TextStyle get tsProductItemBold => const TextStyle(
+      fontFamily: "Pretendard",
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      color: Colors.black,
+      overflow: TextOverflow.ellipsis,
+    );

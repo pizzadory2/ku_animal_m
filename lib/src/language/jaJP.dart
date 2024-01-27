@@ -21,6 +21,7 @@ Map<String, String> jaJP = <String, String>{
   'email or id': 'email or id',
   'password': 'password',
   'home': 'home',
+
   // 입고
   'in': 'in',
   'in reg': 'in reg',
@@ -30,12 +31,16 @@ Map<String, String> jaJP = <String, String>{
   'Do you want to delete it?': 'Do you want to delete it?',
   'Stock registration has been completed': 'Stock registration has been completed',
   'Registration failed': 'Registration failed',
+  'Enter quantity': 'quantity',
   // 출고
   'out': 'out',
   'out reg': 'out reg',
   'out list': 'out list',
   'Please enter the shipment quantity': 'Please enter the shipment quantity',
   'Please select the product you wish to ship': '出荷する商品を選択してください',
+  'Delivery registration has been completed': 'Delivery registration has been completed',
+  'Shipping quantity': 'quantity',
+
   'inout': 'inout',
   'inven': 'inven',
   'add product': 'add product',
@@ -70,6 +75,7 @@ Map<String, String> jaJP = <String, String>{
   'safe list': 'safe list',
   'product list': 'product list',
   'empty': 'empty',
+  'filter month': 'filter month',
   'filter condition': '条件',
   'filter code': '의약품코드',
   'filter name': '의약품명',

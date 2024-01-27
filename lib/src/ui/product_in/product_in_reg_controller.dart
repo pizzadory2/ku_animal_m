@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
 import 'package:ku_animal_m/src/ui/product/product_reg_model.dart';
 import 'package:ku_animal_m/src/ui/product_in/product_in_reg_repository.dart';
@@ -72,7 +73,8 @@ class ProductInRegController extends GetxController {
 
     if (isSuccess == false) {
       // Utils.showToast(resultMsg);
-      Get.snackbar("Registration failed".tr, resultMsg);
+      Utils.showToast(resultMsg, isCenter: true);
+      // Get.snackbar("Registration failed".tr, resultMsg);
     }
 
     return isSuccess;

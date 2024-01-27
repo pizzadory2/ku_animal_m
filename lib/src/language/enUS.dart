@@ -21,6 +21,7 @@ Map<String, String> enUS = <String, String>{
   'email or id': 'email or id',
   'password': 'password',
   'home': 'home',
+
   // 입고
   'in': 'in',
   'in reg': 'in reg',
@@ -30,12 +31,16 @@ Map<String, String> enUS = <String, String>{
   'Do you want to delete it?': 'Do you want to delete it?',
   'Stock registration has been completed': 'Stock registration has been completed',
   'Registration failed': 'Registration failed',
+  'Enter quantity': '입고수량',
   // 출고
   'out': 'out',
   'out reg': 'out reg',
   'out list': 'out list',
   'Please enter the shipment quantity': 'Please enter the shipment quantity',
   'Please select the product you wish to ship': 'Please select the product you wish to ship',
+  'Delivery registration has been completed': 'Delivery registration has been completed',
+  'Shipping quantity': '출고수량',
+
   'inout': 'inout',
   'inven': 'inven',
   'add product': 'add product',
@@ -70,6 +75,7 @@ Map<String, String> enUS = <String, String>{
   'safe list': 'safe list',
   'product list': 'product list',
   'empty': 'empty',
+  'filter month': 'filter month',
   'filter condition': 'search condition',
   'filter code': 'code',
   'filter name': 'name',

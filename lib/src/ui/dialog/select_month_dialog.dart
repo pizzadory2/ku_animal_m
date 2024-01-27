@@ -8,7 +8,10 @@ import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
 
 class SelectMonthDialog extends StatefulWidget {
-  SelectMonthDialog({super.key});
+  SelectMonthDialog({super.key, this.year = "", this.month = ""});
+
+  String year;
+  String month;
 
   @override
   State<SelectMonthDialog> createState() => _SelectMonthDialogState();
@@ -24,20 +27,22 @@ class _SelectMonthDialogState extends State<SelectMonthDialog> {
   int _selectYear = 1900;
   int _selectMonth = 1;
 
-  final TextEditingController _controllerInput = TextEditingController();
-
   @override
   void initState() {
-    DateTime now = DateTime.now();
-    _selectYear = now.year;
-    _selectMonth = now.month;
+    if (widget.year.isNotEmpty && widget.month.isNotEmpty) {
+      _selectYear = int.parse(widget.year);
+      _selectMonth = int.parse(widget.month);
+    } else {
+      DateTime now = DateTime.now();
+      _selectYear = now.year;
+      _selectMonth = now.month;
+    }
 
     super.initState();
   }
 
   @override
   void dispose() {
-    _controllerInput.dispose();
     super.dispose();
   }
 
@@ -206,17 +211,8 @@ class _SelectMonthDialogState extends State<SelectMonthDialog> {
       return ProductResultData();
     }
 
-    if (_controllerInput.text.isEmpty) {
-      _controllerInput.text = "0";
-    }
-
-    int value = int.parse(_controllerInput.text);
-    if (value == 0) {
-      return ProductResultData();
-    }
-
-    DateTime now = DateTime.now();
-    return ProductResultData(year: now.year.toString(), month: now.month.toString(), count: value);
+    // DateTime now = DateTime.now();
+    return ProductResultData(year: _selectYear.toString(), month: _selectMonth.toString());
   }
 
   _buildMiriBogi() {

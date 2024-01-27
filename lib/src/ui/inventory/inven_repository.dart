@@ -24,12 +24,12 @@ class InvenRepository {
       "sch_class": gubun,
       "sch_type": type,
       "sch_txt": txt,
+      "command": Constants.api_product,
     };
 
     try {
-      var api = Constants.api_product;
       var result = await RestClient().dio.get(
-            api,
+            Constants.api_command,
             options: Options(headers: {
               Headers.contentTypeHeader: Headers.jsonContentType,
               // Headers.contentTypeHeader: Headers.textPlainContentType,
@@ -84,13 +84,13 @@ class InvenRepository {
       "sch_month": month2,
       "sch_class": gubun,
       "sch_type": type,
-      "sch_text": txt,
+      "sch_txt": txt,
+      "command": Constants.api_product,
     };
 
     try {
-      var api = Constants.api_product;
       var result = await RestClient().dio.get(
-            api,
+            Constants.api_command,
             options: Options(headers: {
               // Headers.contentTypeHeader: Headers.jsonContentType,
               Headers.contentTypeHeader: Headers.textPlainContentType,

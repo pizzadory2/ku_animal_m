@@ -38,6 +38,7 @@ class UserData {
   String id = "";
   String name = "";
   String type = "";
+  String token = "";
 
   // 메뉴권한
   bool clientList = false; // "EMPLOYEE_10_10": "N", // 회원리스트
@@ -55,13 +56,14 @@ class UserData {
   bool payReg = false; // "STOCK_10_20": "N",    // 수불처리
   bool warehouseList = false; // "WAREHOUSE_10_10": "N" // 창고리스트
 
-  UserData({this.seq = "", this.id = "", this.name = "", this.type = ""});
+  UserData({this.seq = "", this.id = "", this.name = "", this.type = "", this.token = ""});
 
   UserData.fromJson(Map<String, dynamic> json) {
     seq = json['seq'] ?? "";
     id = json['id'] ?? "";
     name = json['name'] ?? "";
     type = json['type'] ?? "";
+    token = json['token'] ?? "";
 
     var grantList = json["grant"];
     if (grantList != null) {

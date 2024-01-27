@@ -30,6 +30,7 @@ class RestClient {
         receiveTimeout: const Duration(seconds: 30),
         connectTimeout: const Duration(seconds: 30),
         sendTimeout: const Duration(seconds: 30),
+        headers: {'Authorization': 'Bearer asdfasdfasdf'},
       ),
     );
 
@@ -50,7 +51,7 @@ class RestClient {
   }
 
   setToken(String token) {
-    debugPrint("[RestClient] 토큰설정");
+    debugPrint("[RestClient] [animal] 토큰설정 -> $token");
     dio.options.headers["Authorization"] = "Bearer $token";
   }
 
