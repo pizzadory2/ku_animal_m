@@ -6,6 +6,8 @@ import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_repository.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/login/user_repository.dart';
+import 'package:ku_animal_m/src/ui/member/member_controller.dart';
+import 'package:ku_animal_m/src/ui/member/member_repository.dart';
 import 'package:ku_animal_m/src/ui/product_in/product_in_controller.dart';
 import 'package:ku_animal_m/src/ui/product_in/product_in_reg_controller.dart';
 import 'package:ku_animal_m/src/ui/product_in/product_in_reg_repository.dart';
@@ -30,5 +32,6 @@ class InitBinding extends Bindings {
     Get.put(ProductOutController(repository: ProductOutRepository()), permanent: true);
     Get.put(ProductOutRegController(repository: ProductOutRegRepository()), permanent: true);
     Get.put(UserController(repository: UserRepository()), permanent: true);
+    Get.put(MemberController(repository: MemberRepository()), permanent: true);
   }
 }

@@ -210,3 +210,39 @@ TextStyle get tsDialogHint => const TextStyle(
       fontWeight: FontWeight.w300,
       color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
     );
+
+TextStyle get tsDialogMiribogi => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 12,
+      fontWeight: FontWeight.w300,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+    );
+
+// 회원
+TextStyle get tsMemberName => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+    );
+
+TextStyle get tsMemberPhone => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+    );
+
+TextStyle get tsMemberTeam => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+    );
+
+TextStyle get tsMemberId => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+    );

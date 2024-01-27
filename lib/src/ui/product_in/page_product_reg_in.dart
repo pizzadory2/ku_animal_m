@@ -11,6 +11,8 @@ import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/input_count_dialog.dart';
 import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
+import 'package:ku_animal_m/src/ui/dialog/select_month_dialog.dart';
+import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
 import 'package:ku_animal_m/src/ui/product_in/product_in_reg_controller.dart';
 import 'package:ku_animal_m/src/ui/search/page_search_select.dart';
@@ -34,6 +36,7 @@ class _PageProductRegInState extends State<PageProductRegIn> {
 
   @override
   void initState() {
+    ProductInRegController.to.clearData();
     super.initState();
   }
 
@@ -71,6 +74,14 @@ class _PageProductRegInState extends State<PageProductRegIn> {
                     ),
                     Expanded(child: _buildFilter()),
                   ]),
+                  // Row(children: [
+                  //   Container(
+                  //     alignment: Alignment.center,
+                  //     margin: EdgeInsets.only(left: 10),
+                  //     child: Text("입고월".tr, style: tsBold),
+                  //   ),
+                  //   Expanded(child: _buildFilter()),
+                  // ]),
                   Divider(height: 1, color: Colors.grey[400]),
                   _buildList(),
                   _buildRegButton(),
@@ -163,6 +174,7 @@ class _PageProductRegInState extends State<PageProductRegIn> {
 
   _buildList() {
     int itemCount = ProductInRegController.to.getCount();
+
     return Expanded(
       child: itemCount == 0
           ? _buildEmpty()
@@ -176,27 +188,24 @@ class _PageProductRegInState extends State<PageProductRegIn> {
   }
 
   _buildRegButton() {
+    bool isEnable = ProductInRegController.to.getCount() > 0;
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       height: 50,
       child: ElevatedButton(
-          onPressed: () {
-            // _showInputCountDialog(context);
-            // showCupertinoDialog(
-            //     context: context,
-            //     builder: (context) {
-            //       return Container(
-            //         height: 300,
-            //         child: CupertinoDatePicker(
-            //           initialDateTime: DateTime.now(),
-            //           mode: CupertinoDatePickerMode.date,
-            //           onDateTimeChanged: (DateTime newDateTime) {
-            //             debugPrint("newDateTime: $newDateTime");
-            //           },
-            //         ),
-            //       );
-            //     });
-          },
+          onPressed: isEnable
+              ? () {
+                  debugPrint("[animal] 입고등록 버튼 클릭");
+                  // _showSelectMonthDialog(context);
+                  ProductInRegController.to.regProduct(userSeq: UserController.to.userSeq).then((value) {
+                    if (value == true) {
+                      Utils.showToast("Stock registration has been completed".tr, isCenter: true);
+                      Get.back();
+                    }
+                  });
+                }
+              : null,
           child: Center(
             child: Text(
               "in reg".tr,
@@ -257,6 +266,24 @@ class _PageProductRegInState extends State<PageProductRegIn> {
         });
       });
     });
+  }
+
+  _showSelectMonthDialog(context) async {
+    ProductResultData result = await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return SelectMonthDialog();
+        });
+
+    // Utils.keyboardHide();
+
+    if (result.isNotEmpty) {
+      // Get.to(PageSearchResult(searchText: result), transition: Transition.fade);
+      // searchData(result.txt, result.type);
+    }
+
+    // return result;
   }
 
   // _showInputCountDialog(BuildContext context) async {
@@ -344,33 +371,128 @@ class _PageProductRegInState extends State<PageProductRegIn> {
         padding: const EdgeInsets.all(15),
         height: 150,
         decoration: WidgetFactory.boxDecoration(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
           children: [
-            Expanded(
-              child: Container(
-                alignment: Alignment.topLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(data.mi_name, style: tsInvenItemName),
-                    Text(data.mi_manufacturer, style: tsInvenItemCompany),
-                    const Spacer(),
-                    Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
-                    Text("주요성분 (${data.mi_ingredients})", style: tsInvenItemCompany),
-                    const SizedBox(height: 5),
-                    Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
-                  ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(child: Text(data.mi_name, style: tsInvenItemName)),
+                SizedBox(width: 10),
+                GestureDetector(
+                  onTap: () {
+                    Utils.showYesNoDialog(context).then((value) {
+                      if (value == true) {
+                        setState(() {
+                          ProductInRegController.to.removeProduct(data);
+                        });
+                      }
+                    });
+
+                    // _showYesNoDialog(context).then((value) {
+                    //   if (value == true) {
+                    //     setState(() {
+                    //       ProductInRegController.to.removeProduct(data);
+                    //     });
+                    //   }
+                    // });
+                  },
+                  child: Icon(Icons.close, size: 20, color: Colors.grey),
                 ),
+                SizedBox(width: 5),
+              ],
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(data.mi_manufacturer, style: tsInvenItemCompany),
+                      const Spacer(),
+                      Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
+                      Text("주요성분 (${data.mi_ingredients})", style: tsInvenItemCompany),
+                      const SizedBox(height: 5),
+                      Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
+                    ],
+                  ),
+                  Spacer(),
+                  _buildInOutCount(data),
+                ],
               ),
             ),
-            Container(
-                margin: EdgeInsets.only(left: 30, right: 10),
-                alignment: Alignment.centerRight,
-                child: Text("${data.inout_count}", style: tsInvenItemCompany.copyWith(color: Colors.black))),
           ],
         ),
       ),
     );
   }
+
+  Container _buildInOutCount(ProductModel data) {
+    String dspCount = Utils.numberFormatMoney(data.inout_count);
+
+    return Container(
+      margin: EdgeInsets.only(left: 30, right: 10),
+      alignment: Alignment.bottomRight,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          //
+        },
+        child: Container(
+          padding: EdgeInsets.only(left: 7, right: 7, top: 1, bottom: 3),
+          // decoration: BoxDecoration(
+          //   // color: Colors.grey[200],
+          //   color: ColorsEx.primaryColor,
+          //   borderRadius: BorderRadius.circular(15),
+          // ),
+          child: Row(
+            children: [
+              Text(
+                "입고수량 ${dspCount}",
+                style: tsInvenItemCompany.copyWith(color: Colors.black),
+              ),
+              SizedBox(width: 5),
+              Container(
+                  padding: EdgeInsets.only(top: 2),
+                  // decoration: BoxDecoration(
+                  //   // color: ColorsEx.primaryColorGrey,
+                  //   color: ColorsEx.primaryColorLowGreen,
+                  //   borderRadius: BorderRadius.all(Radius.circular(5)),
+                  // ),
+                  child: Icon(Icons.edit, color: Colors.black54, size: 16)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // _showYesNoDialog(BuildContext context) {
+  //   return showDialog(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           title: Text(
+  //             "Do you want to delete it?".tr,
+  //             style: tsDialogBody,
+  //           ),
+  //           actions: [
+  //             TextButton(
+  //               onPressed: () {
+  //                 Get.back(result: false);
+  //               },
+  //               child: Text("No".tr),
+  //             ),
+  //             TextButton(
+  //               onPressed: () {
+  //                 Get.back(result: true);
+  //               },
+  //               child: Text("Yes".tr),
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 }

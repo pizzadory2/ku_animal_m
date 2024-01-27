@@ -10,13 +10,24 @@ class ThemeEx {
       buttonColor: ColorsEx.primaryColor,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-          ColorsEx.primaryColor,
-        ), //button color
-        foregroundColor: MaterialStateProperty.all<Color>(
-          const Color(0xffffffff),
-        ), //text (and icon)
+      style: ElevatedButton.styleFrom(
+        backgroundColor: ColorsEx.primaryColor,
+        foregroundColor: const Color(0xffffffff),
+        disabledBackgroundColor: Color(0xffe0e0e0),
+        disabledForegroundColor: Color(0xffa0a0a0),
+      ),
+      //  ButtonStyle(
+      //   backgroundColor: MaterialStateProperty.all<Color>(
+      //     ColorsEx.primaryColor,
+      //   ), //button color
+      //   foregroundColor: MaterialStateProperty.all<Color>(
+      //     const Color(0xffffffff),
+      //   ), //text (and icon)
+      // ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: ColorsEx.primaryColor,
       ),
     ),
     checkboxTheme: CheckboxThemeData(

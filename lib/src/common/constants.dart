@@ -43,4 +43,20 @@ class Constants {
   static const api_product_out_history = "$apiPrefix/reqStockHistory";
 
   static List<String> filterList = ["filter name".tr, "filter code".tr, "filter element".tr, "filter company".tr];
+
+  // month
+  static List<String> monthList = [
+    "jan".tr,
+    "feb".tr,
+    "mar".tr,
+    "apr".tr,
+    "may".tr,
+    "jun".tr,
+    "jul".tr,
+    "aug".tr,
+    "sep".tr,
+    "oct".tr,
+    "nov".tr,
+    "dec".tr
+  ];
 }

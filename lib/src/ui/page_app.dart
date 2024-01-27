@@ -14,6 +14,7 @@ import 'package:ku_animal_m/src/ui/home/page_home.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
 import 'package:ku_animal_m/src/ui/inventory/page_inven.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
+import 'package:ku_animal_m/src/ui/member/page_member.dart';
 import 'package:ku_animal_m/src/ui/product_in/page_product_in.dart';
 import 'package:ku_animal_m/src/ui/product_in/product_in_controller.dart';
 import 'package:ku_animal_m/src/ui/product_out/page_product_out.dart';
@@ -66,11 +67,12 @@ class _PageAppState extends State<PageApp> {
                   IconButton(
                     icon: const FaIcon(FontAwesomeIcons.solidBell),
                     onPressed: () {
-                      Get.to(const PageAlarm())?.then((value) {
-                        setState(() {
-                          //
-                        });
-                      });
+                      Get.to(PageMember());
+                      // Get.to(const PageAlarm())?.then((value) {
+                      //   setState(() {
+                      //     //
+                      //   });
+                      // });
                     },
                   ),
                 ],

@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
 import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
-import 'package:ku_animal_m/src/ui/product/product_model.dart';
-import 'package:ku_animal_m/src/ui/product/product_reg_model.dart';
 
-class ProductInRegRepository {
+class MemberRepository {
   Future reqReadAll({
     required String year,
     required String month,
@@ -116,55 +114,6 @@ class ProductInRegRepository {
         // // var data = UserInfoModel.fromJson(result.data);
         // return items;
         return items;
-      } else {
-        return null; // Map()
-      }
-    } on DioException catch (e) {
-      if (e.response != null) {
-        debugPrint(e.response!.data.toString());
-        debugPrint(e.response!.headers.toString());
-        // debugPrint(e.response!.requestOptions.toString());
-      } else {
-        // Something happened in setting up or sending the request that triggered an Error
-        // debugPrint(e.requestOptions.toString());
-        debugPrint(e.message);
-      }
-    }
-
-    return null;
-  }
-
-  reqRegProduct(
-      {required List<ProductModel> list, required String year, required String month, required String userSeq}) async {
-    String month2 = month.padLeft(2, '0');
-
-    var param = {
-      "sch_year": year,
-      "sch_month": month2,
-      "mi_code": list.map((e) => e.mi_code).toList(),
-      "input_qty": list.map((e) => e.inout_count.toString()).toList(),
-      "user_seq": userSeq,
-    };
-
-    try {
-      var api = Constants.api_product_in;
-      var result = await RestClient().dio.post(
-            api,
-            options: Options(headers: {
-              // Headers.contentTypeHeader: "multipart/form-data",
-              Headers.contentTypeHeader: Headers.formUrlEncodedContentType,
-            }),
-            data: param,
-          );
-
-      if (result != null) {
-        var parseData = jsonDecode(result.toString());
-        // var code = parseData["result"].toString();
-        // var msg = parseData["msg"].toString();
-
-        ProductRegModel resulModel = ProductRegModel.fromJson(parseData);
-
-        return resulModel;
       } else {
         return null; // Map()
       }

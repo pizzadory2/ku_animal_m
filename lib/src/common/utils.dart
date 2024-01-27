@@ -6,7 +6,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:ku_animal_m/src/common/text_style_ex.dart';
 
 class Utils {
   static Image ImageAsset(String filename, {double? width, double? height, bool isFill = true}) {
@@ -324,5 +326,59 @@ class Utils {
 
   static String numberFormatMoney(int src) {
     return NumberFormat('###,###,###,###').format(src).replaceAll(' ', '');
+  }
+
+  static showYesNoDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              "Do you want to delete it?".tr,
+              style: tsDialogBody,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.back(result: false);
+                },
+                child: Text("No".tr),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.back(result: true);
+                },
+                child: Text("Yes".tr),
+              ),
+            ],
+          );
+        });
+  }
+
+  static showYesNoDialogSystem(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("title"),
+            content: const Text("content"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
+                child: const Text("yes"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
+                child: const Text("no"),
+              ),
+            ],
+          );
+        });
   }
 }

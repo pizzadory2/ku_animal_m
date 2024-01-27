@@ -11,15 +11,15 @@ class InterceptorEx extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    debugPrint('REQUEST[${options.data}');
-    debugPrint('REQUEST[${options.method}] => PATH: ${options.path}');
+    debugPrint('REQUEST[${options.data}]');
+    debugPrint('REQUEST[${options.method}] => PATH: ${options.path}]');
     return handler.next(options);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
     // debugPrint("RESPONSE-Data: ${response.data}");
-    debugPrint('RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
+    debugPrint('RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}]');
 
     // final responseBody = jsonDecode(response.toString());
     // var profileDetected = responseBody["profileDetected"];
