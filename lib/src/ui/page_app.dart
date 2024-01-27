@@ -32,12 +32,14 @@ class _PageAppState extends State<PageApp> {
   DateTime backPressedTime = DateTime.now();
 
   int _selectIndex = 0;
+  bool _isFirst = true;
 
   final List<Widget> _pages = [];
   // final List<BottomNavigationBarItem> _bottomNavigations = [];
 
   @override
   void initState() {
+    _isFirst = true;
     initPage();
     refreshData();
     PermissionManager().requestCameraPermission(context);
@@ -65,7 +67,8 @@ class _PageAppState extends State<PageApp> {
                 ),
                 actions: [
                   IconButton(
-                    icon: const FaIcon(FontAwesomeIcons.solidBell),
+                    icon: const Icon(Icons.person),
+                    // icon: const FaIcon(FontAwesomeIcons.solidBell),
                     onPressed: () {
                       Get.to(PageMember());
                       // Get.to(const PageAlarm())?.then((value) {
@@ -82,7 +85,7 @@ class _PageAppState extends State<PageApp> {
               //   index: _selectIndex,
               //   children: _pages,
               // ),
-              body: _pages[_selectIndex],
+              body: _isFirst ? Container() : _pages[_selectIndex],
               bottomNavigationBar: BottomNavigationBar(
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
@@ -169,7 +172,7 @@ class _PageAppState extends State<PageApp> {
     return true;
   }
 
-  void refreshData() async {
+  void refreshData({bool first = false}) async {
     debugPrint("000000000333333333");
     AppController.to.setLoading(true);
 
@@ -203,6 +206,7 @@ class _PageAppState extends State<PageApp> {
     }
 
     setState(() {
+      _isFirst = false;
       AppController.to.setLoading(false);
     });
 

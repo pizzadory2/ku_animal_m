@@ -24,12 +24,13 @@ class SearchHomeController extends GetxController {
   Future<bool> searchBarcode({required String searchData}) async {
     isLoading.value = true;
     bool isSuccess = false;
+    _list.clear();
 
-    await repository.reqSearchBarcode(year: "2024", month: "1", txt: searchData).then((value) async {
+    await repository.reqSearchBarcode(txt: searchData).then((value) async {
       isLoading.value = false;
 
       if (value != null) {
-        _list = value;
+        _list.add(value);
         isSuccess = true;
       } else {
         isSuccess = false;

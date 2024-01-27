@@ -72,23 +72,13 @@ class SearchRepository {
   }
 
   Future reqSearchBarcode({
-    required String year,
-    required String month,
-    String gubun = "",
-    String type = "mst_barcode",
     String txt = "",
   }) async {
     debugPrint("[animal] ::SearchRepository 제품정보 싹다가져와] API 호출");
 
-    String month2 = month.padLeft(2, '0');
-
     var param = {
-      "sch_year": year,
-      "sch_month": month2,
-      "sch_class": gubun,
-      "sch_type": type,
-      "sch_text": txt,
-      "command": Constants.api_product,
+      "sch_txt": txt,
+      "command": Constants.api_search_barcode,
     };
 
     try {
@@ -109,11 +99,12 @@ class SearchRepository {
         var dataList = parseData["data"];
         // debugPrint(dataList.toString());
 
-        List<ProductModel> items = List<ProductModel>.from(dataList.map((model) => ProductModel.fromJson(model)));
+        // List<ProductModel> items = List<ProductModel>.from(dataList.map((model) => ProductModel.fromJson(model)));
+        ProductModel item = ProductModel.fromJson(dataList);
 
         // // var data = UserInfoModel.fromJson(result.data);
         // return items;
-        return items;
+        return item;
       } else {
         return null; // Map()
       }

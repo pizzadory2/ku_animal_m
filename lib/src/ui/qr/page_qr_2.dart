@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
+import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/search_dialog.dart';
 import 'package:ku_animal_m/src/ui/home/home_controller.dart';
@@ -14,6 +15,8 @@ import 'package:ku_animal_m/src/ui/product_in/product_in_reg_controller.dart';
 import 'package:ku_animal_m/src/ui/product_out/product_out_controller.dart';
 import 'package:ku_animal_m/src/ui/product_out/product_out_reg_controller.dart';
 import 'package:ku_animal_m/src/ui/qr/qr_scanner_overlay3.dart';
+import 'package:ku_animal_m/src/ui/search/page_search_result.dart';
+import 'package:ku_animal_m/src/ui/search/search_home_controller.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class PageQR2 extends StatefulWidget {
@@ -153,6 +156,8 @@ class _PageQR2State extends State<PageQR2> {
                       // String data = barcode.rawValue ?? "---";
                       String data = barcode.rawValue ?? "";
                       debugPrint("[animal] data: $data");
+                      searchData(data);
+                      // Get.off(() => PageQR2Result(barcodeData: data));
                       // var result = await Get.to(() => PageQRResult(barcodeData: data));
                       // if (result == null) {
                       //   setState(() {
@@ -160,8 +165,6 @@ class _PageQR2State extends State<PageQR2> {
                       //     _enableScan = false;
                       //   });
                       // }
-
-                      getController().searchBarcode(searchData: data);
 
                       // Get.off(() => PageQR2Result(barcodeData: data));
                     }
@@ -324,5 +327,77 @@ class _PageQR2State extends State<PageQR2> {
       PageType.ProductRegOut => ProductOutRegController.to,
       PageType.Setting => HomeController.to
     };
+  }
+
+  void searchData(String searchText) {
+    AppController.to.setLoading(true);
+
+    switch (widget.pageType) {
+      case (PageType.Home):
+        {
+          // searchText = "0108806536028011172402111021C0012110575573251751";
+          SearchHomeController.to.searchBarcode(searchData: searchText).then((value) {
+            setState(() {
+              AppController.to.setLoading(false);
+              Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
+            });
+          });
+          break;
+        }
+      case (PageType.ProductIn):
+        {
+          // ProductInController.to.searchData(searchText: searchText).then((value) {
+          //   setState(() {
+          //     AppController.to.setLoading(false);
+          //     Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
+          //   });
+          // });
+          break;
+        }
+      case (PageType.ProductOut):
+        {
+          // ProductOutController.to.searchData(searchText: searchText).then((value) {
+          //   setState(() {
+          //     AppController.to.setLoading(false);
+          //     Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
+          //   });
+          // });
+          break;
+        }
+      case (PageType.ProductInven):
+        {
+          // InvenController.to.searchData(searchText: searchText).then((value) {
+          //   setState(() {
+          //     AppController.to.setLoading(false);
+          //     Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
+          //   });
+          // });
+          break;
+        }
+      case (PageType.ProductRegIn):
+        {
+          // ProductInRegController.to.searchData(searchText: searchText).then((value) {
+          //   setState(() {
+          //     AppController.to.setLoading(false);
+          //     Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
+          //   });
+          // });
+          break;
+        }
+      case (PageType.ProductRegOut):
+        {
+          // ProductOutRegController.to.searchData(searchText: searchText).then((value) {
+          //   setState(() {
+          //     AppController.to.setLoading(false);
+          //     Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
+          //   });
+          // });
+          break;
+        }
+      case (PageType.Setting):
+        {
+          break;
+        }
+    }
   }
 }
