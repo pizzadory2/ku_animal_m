@@ -27,6 +27,8 @@ class _PageInvenState extends State<PageInven> {
 
   final TextEditingController _controllerSearch = TextEditingController();
   int _filterIndex = 0;
+  FilterType _filterType = FilterType.Name;
+
   String _selectYear = "1900";
   String _selectMonth = "1";
 
@@ -193,10 +195,18 @@ class _PageInvenState extends State<PageInven> {
               // width: 50,
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onTap: () {
+                onTap: () async {
                   debugPrint("[animal] [입고내역] Click QR");
                   // var result = Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductInven));
-                  Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductInven));
+                  Utils.keyboardHide();
+                  var result = await Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductInven));
+
+                  if (result != null) {
+                    _controllerSearch.text = result;
+                    _filterIndex = 4;
+                    _filterType = FilterType.Barcode;
+                    searchData();
+                  }
                 },
                 child: const Icon(Icons.qr_code_rounded, size: 30, color: Colors.black54),
               ),
@@ -289,6 +299,7 @@ class _PageInvenState extends State<PageInven> {
 
     InvenModel data = InvenController.to.getItem(index);
     String amount = data.mst_content.isEmpty ? "-" : "(${data.mst_content})";
+    String ingredients = data.mst_ingredients.isEmpty ? "-" : data.mst_ingredients;
 
     return GestureDetector(
       onTap: () {
@@ -312,7 +323,7 @@ class _PageInvenState extends State<PageInven> {
                     Text(data.mst_manufacturer, style: tsInvenItemCompany),
                     const Spacer(),
                     Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
-                    Text("주요성분 (${data.mst_ingredients})", style: tsInvenItemCompany),
+                    Text("주요성분 (${ingredients})", style: tsInvenItemCompany),
                     const SizedBox(height: 5),
                     Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
                   ],

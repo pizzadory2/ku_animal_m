@@ -8,4 +8,7 @@ class Dimens {
 
   // 검색창
   static const double searchHeight = 55.0;
+
+  // 입고,출고 등록
+  static const double qtyButtonWidth = 130.0;
 }

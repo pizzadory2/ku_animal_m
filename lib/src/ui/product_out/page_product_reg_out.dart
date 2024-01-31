@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
+import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
@@ -12,6 +13,7 @@ import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
 import 'package:ku_animal_m/src/ui/product_out/product_out_reg_controller.dart';
+import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
 import 'package:ku_animal_m/src/ui/search/page_search_select.dart';
 import 'package:ku_animal_m/src/ui/search/search_home_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -30,6 +32,7 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
 
   final TextEditingController _controllerSearch = TextEditingController();
   int _filterIndex = 0;
+  FilterType _filterType = FilterType.Name;
 
   @override
   void initState() {
@@ -157,8 +160,17 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
               // width: 50,
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onTap: () {
+                onTap: () async {
                   debugPrint("QR");
+                  Utils.keyboardHide();
+                  var result = await Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductRegOut));
+
+                  if (result != null) {
+                    _controllerSearch.text = result;
+                    _filterIndex = 4;
+                    _filterType = FilterType.Barcode;
+                    searchData();
+                  }
                 },
                 child: const Icon(Icons.qr_code_rounded, size: 30, color: Colors.black54),
               ),
@@ -260,113 +272,30 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
     }
 
     ProductModel data = ProductOutRegController.to.getItem(index);
-    String amount = data.mi_content.isEmpty ? "-" : "(${data.mi_content})";
-    String regDate = data.reg_date;
-    if (regDate.isNotEmpty) {
-      var date = DateTime.parse(regDate);
-      regDate = "등록일 ${date.year}.${date.month}.${date.day}";
-    }
 
-    return GestureDetector(
-      onTap: () {
-        debugPrint("[animal] ::추가된 아이템 클릭(${index})");
-      },
-      child: Container(
-        margin: const EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
-        padding: const EdgeInsets.all(15),
-        height: 150,
-        decoration: WidgetFactory.boxDecoration(),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(child: Text(data.mi_name, style: tsInvenItemName)),
-                SizedBox(width: 10),
-                GestureDetector(
-                  onTap: () {
-                    Utils.showYesNoDialog(context).then((value) {
-                      if (value == true) {
-                        setState(() {
-                          ProductOutRegController.to.removeProduct(data);
-                        });
-                      }
-                    });
-                  },
-                  child: Icon(Icons.close, size: 20, color: Colors.grey),
-                ),
-                SizedBox(width: 5),
-              ],
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(top: 3, right: 45),
-              child:
-                  Text("${data.mi_manufacturer} / ${data.mi_type_name} / ${data.mi_class_name}", style: tsProductItem),
-            ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Text(data.mi_manufacturer, style: tsProductItem),
-                          const Spacer(),
-                          // Text("(${data.mi_type_name}/${data.mi_class_name})", style: tsProductItem),
-                          Text("주요성분 (${data.mi_ingredients})", style: tsProductItem),
-                          const SizedBox(height: 5),
-                          Text("함량 ${amount}", style: tsProductItem),
-                        ],
-                      ),
-                    ),
-                  ),
-                  _buildInOutCount(data),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Container _buildInOutCount(ProductModel data) {
-    String dspCount = Utils.numberFormatMoney(data.inout_count);
-
-    return Container(
-      width: 120,
-      margin: EdgeInsets.only(left: 10, right: 10),
-      alignment: Alignment.bottomRight,
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () async {
-          ProductResultData result = await _showInputCountDialog(context, code: data.mi_code);
-
-          if (result.isNotEmpty) {
+    return WidgetFactory.regItem(
+      data: data,
+      index: index,
+      countText: "Shipping quantity".tr,
+      onPress: () {},
+      onRemove: () {
+        Utils.showYesNoDialog(context).then((value) {
+          if (value == true) {
             setState(() {
-              data.inout_count = result.count;
+              ProductOutRegController.to.removeProduct(data);
             });
           }
-        },
-        child: Container(
-          padding: EdgeInsets.only(left: 7, right: 7, top: 1, bottom: 3),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                "${"Enter quantity".tr} ${dspCount}",
-                style: tsProductItemBold,
-              ),
-              SizedBox(width: 5),
-              Container(padding: EdgeInsets.only(top: 2), child: Icon(Icons.edit, color: Colors.black54, size: 16)),
-            ],
-          ),
-        ),
-      ),
+        });
+      },
+      onChangeQty: () async {
+        ProductResultData result = await _showInputCountDialog(context, code: data.mi_code);
+
+        if (result.isNotEmpty) {
+          setState(() {
+            data.inout_count = result.count;
+          });
+        }
+      },
     );
   }
 
@@ -400,7 +329,7 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
 
       Get.to(
               PageSearchSelect(
-                title: "Please select the product you wish to stock".tr,
+                title: "Please select the product you wish to ship".tr,
                 pageType: PageType.ProductRegOut,
               ),
               transition: Transition.fade)

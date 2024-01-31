@@ -1,16 +1,21 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
+import 'package:ku_animal_m/src/ui/home/page_home.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
 import 'package:ku_animal_m/src/ui/search/search_home_controller.dart';
 
 // 메인화면에서 검색어를 입력하여 검색시 이동되는 화면
 class PageSearchResult extends StatefulWidget {
-  const PageSearchResult({super.key, required this.searchText});
+  PageSearchResult({super.key, required this.searchText, this.pageType = PageType.Home});
 
   final String searchText;
+  PageType pageType;
 
   @override
   State<PageSearchResult> createState() => _PageSearchResultState();
@@ -62,7 +67,8 @@ class _PageSearchResultState extends State<PageSearchResult> {
 
     return GestureDetector(
       onTap: () {
-        //
+        int a = 0;
+        a++;
       },
       child: Container(
         margin: const EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
@@ -121,5 +127,15 @@ class _PageSearchResultState extends State<PageSearchResult> {
         // Text("empty".tr),
       ],
     ));
+  }
+
+  backAction() {
+    // if (widget.pageType == PageType.Home) {
+    //   Get.off(PageHome());
+    // } else {
+    //   Get.back();
+    // }
+
+    return false;
   }
 }

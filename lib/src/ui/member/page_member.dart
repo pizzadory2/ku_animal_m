@@ -6,6 +6,7 @@ import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/ui/member/member_controller.dart';
+import 'package:ku_animal_m/src/ui/member/member_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PageMember extends StatefulWidget {
@@ -54,8 +55,8 @@ class _PageMemberState extends State<PageMember> {
             child: Column(
               children: [
                 // _buildSearch(),
-                const SizedBox(height: Dimens.searchHeight),
-                Divider(height: 1, color: Colors.grey[400]),
+                // const SizedBox(height: Dimens.searchHeight),
+                // Divider(height: 1, color: Colors.grey[400]),
                 _buildList(),
                 // SizedBox(height: 10),
               ],
@@ -148,7 +149,6 @@ class _PageMemberState extends State<PageMember> {
 
   _buildList() {
     int itemCount = MemberController.to.getCount();
-    itemCount = 10;
 
     return Expanded(
       child: itemCount == 0
@@ -163,29 +163,34 @@ class _PageMemberState extends State<PageMember> {
   }
 
   _buildMemberItem(int index) {
-    //MemberController.to.getItem(index)
-    String name = "김태리";
-    String phone = "010-1234-5678";
-    String team = "신경외과";
+    MemberModel item = MemberController.to.getItem(index);
+
+    String name = item.tu_name;
+    String phone = item.tu_phone;
+    String team = item.si_name;
+    String email = item.tu_email;
 
     return Container(
         height: Dimens.memberItemHeight,
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
           color: Colors.white,
           // color: Colors.grey[100],
           border: Border(bottom: BorderSide(width: 1, color: Colors.grey[300]!)),
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Container(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.only(right: 10),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(name, style: tsMemberName),
-                    Text(phone, style: tsMemberPhone),
+                    Text(team, style: tsMemberPhone),
+                    Spacer(),
+                    Text(email, style: tsMemberEmail),
                   ],
                 ),
               ),
@@ -201,11 +206,22 @@ class _PageMemberState extends State<PageMember> {
   void searchData() {}
 
   refreshData() async {
-    //
-    Future.delayed(Duration(seconds: 3)).then((value) {
-      setState(() {
-        _isLoading = false;
-      });
+    setState(() {
+      _isLoading = true;
     });
+    //
+    // Future.delayed(Duration(seconds: 3)).then((value) {
+    //   setState(() {
+    //     _isLoading = false;
+    //   });
+    // });
+
+    await MemberController.to.refreshData().then(
+          (value) => setState(
+            () {
+              _isLoading = false;
+            },
+          ),
+        );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
@@ -9,7 +8,6 @@ import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
-import 'package:ku_animal_m/src/ui/dialog/search_dialog.dart';
 import 'package:ku_animal_m/src/ui/dialog/search_filter_dialog.dart';
 import 'package:ku_animal_m/src/ui/dialog/search_result_data.dart';
 import 'package:ku_animal_m/src/ui/home/home_controller.dart';
@@ -443,7 +441,7 @@ class _PageHomeState extends State<PageHome> {
   }
 
   _showDirectInputDialog(BuildContext context) async {
-    SearchResultData result = await showDialog(
+    SearchResultData? result = await showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
@@ -452,6 +450,9 @@ class _PageHomeState extends State<PageHome> {
         });
 
     // Utils.keyboardHide();
+    if (result == null) {
+      return;
+    }
 
     if (result.isNotEmpty) {
       // Get.to(PageSearchResult(searchText: result), transition: Transition.fade);
@@ -489,9 +490,10 @@ class _PageHomeState extends State<PageHome> {
               // mini: true,
               heroTag: "fab_out",
               backgroundColor: ColorsEx.clrOut,
-              onPressed: () {
+              onPressed: () async {
                 // Get.bottomSheet();
-                Get.to(() => const PageProductRegOut());
+                await Get.to(() => const PageProductRegOut());
+                await HomeController.to.refreshData().then((value) => setState(() {}));
                 // var result = _showDirectInputDialog(context);
               },
               child: Text("out".tr, style: tsMainFabTitle),
@@ -504,9 +506,10 @@ class _PageHomeState extends State<PageHome> {
               // mini: true,
               heroTag: "fab_in",
               backgroundColor: ColorsEx.clrIn,
-              onPressed: () {
+              onPressed: () async {
                 // Get.bottomSheet();
-                Get.to(() => const PageProductRegIn());
+                await Get.to(() => const PageProductRegIn());
+                await HomeController.to.refreshData().then((value) => setState(() {}));
                 // var result = _showDirectInputDialog(context);
               },
               child: Text("in".tr, style: tsMainFabTitle),

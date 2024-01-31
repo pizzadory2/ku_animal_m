@@ -221,8 +221,8 @@ TextStyle get tsDialogMiribogi => const TextStyle(
 // 회원
 TextStyle get tsMemberName => const TextStyle(
       fontFamily: "SCoreDream",
-      fontSize: 14,
-      fontWeight: FontWeight.w300,
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
       color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
     );
 
@@ -230,7 +230,14 @@ TextStyle get tsMemberPhone => const TextStyle(
       fontFamily: "SCoreDream",
       fontSize: 14,
       fontWeight: FontWeight.w300,
-      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+      color: Colors.grey, //Color.fromARGB(255, 0, 17, 13),
+    );
+
+TextStyle get tsMemberEmail => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: Colors.grey, //Color.fromARGB(255, 0, 17, 13),
     );
 
 TextStyle get tsMemberTeam => const TextStyle(
@@ -248,6 +255,16 @@ TextStyle get tsMemberId => const TextStyle(
     );
 
 // 제품(입고,출고)
+TextStyle get tsProductItemTitle => const TextStyle(
+    // fontFamily: "SCoreDream",
+    // fontFamily: "GmarketSans",
+    // fontFamily: "NotoSansKR",
+    fontFamily: "Pretendard",
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: Colors.black,
+    overflow: TextOverflow.ellipsis);
+
 TextStyle get tsProductItem => const TextStyle(
       // fontFamily: "Pretendard",
       fontSize: 14,

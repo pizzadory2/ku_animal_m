@@ -12,9 +12,6 @@ class ProductInController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-  String filterYear = "2024";
-  String filterMonth = "1";
-
   List<ProductHistoryModel> _list = [];
 
   clearData() {
@@ -29,6 +26,10 @@ class ProductInController extends GetxController {
     isLoading.value = true;
     bool isSuccess = false;
     _list.clear();
+
+    // String filterYear = DateTime.now().year.toRadixString(10);
+    String filterYear = DateTime.now().year.toString();
+    String filterMonth = DateTime.now().month.toString();
 
     String type = Utils.getSearchType(filterIndex: filterIndex);
 
@@ -53,6 +54,9 @@ class ProductInController extends GetxController {
     isLoading.value = true;
     bool isSuccess = false;
 
+    String filterYear = DateTime.now().year.toString();
+    String filterMonth = DateTime.now().month.toString();
+
     await repository.reqSearchBarcode(year: filterYear, month: filterMonth, txt: searchData).then((value) async {
       isLoading.value = false;
 
@@ -74,6 +78,9 @@ class ProductInController extends GetxController {
     _list.clear();
 
     String type = Utils.getSearchType(filterIndex: filterIndex);
+
+    String filterYear = DateTime.now().year.toString();
+    String filterMonth = DateTime.now().month.toString();
 
     await repository.reqReadAll(year: filterYear, month: filterMonth, type: type, txt: searchData).then((value) async {
       isLoading.value = false;

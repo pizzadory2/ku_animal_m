@@ -99,6 +99,10 @@ class SearchRepository {
         var dataList = parseData["data"];
         // debugPrint(dataList.toString());
 
+        if (dataList.length == 0) {
+          return null;
+        }
+
         // List<ProductModel> items = List<ProductModel>.from(dataList.map((model) => ProductModel.fromJson(model)));
         ProductModel item = ProductModel.fromJson(dataList);
 

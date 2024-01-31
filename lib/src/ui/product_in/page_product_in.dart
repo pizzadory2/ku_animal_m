@@ -26,6 +26,7 @@ class _PageProductInState extends State<PageProductIn> {
 
   final TextEditingController _controllerSearch = TextEditingController();
   int _filterIndex = 0;
+  FilterType _filterType = FilterType.Name;
 
   @override
   void initState() {
@@ -161,10 +162,18 @@ class _PageProductInState extends State<PageProductIn> {
               // width: 50,
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onTap: () {
+                onTap: () async {
                   debugPrint("[animal] [입고내역] Click QR");
                   // var result = Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductInven));
-                  Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductInven));
+                  Utils.keyboardHide();
+                  var result = await Get.to(() => PageQR2(useDirect: false, pageType: PageType.ProductIn));
+
+                  if (result != null) {
+                    _controllerSearch.text = result;
+                    _filterIndex = 4;
+                    _filterType = FilterType.Barcode;
+                    searchData();
+                  }
                 },
                 child: const Icon(Icons.qr_code_rounded, size: 30, color: Colors.black54),
               ),
@@ -189,6 +198,7 @@ class _PageProductInState extends State<PageProductIn> {
               onTap: () {
                 setState(() {
                   _filterIndex = index;
+                  _filterType = FilterType.values[index];
                 });
               },
               child: Container(

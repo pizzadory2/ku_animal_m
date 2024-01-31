@@ -4,28 +4,20 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
+import 'package:ku_animal_m/src/ui/member/member_model.dart';
 import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
 
 class MemberRepository {
   Future reqReadAll({
-    required String year,
-    required String month,
-    String gubun = "",
-    String type = "",
+    String searchType = "",
     String txt = "",
   }) async {
-    debugPrint("[animal] ::ProductIn 제품정보 싹다가져와] API 호출");
-
-    String month2 = month.padLeft(2, '0');
+    debugPrint("[animal] ::Member Read All 회원정보 싹다가져와] API 호출");
 
     var param = {
-      "sch_year": year,
-      "sch_month": month2,
-      "sch_class": gubun,
-      "sch_type": type,
+      "sch_condition": searchType,
       "sch_txt": txt,
-      "msr_type": "IN", // [필수] IN: 입고내역, OUT: 출고내역
-      "command": Constants.api_product_in_history,
+      "command": Constants.api_client,
     };
 
     try {
@@ -46,8 +38,11 @@ class MemberRepository {
         var dataList = parseData["data"];
         // debugPrint(dataList.toString());
 
-        List<ProductHistoryModel> items =
-            List<ProductHistoryModel>.from(dataList.map((model) => ProductHistoryModel.fromJson(model)));
+        if (dataList.length == 0) {
+          return null;
+        }
+
+        List<MemberModel> items = List<MemberModel>.from(dataList.map((model) => MemberModel.fromJson(model)));
 
         // // var data = UserInfoModel.fromJson(result.data);
         // return items;

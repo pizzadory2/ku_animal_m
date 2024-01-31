@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
+import 'package:ku_animal_m/src/ui/product/product_model.dart';
 
 class WidgetFactory {
   static Widget divider({double weight = 1, Color color = Colors.white, double topMargin = 0}) {
@@ -280,6 +282,109 @@ class WidgetFactory {
           size: 24,
           color: colorFront,
         ));
+  }
+
+  static regItem({
+    required ProductModel data,
+    required int index,
+    required String countText,
+    required Function() onPress,
+    required Function() onRemove,
+    required Function() onChangeQty,
+  }) {
+    String dspCount = Utils.numberFormatMoney(data.inout_count);
+    String amount = data.mi_content.isEmpty ? "-" : "(${data.mi_content})";
+    String regDate = data.reg_date;
+    if (regDate.isNotEmpty) {
+      var date = DateTime.parse(regDate);
+      regDate = "등록일 ${date.year}.${date.month}.${date.day}";
+    }
+
+    return GestureDetector(
+      onTap: () {
+        debugPrint("[animal] ::추가된 아이템 클릭(${index})");
+      },
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        height: 120,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(bottom: BorderSide(width: 1, color: Colors.grey[300]!)),
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(child: Text(data.mi_name, style: tsProductItemTitle)),
+                SizedBox(width: 10),
+                GestureDetector(
+                  onTap: onRemove,
+                  child: Icon(Icons.close, size: 20, color: Colors.grey),
+                ),
+                SizedBox(width: 5),
+              ],
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(top: 3, right: 45),
+              child:
+                  Text("${data.mi_manufacturer} / ${data.mi_type_name} / ${data.mi_class_name}", style: tsProductItem),
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Text(data.mi_manufacturer, style: tsProductItem),
+                        const Spacer(),
+                        // Text("(${data.mi_type_name}/${data.mi_class_name})", style: tsProductItem),
+                        Text("주요성분 (${data.mi_ingredients})", style: tsProductItem),
+                        const SizedBox(height: 5),
+                        Text("함량 ${amount}", style: tsProductItem),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: Dimens.qtyButtonWidth,
+                    margin: EdgeInsets.only(left: 10, right: 10),
+                    alignment: Alignment.bottomRight,
+                    child: GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: onChangeQty,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.only(left: 10, right: 7, top: 1, bottom: 3),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "${countText} ${dspCount}",
+                              style: tsProductItemBold,
+                            ),
+                            SizedBox(width: 5),
+                            Container(
+                                padding: EdgeInsets.only(top: 2),
+                                child: Icon(Icons.edit, color: Colors.black54, size: 16)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   static Widget get spacerWidth => const SizedBox(width: 5);

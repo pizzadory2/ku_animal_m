@@ -17,6 +17,8 @@ class AppController extends GetxController {
 
   RxBool isLoading = false.obs;
 
+  bool isEmulator = true;
+
   String classSeq = "";
   String className = "";
   String language = "ko";

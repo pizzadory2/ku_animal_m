@@ -30,10 +30,10 @@ class Constants {
   static const api_product = "reqStock";
 
   // 회원 > 로그인
-  static const api_qr_search = "reqUsers";
+  // static const api_qr_search = "reqUsers";
 
   // 회원 > 회원리스트
-  static const api_client = "reqLogin";
+  static const api_client = "reqUsers";
 
   // 입고 > 입고등록
   static const api_product_in = "reqStockIn";

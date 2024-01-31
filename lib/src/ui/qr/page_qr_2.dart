@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
+import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/search_dialog.dart';
@@ -41,15 +42,17 @@ class _PageQR2State extends State<PageQR2> {
 
   double _scanWidth = 300;
 
+  final String _alarmName = "sounds/qr_effect_01.wav";
+
   @override
   void initState() {
     super.initState();
 
     _audioPlayer.onPlayerStateChanged.listen((event) {
-      setState(() {
-        //
-        // isPlaying = event == PlayerState.playing;
-      });
+      // setState(() {
+      //   //
+      //   // isPlaying = event == PlayerState.playing;
+      // });
 
       setAudio();
     });
@@ -134,43 +137,7 @@ class _PageQR2State extends State<PageQR2> {
           height: _scanWidth,
           child: Stack(
             children: [
-              MobileScanner(
-                controller: _controller,
-                onDetect: (capture) async {
-                  if (_enableScan == false) {
-                    return;
-                  }
-
-                  final List<Barcode> barcodes = capture.barcodes;
-                  // final Uint8List? image = capture.image;
-                  for (final barcode in barcodes) {
-                    debugPrint('Barcode found! ${barcode.rawValue}');
-                    if (!_isScanning) {
-                      // String alarmName = "sounds/sori.mp3";
-                      String alarmName = "sounds/qr_effect_01.wav";
-                      await _audioPlayer.play(AssetSource(alarmName), volume: 1);
-
-                      _isScanning = true;
-                      _enableScan = false;
-                      // Navigator.pop(context, barcode.rawValue);
-                      // String data = barcode.rawValue ?? "---";
-                      String data = barcode.rawValue ?? "";
-                      debugPrint("[animal] data: $data");
-                      searchData(data);
-                      // Get.off(() => PageQR2Result(barcodeData: data));
-                      // var result = await Get.to(() => PageQRResult(barcodeData: data));
-                      // if (result == null) {
-                      //   setState(() {
-                      //     _isScanning = false;
-                      //     _enableScan = false;
-                      //   });
-                      // }
-
-                      // Get.off(() => PageQR2Result(barcodeData: data));
-                    }
-                  }
-                },
-              ),
+              AppController.to.isEmulator ? _buildGaraScanner() : _buildScanner(),
               QRScannerOverlay3(
                   overlayColour: Colors.black.withOpacity(0.4), scanWidth: _scanWidth, enableScan: _enableScan),
               // buildMask(),
@@ -178,6 +145,45 @@ class _PageQR2State extends State<PageQR2> {
           ),
         ),
       ),
+    );
+  }
+
+  MobileScanner _buildScanner() {
+    return MobileScanner(
+      controller: _controller,
+      onDetect: (capture) async {
+        if (_enableScan == false) {
+          return;
+        }
+
+        final List<Barcode> barcodes = capture.barcodes;
+        // final Uint8List? image = capture.image;
+        for (final barcode in barcodes) {
+          debugPrint('Barcode found! ${barcode.rawValue}');
+          if (!_isScanning) {
+            // String alarmName = "sounds/sori.mp3";
+            await _audioPlayer.play(AssetSource(_alarmName), volume: 1);
+
+            _isScanning = true;
+            _enableScan = false;
+            // Navigator.pop(context, barcode.rawValue);
+            // String data = barcode.rawValue ?? "---";
+            String data = barcode.rawValue ?? "";
+            debugPrint("[animal] data: $data");
+            searchData(data);
+            // Get.off(() => PageQR2Result(barcodeData: data));
+            // var result = await Get.to(() => PageQRResult(barcodeData: data));
+            // if (result == null) {
+            //   setState(() {
+            //     _isScanning = false;
+            //     _enableScan = false;
+            //   });
+            // }
+
+            // Get.off(() => PageQR2Result(barcodeData: data));
+          }
+        }
+      },
     );
   }
 
@@ -189,6 +195,9 @@ class _PageQR2State extends State<PageQR2> {
             debugPrint("onTapDown");
             setState(() {
               _enableScan = true;
+              if (AppController.to.isEmulator) {
+                searchData("0108806536028011172402111021C0012110575573251751");
+              }
             });
           },
           onTapUp: (details) => setState(() {
@@ -335,63 +344,23 @@ class _PageQR2State extends State<PageQR2> {
     switch (widget.pageType) {
       case (PageType.Home):
         {
-          // searchText = "0108806536028011172402111021C0012110575573251751";
           SearchHomeController.to.searchBarcode(searchData: searchText).then((value) {
             setState(() {
               AppController.to.setLoading(false);
-              Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
+              // Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
+              Get.off(PageSearchResult(searchText: searchText));
             });
           });
           break;
         }
       case (PageType.ProductIn):
-        {
-          // ProductInController.to.searchData(searchText: searchText).then((value) {
-          //   setState(() {
-          //     AppController.to.setLoading(false);
-          //     Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
-          //   });
-          // });
-          break;
-        }
       case (PageType.ProductOut):
-        {
-          // ProductOutController.to.searchData(searchText: searchText).then((value) {
-          //   setState(() {
-          //     AppController.to.setLoading(false);
-          //     Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
-          //   });
-          // });
-          break;
-        }
       case (PageType.ProductInven):
-        {
-          // InvenController.to.searchData(searchText: searchText).then((value) {
-          //   setState(() {
-          //     AppController.to.setLoading(false);
-          //     Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
-          //   });
-          // });
-          break;
-        }
       case (PageType.ProductRegIn):
-        {
-          // ProductInRegController.to.searchData(searchText: searchText).then((value) {
-          //   setState(() {
-          //     AppController.to.setLoading(false);
-          //     Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
-          //   });
-          // });
-          break;
-        }
       case (PageType.ProductRegOut):
         {
-          // ProductOutRegController.to.searchData(searchText: searchText).then((value) {
-          //   setState(() {
-          //     AppController.to.setLoading(false);
-          //     Get.off(PageSearchResult(searchText: searchText), transition: Transition.rightToLeft);
-          //   });
-          // });
+          AppController.to.setLoading(false);
+          Get.back(result: searchText);
           break;
         }
       case (PageType.Setting):
@@ -399,5 +368,15 @@ class _PageQR2State extends State<PageQR2> {
           break;
         }
     }
+  }
+
+  _buildGaraScanner() {
+    return Center(
+      child: SizedBox(
+        width: _scanWidth - 100,
+        height: _scanWidth - 100,
+        child: Utils.ImageAsset("qr_code.png"),
+      ),
+    );
   }
 }
