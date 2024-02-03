@@ -55,8 +55,10 @@ class ThemeEx {
     scaffoldBackgroundColor: const Color.fromRGBO(31, 31, 31, 1),
     appBarTheme: AppBarTheme(
       backgroundColor: const Color.fromRGBO(51, 51, 51, 1),
-      titleTextStyle: textTheme.displayLarge?.copyWith(color: Colors.deepOrange),
-      iconTheme: const IconThemeData(color: Colors.deepOrange),
+      titleTextStyle: textTheme.displayLarge?.copyWith(color: Colors.green),
+      iconTheme: const IconThemeData(color: Colors.green),
+      // titleTextStyle: textTheme.displayLarge?.copyWith(color: Colors.deepOrange),
+      // iconTheme: const IconThemeData(color: Colors.deepOrange),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Color.fromRGBO(41, 41, 41, 1),
@@ -65,6 +67,32 @@ class ThemeEx {
     ),
     progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: Colors.white,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: ColorsEx.primaryColor,
+        foregroundColor: const Color(0xffffffff),
+        disabledBackgroundColor: Color(0xffe0e0e0),
+        disabledForegroundColor: Color(0xffa0a0a0),
+      ),
+      //  ButtonStyle(
+      //   backgroundColor: MaterialStateProperty.all<Color>(
+      //     ColorsEx.primaryColor,
+      //   ), //button color
+      //   foregroundColor: MaterialStateProperty.all<Color>(
+      //     const Color(0xffffffff),
+      //   ), //text (and icon)
+      // ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: ColorsEx.primaryColor,
+      ),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      fillColor: MaterialStateProperty.all<Color>(
+        ColorsEx.primaryColor,
+      ),
     ),
   );
 

@@ -17,7 +17,8 @@ class AppController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-  bool isEmulator = true;
+  bool isEmulator = false;
+  bool isMultiSelect = false;
 
   String classSeq = "";
   String className = "";

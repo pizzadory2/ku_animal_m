@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
+import 'package:ku_animal_m/src/model/base_model.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
 import 'package:ku_animal_m/src/ui/login/user_model.dart';
 
@@ -108,6 +109,63 @@ class UserRepository {
 
         // var data = UserInfoModel.fromJson(result.data);
         return userModel;
+      } else {
+        return null; // Map()
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        debugPrint(e.response!.data.toString());
+        debugPrint(e.response!.headers.toString());
+        // debugPrint(e.response!.requestOptions.toString());
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // debugPrint(e.requestOptions.toString());
+        debugPrint(e.message);
+      }
+    }
+
+    return null;
+  }
+
+  Future reqSignup({
+    required String id,
+    required String pw,
+    required String name,
+    required String phone,
+    required String email,
+    required String type, // 근무 타입(PT:시간제, FT:계약직, NT:정규직)
+  }) async {
+    debugPrint("[animal::user_repository] login API 호출");
+
+    var param = {
+      "userId": id,
+      "userPw": pw,
+      "userName": name,
+      "userPhone": phone,
+      "userEmail": email,
+      "workType": type,
+    };
+
+    try {
+      var api = Constants.api_signup;
+      var result = await RestClient().dio.post(
+            api,
+            options: Options(headers: {
+              // Headers.contentTypeHeader: "multipart/form-data",
+              Headers.contentTypeHeader: Headers.formUrlEncodedContentType,
+            }),
+            data: param,
+          );
+
+      if (result != null) {
+        var parseData = jsonDecode(result.toString());
+        // var code = parseData["result"].toString();
+        // var msg = parseData["msg"].toString();
+
+        BaseModel apiResult = BaseModel.fromJson(parseData);
+
+        // var data = UserInfoModel.fromJson(result.data);
+        return apiResult;
       } else {
         return null; // Map()
       }

@@ -294,11 +294,11 @@ class WidgetFactory {
   }) {
     String dspCount = Utils.numberFormatMoney(data.inout_count);
     String amount = data.mi_content.isEmpty ? "-" : "(${data.mi_content})";
-    String regDate = data.reg_date;
-    if (regDate.isNotEmpty) {
-      var date = DateTime.parse(regDate);
-      regDate = "등록일 ${date.year}.${date.month}.${date.day}";
-    }
+    // String regDate = data.reg_date;
+    // if (regDate.isNotEmpty) {
+    //   var date = DateTime.parse(regDate);
+    //   regDate = "등록일 ${date.year}.${date.month}.${date.day}";
+    // }
 
     return GestureDetector(
       onTap: () {
@@ -320,6 +320,7 @@ class WidgetFactory {
                 Expanded(child: Text(data.mi_name, style: tsProductItemTitle)),
                 SizedBox(width: 10),
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: onRemove,
                   child: Icon(Icons.close, size: 20, color: Colors.grey),
                 ),
@@ -351,28 +352,30 @@ class WidgetFactory {
                   ),
                   Container(
                     width: Dimens.qtyButtonWidth,
-                    margin: EdgeInsets.only(left: 10, right: 10),
+                    margin: EdgeInsets.only(left: 10),
                     alignment: Alignment.bottomRight,
                     child: GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: onChangeQty,
                       child: Container(
+                        height: 25,
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: data.inout_count == 0 ? Colors.red[500] : Colors.grey[200],
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: EdgeInsets.only(left: 10, right: 7, top: 1, bottom: 3),
+                        padding: EdgeInsets.only(left: 10, right: 7),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
                               "${countText} ${dspCount}",
-                              style: tsProductItemBold,
+                              style: data.inout_count == 0
+                                  ? tsProductItemBold.copyWith(color: Colors.white)
+                                  : tsProductItemBold,
                             ),
                             SizedBox(width: 5),
-                            Container(
-                                padding: EdgeInsets.only(top: 2),
-                                child: Icon(Icons.edit, color: Colors.black54, size: 16)),
+                            Icon(Icons.edit, color: data.inout_count == 0 ? Colors.white : Colors.black54, size: 16),
                           ],
                         ),
                       ),

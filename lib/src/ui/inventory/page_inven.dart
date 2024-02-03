@@ -298,8 +298,8 @@ class _PageInvenState extends State<PageInven> {
     }
 
     InvenModel data = InvenController.to.getItem(index);
-    String amount = data.mst_content.isEmpty ? "-" : "(${data.mst_content})";
-    String ingredients = data.mst_ingredients.isEmpty ? "-" : data.mst_ingredients;
+    String amount = data.mi_content.isEmpty ? "-" : "(${data.mi_content})";
+    String ingredients = data.mi_ingredients.isEmpty ? "-" : data.mi_ingredients;
 
     return GestureDetector(
       onTap: () {
@@ -319,8 +319,8 @@ class _PageInvenState extends State<PageInven> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(data.mst_name, style: tsInvenItemName),
-                    Text(data.mst_manufacturer, style: tsInvenItemCompany),
+                    Text(data.mi_name, style: tsInvenItemName),
+                    Text(data.mi_manufacturer, style: tsInvenItemCompany),
                     const Spacer(),
                     Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
                     Text("주요성분 (${ingredients})", style: tsInvenItemCompany),

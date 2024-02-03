@@ -21,6 +21,7 @@ import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
 import 'package:ku_animal_m/src/ui/safe/page_safe_list.dart';
 import 'package:ku_animal_m/src/ui/search/page_search_result.dart';
 import 'package:ku_animal_m/src/ui/search/search_home_controller.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PageHome extends StatefulWidget {
   const PageHome({super.key});
@@ -30,6 +31,7 @@ class PageHome extends StatefulWidget {
 }
 
 class _PageHomeState extends State<PageHome> {
+  final RefreshController _refreshController = RefreshController(initialRefresh: false);
   final List<ProductRecentlyModel> _listDummy = [];
 
   bool _isLoading = true;
@@ -44,28 +46,50 @@ class _PageHomeState extends State<PageHome> {
   }
 
   @override
+  void dispose() {
+    _refreshController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Scaffold(
           floatingActionButton: _buildFAB(),
-          body: ListView(
-            padding: const EdgeInsets.all(20),
-            children: [
-              Column(
-                children: [
-                  _buildGreeting(),
-                  const SizedBox(height: 10),
-                  _buildProductInOutStatus(),
-                  const SizedBox(height: 20),
-                  _buildInventoryStatus(),
-                  const SizedBox(height: 20),
-                  _buildSearch(),
-                  const SizedBox(height: 20),
-                  _buildRecentlyInOut(),
-                ],
-              ),
-            ],
+          body: SmartRefresher(
+            controller: _refreshController,
+            enablePullDown: true,
+            onRefresh: () async {
+              await HomeController.to.refreshData();
+              setState(() {
+                debugPrint("0000007777111111");
+                debugPrint("0000000777722222");
+                _refreshController.refreshCompleted();
+                debugPrint("000000777733333");
+              });
+            },
+            onLoading: () {
+              _refreshController.loadComplete();
+            },
+            child: ListView(
+              padding: const EdgeInsets.all(20),
+              children: [
+                Column(
+                  children: [
+                    _buildGreeting(),
+                    const SizedBox(height: 10),
+                    _buildProductInOutStatus(),
+                    const SizedBox(height: 20),
+                    _buildInventoryStatus(),
+                    const SizedBox(height: 20),
+                    _buildSearch(),
+                    const SizedBox(height: 20),
+                    _buildRecentlyInOut(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         // const Loading(),
@@ -361,7 +385,7 @@ class _PageHomeState extends State<PageHome> {
               //const FaIcon(FontAwesomeIcons.arrow, color: Colors.blue)
               // : const FaIcon(FontAwesomeIcons.arrowUp, color: Colors.red),
               Text(
-                data.msr_type == "IN" ? "입고 ${data.msr_qty}건" : "출고 ${data.msr_qty}건",
+                data.msr_type == "IN" ? "${"in".tr} ${data.msr_qty}건" : "${"out".tr} ${data.msr_qty}건",
                 style: tsMainRecentlyCount,
               ),
               // Text(

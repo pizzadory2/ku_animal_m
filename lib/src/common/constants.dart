@@ -11,6 +11,7 @@ class Constants {
 
   // 로그인
   static const api_login = "$apiPrefix/reqLogin";
+  static const api_signup = "$apiPrefix/reqRegister";
   static const api_dashboard = "reqDashboard";
 
   // 홈화면 검색

@@ -34,6 +34,7 @@ Map<String, String> koKR = <String, String>{
   'Stock registration has been completed': '입고등록이 완료되었습니다',
   'Registration failed': '등록에 실패했습니다',
   'Enter quantity': '입고수량',
+  'Multi select': '다중선택',
   // 출고
   'out': '출고',
   'out reg': '출고등록',
@@ -75,6 +76,7 @@ Map<String, String> koKR = <String, String>{
   'Safety stock not met': '안전재고 미충족',
   'Product Total Count': '전체 품목수',
   'safe list': '안전재고',
+  'current qty': '현재수량',
   'product list': '전체품목',
   'empty': 'empty',
   'filter month': '검색년월',

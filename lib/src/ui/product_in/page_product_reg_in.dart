@@ -382,7 +382,7 @@ class _PageProductRegInState extends State<PageProductRegIn> {
     return WidgetFactory.regItem(
       data: data,
       index: index,
-      countText: "Shipping quantity".tr,
+      countText: "Enter quantity".tr,
       onPress: () {},
       onRemove: () {
         Utils.showYesNoDialog(context).then((value) {

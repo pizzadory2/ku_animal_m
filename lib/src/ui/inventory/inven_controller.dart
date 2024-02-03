@@ -27,7 +27,10 @@ class InvenController extends GetxController {
     bool isSuccess = false;
     _list.clear();
 
-    await repository.reqReadAll(year: "2024", month: "1").then((value) async {
+    String filterYear = DateTime.now().year.toString();
+    String filterMonth = DateTime.now().month.toString();
+
+    await repository.reqReadAll(year: filterYear, month: filterMonth).then((value) async {
       isLoading.value = false;
 
       if (value != null) {
@@ -67,7 +70,7 @@ class InvenController extends GetxController {
     bool isSuccess = false;
     _list.clear();
 
-    String type = Utils.getSearchTypeInven(filterIndex: filterIndex);
+    String type = Utils.getSearchType(filterIndex: filterIndex);
 
     await repository.reqReadAll(year: year, month: month, type: type, txt: searchData).then((value) async {
       isLoading.value = false;

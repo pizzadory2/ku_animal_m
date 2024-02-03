@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/preference.dart';
+import 'package:ku_animal_m/src/model/base_model.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
 import 'package:ku_animal_m/src/ui/login/user_model.dart';
 import 'package:ku_animal_m/src/ui/login/user_repository.dart';
@@ -63,6 +64,61 @@ class UserController extends GetxController {
             userToken = userData.token;
 
             RestClient().setToken(userToken);
+
+            isSuccess = true;
+          } else {
+            isSuccess = false;
+          }
+        } else {
+          debugPrint("value is not UserModel");
+          isSuccess = false;
+        }
+      } else {
+        isSuccess = false;
+        // resultMsg = "네트워크 상태를 확인해주세요.";
+        // Get.snackbar("login failed".tr, resultMsg);
+      }
+    });
+
+    if (isSuccess == false) {
+      // Utils.showToast(resultMsg);
+      Get.snackbar("login failed".tr, resultMsg);
+    }
+
+    return isSuccess;
+  }
+
+  Future<bool> singup(
+      {required String id,
+      required String pw,
+      required String name,
+      required String phone,
+      required String email,
+      required String type}) async {
+    // return Future.delayed(const Duration(seconds: 1), () {
+    //   return true;
+    // });
+
+    isLoading.value = true;
+    bool isSuccess = false;
+    String resultMsg = "네트워크 상태를 확인해주세요.";
+
+    clear();
+
+    debugPrint("[animal] 로그인로그인로그인777777777777777");
+
+    await repository.reqSignup(id: id, pw: pw, name: name, phone: phone, email: email, type: type).then((value) {
+      isLoading.value = false;
+
+      if (value != null) {
+        if (value is BaseModel) {
+          debugPrint("value is BaseModel");
+
+          resultMsg = value.msg ?? "";
+
+          if (value.result == "SUCCESS") {
+            userID = id;
+            userPW = pw;
 
             isSuccess = true;
           } else {

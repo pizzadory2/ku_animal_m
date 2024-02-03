@@ -32,6 +32,7 @@ Map<String, String> enUS = <String, String>{
   'Stock registration has been completed': 'Stock registration has been completed',
   'Registration failed': 'Registration failed',
   'Enter quantity': '입고수량',
+  'Multi select': 'Multi Select',
   // 출고
   'out': 'out',
   'out reg': 'out reg',
@@ -73,6 +74,7 @@ Map<String, String> enUS = <String, String>{
   'Safety stock not met': 'Safety stock not met',
   'Product Total Count': 'Product Total Count',
   'safe list': 'safe list',
+  'current qty': 'current qty',
   'product list': 'product list',
   'empty': 'empty',
   'filter month': 'filter month',

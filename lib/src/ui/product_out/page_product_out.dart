@@ -262,10 +262,19 @@ class _PageProductOutState extends State<PageProductOut> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(data.mi_name, style: tsInvenItemName.copyWith(color: ColorsEx.clrOut)),
-                    Text(data.mi_manufacturer, style: tsInvenItemCompany),
+                    Text("${data.mi_manufacturer} / ${data.mi_type_name} / ${data.mi_class_name}",
+                        style: tsInvenItemCompany),
                     const Spacer(),
-                    Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
+                    // Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
                     Text("주요성분 (${data.mi_ingredients})", style: tsInvenItemCompany),
+                    Container(
+                        // width: 100,
+                        // height: 30,
+                        // decoration: BoxDecoration(
+                        //   color: Colors.grey[200],
+                        //   borderRadius: BorderRadius.circular(10),
+                        // ),
+                        child: Text("${"Shipping quantity".tr} (${data.msr_qty})", style: tsProductItemBold)),
                   ],
                 ),
               ),

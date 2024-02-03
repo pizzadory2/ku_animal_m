@@ -56,7 +56,7 @@ class _PageProductListState extends State<PageProductList> {
   }
 
   void refreshData() {
-    SearchHomeController.to.searchData(type: "mi_code", searchData: "000").then((value) {
+    SearchHomeController.to.searchData(type: "", searchData: "").then((value) {
       setState(() {
         _isLoading = false;
       });
@@ -66,7 +66,7 @@ class _PageProductListState extends State<PageProductList> {
   _buildProductItem(int index) {
     var item = SearchHomeController.to.getItem(index);
     String title = item.mi_name;
-    title += "동해물과 백두산이 마르고 닳도록";
+    // title += "동해물과 백두산이 마르고 닳도록";
 
     return GestureDetector(
       onTap: () {

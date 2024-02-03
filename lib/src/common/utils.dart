@@ -283,26 +283,26 @@ class Utils {
     }
   }
 
-  static getSearchTypeInven({required int filterIndex}) {
-    if (filterIndex == -1) {
-      return "";
-    }
+  // static getSearchTypeInven({required int filterIndex}) {
+  //   if (filterIndex == -1) {
+  //     return "";
+  //   }
 
-    switch (filterIndex) {
-      case 0:
-        return "mst_name";
-      case 1:
-        return "mst_code";
-      case 2:
-        return "mst_ingrmst_nameedients";
-      case 3:
-        return "mst_manufacturer";
-      case 4:
-        return "mst_barcode";
-      default:
-        return "mst_name";
-    }
-  }
+  //   switch (filterIndex) {
+  //     case 0:
+  //       return "mst_name";
+  //     case 1:
+  //       return "mst_code";
+  //     case 2:
+  //       return "mst_ingrmst_nameedients";
+  //     case 3:
+  //       return "mst_manufacturer";
+  //     case 4:
+  //       return "mst_barcode";
+  //     default:
+  //       return "mst_name";
+  //   }
+  // }
 
   static getSearchType({required int filterIndex}) {
     if (filterIndex == -1) {
@@ -322,6 +322,24 @@ class Utils {
         return "mi_barcode";
       default:
         return "mi_name";
+    }
+  }
+
+  // 근무 타입(PT:시간제, FT:계약직, NT:정규직)
+  static getWorkType({required int workIndex}) {
+    if (workIndex == -1) {
+      return "";
+    }
+
+    switch (workIndex) {
+      case 0:
+        return "PT";
+      case 1:
+        return "FT";
+      case 2:
+        return "NT";
+      default:
+        return "PT";
     }
   }
 
@@ -381,5 +399,13 @@ class Utils {
             ],
           );
         });
+  }
+
+  static atoi(String? data) {
+    if (data == null) return 0;
+
+    if (data.isEmpty) return 0;
+
+    return int.parse(data);
   }
 }

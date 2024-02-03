@@ -5,6 +5,8 @@ import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
+import 'package:ku_animal_m/src/controller/app_controller.dart';
+import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/input_count_dialog.dart';
 import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
@@ -26,6 +28,8 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
   // 입고 : Please select the product you wish to stock
   // 출고 : Please select the product you wish to ship
 
+  bool _isMultiSelect = false;
+
   @override
   Widget build(BuildContext context) {
     int itemCount = SearchHomeController.to.getCount();
@@ -43,11 +47,18 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
             Expanded(
               child: itemCount == 0
                   ? _buildEmpty()
-                  : ListView.builder(
-                      itemCount: itemCount,
-                      itemBuilder: (context, index) {
-                        return _buildProductItem(index);
-                      },
+                  : Column(
+                      children: [
+                        AppController.to.isMultiSelect ? _buildMultiSelect() : Container(),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: itemCount,
+                            itemBuilder: (context, index) {
+                              return _buildProductItem(index);
+                            },
+                          ),
+                        ),
+                      ],
                     ),
             ),
           ],
@@ -79,37 +90,44 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
           Get.back();
         }
       },
-      child: Container(
-        margin: const EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
-        padding: const EdgeInsets.all(15),
-        height: 150,
-        decoration: WidgetFactory.boxDecoration(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Container(
-                alignment: Alignment.topLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(data.mi_name, style: tsInvenItemName),
-                    Text(data.mi_manufacturer, style: tsInvenItemCompany),
-                    const Spacer(),
-                    Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
-                    Text("주요성분 (${data.mi_ingredients})", style: tsInvenItemCompany),
-                    const SizedBox(height: 5),
-                    Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
-                  ],
-                ),
+      child: Row(
+        children: [
+          // Visibility(child: Icon(Icons.check_box_outline_blank), visible: !_isMultiSelect),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(top: 5, bottom: 10, left: 10, right: 10),
+              padding: const EdgeInsets.all(15),
+              height: 150,
+              decoration: WidgetFactory.boxDecoration(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.topLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(data.mi_name, style: tsInvenItemName),
+                          Text(data.mi_manufacturer, style: tsInvenItemCompany),
+                          const Spacer(),
+                          Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
+                          Text("주요성분 (${data.mi_ingredients})", style: tsInvenItemCompany),
+                          const SizedBox(height: 5),
+                          Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(left: 30, right: 10),
+                      alignment: Alignment.centerRight,
+                      child: Text("Select".tr, style: tsInvenItemCompany.copyWith(color: Colors.black))),
+                ],
               ),
             ),
-            Container(
-                margin: EdgeInsets.only(left: 30, right: 10),
-                alignment: Alignment.centerRight,
-                child: Text("Select".tr, style: tsInvenItemCompany.copyWith(color: Colors.black))),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -147,5 +165,48 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
     // Utils.keyboardHide();
 
     return result;
+  }
+
+  _buildMultiSelect() {
+    return Container(
+      height: 40,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () => setState(() => _isMultiSelect = !_isMultiSelect),
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              // Icon(_isMultiSelect ? Icons.check_box : Icons.check_box_outline_blank,
+              //     color: _isMultiSelect ? ColorsEx.primaryColor : Colors.grey),
+              Checkbox(
+                onChanged: (value) {
+                  setState(() {
+                    _isMultiSelect = value ?? false;
+                  });
+                },
+                value: _isMultiSelect,
+                activeColor: ColorsEx.primaryColor,
+                tristate: false,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              // SizedBox(width: 10),
+              Text("Multi select".tr, style: tsDefault),
+            ],
+          ),
+        ),
+      ),
+      // CheckboxListTile(
+      //   controlAffinity: ListTileControlAffinity.leading,
+      //   title: Text("Multi select".tr),
+      //   value: _isMultiSelect,
+      //   // contentPadding: EdgeInsets.zero,
+      //   onChanged: (value) {
+      //     setState(() {
+      //       _isMultiSelect = value ?? false;
+      //     });
+      //   },
+      // ),
+    );
   }
 }
