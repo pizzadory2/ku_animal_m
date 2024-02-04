@@ -105,7 +105,7 @@ class UserController extends GetxController {
 
     clear();
 
-    debugPrint("[animal] 로그인로그인로그인777777777777777");
+    debugPrint("[animal] 회원가입777777777777777");
 
     await repository.reqSignup(id: id, pw: pw, name: name, phone: phone, email: email, type: type).then((value) {
       isLoading.value = false;
@@ -117,11 +117,12 @@ class UserController extends GetxController {
           resultMsg = value.msg ?? "";
 
           if (value.result == "SUCCESS") {
-            userID = id;
-            userPW = pw;
-
             isSuccess = true;
           } else {
+            if (value.result == "REQUIRED") {
+              // String missItem = value.data ?? "";
+              resultMsg = "필수항목을 입력해주세요.";
+            }
             isSuccess = false;
           }
         } else {
@@ -137,7 +138,7 @@ class UserController extends GetxController {
 
     if (isSuccess == false) {
       // Utils.showToast(resultMsg);
-      Get.snackbar("login failed".tr, resultMsg);
+      Get.snackbar("signup failed".tr, resultMsg);
     }
 
     return isSuccess;

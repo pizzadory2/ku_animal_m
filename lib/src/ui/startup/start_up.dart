@@ -184,7 +184,7 @@ class _StartUpState extends State<StartUp> {
     debugPrint("[animal] ::goLoginPage before");
 
     UserController.to.logout();
-    Get.off(const PageLogin());
+    Get.off(PageLogin());
 
     debugPrint("[animal] ::goLoginPage after");
   }

@@ -16,6 +16,7 @@ Map<String, String> koKR = <String, String>{
   'logintoyouraccount': 'Login to your account',
   'first': '처음이신가요?',
   'Create an account': '가입하기',
+  'Sign up': '회원가입',
   // 'Create an account': 'Create an account',
   'keep me sign in': '로그인 유지',
   'forgot password': '비밀번호 찾기',
@@ -23,6 +24,25 @@ Map<String, String> koKR = <String, String>{
   'email or id': 'email or id',
   'password': 'password',
   'home': '홈',
+
+  // 회원가입
+  'id': '아이디',
+  'id info': '4~20자리',
+  'pw': '비밀번호',
+  'pw confirm': '비밀번호 확인',
+  'pw info': '8자리 이상 영문, 숫자, 특수문자 조합',
+  'name': '이름',
+  'phone': '전화번호',
+  'email': '이메일',
+  'Please enter the correct email address': '올바른 이메일 주소를 입력해주세요',
+  'worktype': '근무유형',
+  'signup failed': '회원가입 실패',
+  'please input password check': '비밀번호 확인 항목을 입력해주세요',
+  'please input name': '이름을 입력해주세요',
+  'please input phone number': '전화번호를 입력해주세요',
+  'please input email': '이메일 주소를 입력해주세요',
+  'signup success': '회원가입이 완료되었습니다.',
+  'please wait for admin approval': '관리자 승인을 기다려주세요',
 
   // 입고
   'in': '입고',

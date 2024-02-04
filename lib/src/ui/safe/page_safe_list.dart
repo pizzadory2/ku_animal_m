@@ -84,7 +84,7 @@ class _PageSafeListState extends State<PageSafeList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "${index + 1}. ${data.mst_name}",
+            "${index + 1}. ${data.mi_name}",
             style: TextStyle(overflow: TextOverflow.ellipsis),
           ),
           SizedBox(height: 10),

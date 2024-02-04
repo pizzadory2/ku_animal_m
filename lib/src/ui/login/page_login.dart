@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,13 +8,15 @@ import 'package:ku_animal_m/src/common/preference.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
-import 'package:ku_animal_m/src/network/rest_client.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
+import 'package:ku_animal_m/src/ui/login/page_signup.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/page_app.dart';
 
 class PageLogin extends StatefulWidget {
-  const PageLogin({Key? key}) : super(key: key);
+  PageLogin({Key? key, this.id = "", this.pw = ""}) : super(key: key);
+  String id = "";
+  String pw = "";
 
   @override
   State<PageLogin> createState() => _PageLoginState();
@@ -27,18 +31,26 @@ class _PageLoginState extends State<PageLogin> {
 
   @override
   void initState() {
-    if (kDebugMode) {
-      _controllerID.text = "test13";
-      _controllerPW.text = "1111";
+    if (widget.id.isNotEmpty && widget.pw.isNotEmpty) {
+      _controllerID.text = widget.id;
+      _controllerPW.text = widget.pw;
+    } else {
+      _controllerID.text = "";
+      _controllerPW.text = "";
+
+      if (kDebugMode) {
+        _controllerID.text = "test13";
+        _controllerPW.text = "1111";
+      }
     }
 
-    String ip = Preference().getString("ip");
-    if (ip.isNotEmpty) {
-      RestClient().updateDio(ip);
-    }
+    // String ip = Preference().getString("ip");
+    // if (ip.isNotEmpty) {
+    //   RestClient().updateDio(ip);
+    // }
 
-    AppController.to.className = Preference().getString("className");
-    AppController.to.classSeq = Preference().getString("classSeq");
+    // AppController.to.className = Preference().getString("className");
+    // AppController.to.classSeq = Preference().getString("classSeq");
 
     super.initState();
   }
@@ -191,7 +203,7 @@ class _PageLoginState extends State<PageLogin> {
                         ),
                       ),
                       // const Spacer(),
-                      //_buildSignUp()
+                      _buildSignUp()
                     ],
                   ),
                 ],
@@ -204,25 +216,25 @@ class _PageLoginState extends State<PageLogin> {
     );
   }
 
-  // Row _buildSignUp() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: [
-  //       // Text('first'.tr, style: GoogleFonts.aBeeZee(fontSize: 18)),
-  //       Text('first'.tr),
-  //       const SizedBox(width: 5),
-  //       TextButton(
-  //         onPressed: () {
-  //           //
-  //         },
-  //         child: Text(
-  //           "Create an account".tr,
-  //           style: const TextStyle(color: ColorsEx.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+  _buildSignUp() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // Text('first'.tr, style: GoogleFonts.aBeeZee(fontSize: 18)),
+        Text('first'.tr),
+        const SizedBox(width: 5),
+        TextButton(
+          onPressed: () {
+            Get.to(PageSignup());
+          },
+          child: Text(
+            "Create an account".tr,
+            style: const TextStyle(color: ColorsEx.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ],
+    );
+  }
 
   _buildInputText({
     required TextEditingController controller,
