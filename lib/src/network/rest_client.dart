@@ -27,6 +27,9 @@ class RestClient {
     var dio = Dio(
       BaseOptions(
         baseUrl: apiUrl, // 에뮬에서는 10.0.2.2가 localhost임 // 사무실에서 동작 안함
+        // receiveTimeout: const Duration(milliseconds: 10),
+        // connectTimeout: const Duration(milliseconds: 10),
+        // sendTimeout: const Duration(milliseconds: 10),
         receiveTimeout: const Duration(seconds: 30),
         connectTimeout: const Duration(seconds: 30),
         sendTimeout: const Duration(seconds: 30),

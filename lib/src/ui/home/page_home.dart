@@ -209,7 +209,7 @@ class _PageHomeState extends State<PageHome> {
               count: HomeController.to.homeModel.itemStatusData.safeCount,
               func: () {
                 // Get.toNamed("/inven");
-                debugPrint("안전재고 미충족");
+                debugPrint("[animal] [home] 안전재고 미충족");
                 Get.to(PageSafeList());
               },
             ),
@@ -217,7 +217,7 @@ class _PageHomeState extends State<PageHome> {
               title: "Product Total Count".tr,
               count: HomeController.to.homeModel.itemStatusData.totalCount,
               func: () {
-                debugPrint("전체 품목수");
+                debugPrint("[animal] [home] 전체 품목수");
                 Get.to(PageProductList());
               },
             ),

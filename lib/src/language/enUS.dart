@@ -62,6 +62,9 @@ Map<String, String> enUS = <String, String>{
   'Delivery registration has been completed': 'Delivery registration has been completed',
   'Shipping quantity': '출고수량',
 
+  // 설정
+  'Do you wnat to logout?': 'Do you wnat to logout?',
+
   'inout': 'inout',
   'inven': 'inven',
   'add product': 'add product',

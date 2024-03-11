@@ -39,8 +39,8 @@ class _PageLoginState extends State<PageLogin> {
       _controllerPW.text = "";
 
       if (kDebugMode) {
-        _controllerID.text = "test13";
-        _controllerPW.text = "1111";
+        _controllerID.text = "test16";
+        _controllerPW.text = "1234567a!";
       }
     }
 

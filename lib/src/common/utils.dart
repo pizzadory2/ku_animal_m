@@ -315,7 +315,7 @@ class Utils {
       case 1:
         return "mi_code";
       case 2:
-        return "mi_ingrmst_nameedients";
+        return "mi_ingredients";
       case 3:
         return "mi_manufacturer";
       case 4:
@@ -347,14 +347,14 @@ class Utils {
     return NumberFormat('###,###,###,###').format(src).replaceAll(' ', '');
   }
 
-  static showYesNoDialog(BuildContext context) {
+  static showYesNoDialog(BuildContext context, {String title = "", String content = ""}) {
     return showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
           return AlertDialog(
             title: Text(
-              "Do you want to delete it?".tr,
+              title.isNotEmpty ? title : "Do you want to delete it?".tr,
               style: tsDialogBody,
             ),
             actions: [

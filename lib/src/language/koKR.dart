@@ -64,6 +64,9 @@ Map<String, String> koKR = <String, String>{
   'Delivery registration has been completed': '출고등록이 완료되었습니다',
   'Shipping quantity': '출고수량',
 
+  // 설정
+  'Do you wnat to logout?': '로그아웃 하시겠습니까?',
+
   'inout': '입출고',
   'inven': '재고',
   'add product': '제품 추가',

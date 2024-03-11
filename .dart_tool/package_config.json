@@ -194,6 +194,18 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "firebase_crashlytics",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/firebase_crashlytics-3.4.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_crashlytics_platform_interface",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/firebase_crashlytics_platform_interface-3.6.16",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "firebase_messaging",
       "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/firebase_messaging-14.7.8",
       "packageUri": "lib/",
@@ -668,7 +680,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-01-20T08:49:58.723963Z",
+  "generated": "2024-03-10T11:49:40.069722Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }

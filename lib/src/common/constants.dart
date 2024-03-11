@@ -3,7 +3,7 @@
 import 'package:get/get.dart';
 
 class Constants {
-  static const baseUrl = "http://vmth.today25.com";
+  static const baseUrl = "http://kuvms.today25.com";
 
   // api
   static const apiPrefix = "/Ajax/AjaxMobile";

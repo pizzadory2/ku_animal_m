@@ -129,7 +129,12 @@ class _PageAppState extends State<PageApp> {
                 // ],
               )),
         ),
-        Obx(() => WidgetFactory.loadingWidget(isLoading: AppController.to.isLoading.value, title: "Loading...".tr)),
+        // Obx(() => WidgetFactory.loadingWidget(isLoading: true, title: "Loading...".tr, isBackground: true)),
+        Obx(() => WidgetFactory.loadingWidget(
+              isLoading: AppController.to.isLoading.value,
+              title: "Loading...".tr,
+              isBackground: false,
+            )),
       ],
     );
   }

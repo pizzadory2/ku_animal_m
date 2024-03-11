@@ -3,6 +3,7 @@ import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
+import 'package:lottie/lottie.dart';
 
 class WidgetFactory {
   static Widget divider({double weight = 1, Color color = Colors.white, double topMargin = 0}) {
@@ -201,7 +202,7 @@ class WidgetFactory {
     // );
   }
 
-  static loadingWidget({String? title, bool isLoading = true, bool isBackground = true}) {
+  static loadingWidget({String? title, bool isLoading = true, bool isBackground = false}) {
     if (!isLoading) {
       return Container();
     }
@@ -217,9 +218,10 @@ class WidgetFactory {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(
-                color: isBackground ? Colors.white : Colors.black,
-              ),
+              Lottie.asset("assets/lottie/loading_8.json", width: 150),
+              // CircularProgressIndicator(
+              //   color: isBackground ? Colors.white : Colors.black,
+              // ),
               if (title != null) const SizedBox(height: 20),
               if (title != null) Text(title, style: TextStyle(color: isBackground ? Colors.white : Colors.black)),
             ],

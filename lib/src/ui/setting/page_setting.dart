@@ -193,9 +193,16 @@ class _PageSettingState extends State<PageSetting> {
     return _buildSettingItem(
       title: "logout",
       func: () {
-        UserController.to.logout();
-        Get.offAllNamed("/login");
-        debugPrint("로그아웃");
+        debugPrint("[animal] [setting] 로그아웃");
+        Utils.showYesNoDialog(context,
+                title: // 설정
+                    "Do you wnat to logout?".tr)
+            .then((value) {
+          if (value == true) {
+            UserController.to.logout();
+            Get.offAllNamed("/login");
+          }
+        });
       },
     );
   }

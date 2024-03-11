@@ -119,6 +119,9 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
                         onChanged: (value) {
                           setState(() {});
                         },
+                        onSubmitted: (value) {
+                          searchData();
+                        },
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -348,7 +351,7 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return InputCountDialog();
+          return InputCountDialog(typeIn: false);
         });
 
     // Utils.keyboardHide();

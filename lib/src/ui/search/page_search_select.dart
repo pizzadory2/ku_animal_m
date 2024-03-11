@@ -159,7 +159,7 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return InputCountDialog();
+          return InputCountDialog(typeIn: widget.pageType == PageType.ProductIn);
         });
 
     // Utils.keyboardHide();

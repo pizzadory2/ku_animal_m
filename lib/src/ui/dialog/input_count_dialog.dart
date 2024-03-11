@@ -8,7 +8,9 @@ import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
 
 class InputCountDialog extends StatefulWidget {
-  InputCountDialog({super.key});
+  InputCountDialog({super.key, this.typeIn = true});
+
+  bool typeIn = true;
 
   @override
   State<InputCountDialog> createState() => _InputCountDialogState();
@@ -50,13 +52,15 @@ class _InputCountDialogState extends State<InputCountDialog> {
   _buildMain() {
     double btnMargin = 10;
 
+    String title = widget.typeIn ? "Please enter the quantity received" : "Please enter the shipment quantity";
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           alignment: Alignment.center,
           padding: EdgeInsets.only(top: 40),
-          child: Text("Please enter the quantity received".tr, style: tsDialogTitle),
+          child: Text(title.tr, style: tsDialogTitle),
           // child: Text("Please enter the shipment quantity".tr, style: tsDialogTitle),
         ),
         Container(

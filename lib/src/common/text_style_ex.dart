@@ -132,8 +132,14 @@ TextStyle get tsMainFabTitle => const TextStyle(
     );
 
 // 설정
+// TextStyle get tsSettingTitle => const TextStyle(
+//       fontFamily: "NanumSquare",
+//       fontSize: 18,
+//       fontWeight: FontWeight.w500,
+//       color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+//     );
 TextStyle get tsSettingTitle => const TextStyle(
-      fontFamily: "NanumSquare",
+      fontFamily: "NotoSansKR",
       fontSize: 18,
       fontWeight: FontWeight.w500,
       color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
@@ -156,7 +162,7 @@ TextStyle get tsSettingContent => const TextStyle(
 TextStyle get tsAppVersion => const TextStyle(
       fontFamily: "NotoSansKR",
       fontSize: 16,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w500,
       color: Colors.black54, //Color.fromARGB(255, 0, 17, 13),
     );
 

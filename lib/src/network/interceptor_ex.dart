@@ -53,6 +53,7 @@ class InterceptorEx extends Interceptor {
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
         // throw DeadlineExceededException(err.requestOptions);
+        debugPrint("ERROR [animal] [interceptor_ex] ${err.type} / ${err.message}");
         return handler.next(err);
       case DioExceptionType.badResponse:
         switch (err.response?.statusCode) {

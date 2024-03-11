@@ -62,6 +62,9 @@ Map<String, String> jaJP = <String, String>{
   'Delivery registration has been completed': 'Delivery registration has been completed',
   'Shipping quantity': 'quantity',
 
+  // 설정
+  'Do you wnat to logout?': 'Do you wnat to logout?',
+
   'inout': 'inout',
   'inven': 'inven',
   'add product': 'add product',
