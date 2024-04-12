@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class Constants {
   static const baseUrl = "http://kuvms.today25.com";
+  // static const baseUrl = "http://kuvms.konkuk.ac.kr";
 
   // api
   static const apiPrefix = "/Ajax/AjaxMobile";
@@ -29,6 +30,7 @@ class Constants {
 
   // 재고관리
   static const api_product = "reqStock";
+  static const api_product_order = "reqStockOrder";
 
   // 회원 > 로그인
   // static const api_qr_search = "reqUsers";

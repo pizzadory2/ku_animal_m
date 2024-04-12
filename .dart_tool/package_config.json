@@ -74,6 +74,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "badges",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/badges-3.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1",
       "packageUri": "lib/",
@@ -152,6 +158,12 @@
       "languageVersion": "2.15"
     },
     {
+      "name": "dotted_border",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/dotted_border-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "equatable",
       "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/equatable-2.0.5",
       "packageUri": "lib/",
@@ -174,6 +186,12 @@
       "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/file-7.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "file_picker",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/file_picker-7.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "firebase_core",
@@ -264,6 +282,12 @@
       "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/flutter_local_notifications_platform_interface-7.0.0+1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "flutter_plugin_android_lifecycle",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.17",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "flutter_spinkit",
@@ -400,6 +424,12 @@
     {
       "name": "path",
       "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/path-1.8.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "path_drawing",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/path_drawing-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -680,7 +710,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-03-10T11:49:40.069722Z",
+  "generated": "2024-04-05T01:41:03.722349Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }

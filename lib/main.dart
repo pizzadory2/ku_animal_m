@@ -17,7 +17,7 @@ import 'package:ku_animal_m/src/ui/startup/start_up.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setupFlutterNotifications();
-  showFlutterNotification(message);
+  // showFlutterNotification(message); // 백그라운드에서는 노티 띄우지 않음(두번 팝업됨)
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   debugPrint('Handling a background message ${message.messageId}');
@@ -57,6 +57,43 @@ Future<void> setupFlutterNotifications() async {
     sound: true,
   );
 
+  // foreground listen
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    // RemoteNotification? notification = message.notification;
+    // AndroidNotification? android = message.notification?.android;
+    // var androidNotiDetails = AndroidNotificationDetails(
+    //   channel.id,
+    //   channel.name,
+    //   channelDescription: channel.description,
+    // );
+    // // var iOSNotiDetails = const IOSNotificationDetails();
+    // // var details = NotificationDetails(android: androidNotiDetails, iOS: iOSNotiDetails);
+    // var details = NotificationDetails(android: androidNotiDetails);
+    // if (notification != null) {
+    //   flutterLocalNotificationsPlugin.show(
+    //     notification.hashCode,
+    //     notification.title,
+    //     notification.body,
+    //     details,
+    //   );
+    // }
+    showFlutterNotification(message);
+  });
+
+  ///gives you the messsage on which user taps
+  ///and it opened the app from temminated state
+  FirebaseMessaging.instance.getInitialMessage().then((message) {
+    debugPrint('fcm getInitialMessage, message : ${message?.data ?? ''}');
+    if (message != null) {
+      return;
+    }
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((message) {
+    print(message);
+  });
+  //
+
   isFlutterLocalNotificationsInitialized = true;
 }
 
@@ -75,7 +112,7 @@ void showFlutterNotification(RemoteMessage message) {
           channelDescription: channel.description,
           // TODO add a proper drawable resource to android, for now using
           //      one that already exists in example app.
-          icon: 'launch_background',
+          icon: 'launcher_icon',
         ),
       ),
     );
@@ -111,6 +148,10 @@ void main() async {
   if (!kIsWeb) {
     await setupFlutterNotifications();
   }
+
+  // get device token
+  // String? deviceToken = await FirebaseMessaging.instance.getToken();
+  // debugPrint('deviceToken: $deviceToken');
 
   await Preference().init();
 

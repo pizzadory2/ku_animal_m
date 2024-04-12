@@ -18,6 +18,8 @@ class InvenModel {
   final String mst_in_stock;
   final String mst_out_stock;
   final String mst_base_stock;
+  int orderCount = 0;
+
   InvenModel({
     required this.mi_seq,
     required this.mi_code,
@@ -38,6 +40,7 @@ class InvenModel {
     required this.mst_in_stock,
     required this.mst_out_stock,
     required this.mst_base_stock,
+    this.orderCount = 0,
   });
 
   factory InvenModel.fromJson(Map<String, dynamic> json) {

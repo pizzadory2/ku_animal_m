@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_repository.dart';
+import 'package:ku_animal_m/src/ui/inventory/order_model.dart';
 import 'package:ku_animal_m/src/ui/product/inven_model.dart';
 
 class InvenController extends GetxController {
@@ -13,6 +14,8 @@ class InvenController extends GetxController {
   RxBool isLoading = false.obs;
 
   List<InvenModel> _list = [];
+  List<OrderModel> _orderList = [];
+  RxInt orderCount = 0.obs;
 
   clearData() {
     isLoading.value = true;
@@ -89,11 +92,66 @@ class InvenController extends GetxController {
     return isSuccess;
   }
 
+  addCart({required InvenModel item, required int count}) {
+    debugPrint("[animal] 장바구니 추가");
+  }
+
+  Future<bool> orderStock({required String title, required String reason}) async {
+    isLoading.value = true;
+    bool isSuccess = false;
+    await repository.reqStockOrder(list: _orderList, msg: title, reason: reason).then((value) async {
+      isLoading.value = false;
+
+      if (value != null) {
+        if (value.result == "SUCCESS") {
+          isSuccess = true;
+          _orderList.clear();
+        } else {
+          isSuccess = false;
+        }
+      } else {
+        isSuccess = false;
+      }
+    });
+
+    debugPrint("[animal] 요청 데이터는: ${_orderList.length}");
+
+    isLoading.value = false;
+    return isSuccess;
+  }
+
   getCount() {
     return _list.length;
   }
 
   getItem(int index) {
     return _list[index];
+  }
+
+  void addOrderList({required OrderModel data}) {
+    _orderList.add(data);
+    changeOrderCount();
+  }
+
+  getOrderCount() {
+    return _orderList.length;
+  }
+
+  OrderModel getOrder(int index) {
+    return _orderList[index];
+  }
+
+  void removeOrder(int index) {
+    _orderList.removeAt(index);
+    changeOrderCount();
+  }
+
+  void clearOrderList() {
+    _orderList.clear();
+    changeOrderCount();
+  }
+
+  void changeOrderCount() {
+    orderCount.value = _orderList.length;
   }
 }

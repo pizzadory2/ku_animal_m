@@ -11,6 +11,7 @@ import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
 import 'package:ku_animal_m/src/ui/dialog/select_month_dialog.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
+import 'package:ku_animal_m/src/ui/inventory/page_inven_order.dart';
 import 'package:ku_animal_m/src/ui/product/inven_model.dart';
 import 'package:ku_animal_m/src/ui/qr/page_qr_2.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -301,6 +302,9 @@ class _PageInvenState extends State<PageInven> {
     String amount = data.mi_content.isEmpty ? "-" : "(${data.mi_content})";
     String ingredients = data.mi_ingredients.isEmpty ? "-" : data.mi_ingredients;
 
+    int stockCount = data.mst_base_stock.isEmpty ? 0 : int.parse(data.mst_base_stock);
+    bool isLongStockCount = data.mst_base_stock.length > 4;
+
     return GestureDetector(
       onTap: () {
         //
@@ -330,23 +334,50 @@ class _PageInvenState extends State<PageInven> {
                 ),
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                border: Border.all(width: 1, color: Colors.grey[300]!),
-                borderRadius: BorderRadius.circular(45),
-              ),
-              width: 90,
-              height: 90,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("quantity".tr, style: tsInvenItemTotalCount),
-                    Text(data.mst_base_stock, style: tsInvenItemTotalCount),
-                  ],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () async {
+                    Utils.keyboardHide();
+                    var result = await Get.to(PageInvenOrder(data: data));
+                    if (result != null) {
+                      // AppController.to.setLoading(true);
+                      result.name = data.mi_name;
+                      result.code = data.mi_code;
+                      InvenController.to.addOrderList(data: result);
+                      Utils.showToast("Added to order request list".tr, isCenter: true);
+                      // AppController.to.setLoading(false);
+                    }
+                  },
+                  child: Container(
+                    width: 90,
+                    alignment: Alignment.topRight,
+                    child: Icon(Icons.add_shopping_cart_outlined),
+                  ),
                 ),
-              ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    border: Border.all(width: 1, color: Colors.grey[300]!),
+                    borderRadius: BorderRadius.circular(45),
+                  ),
+                  width: 90,
+                  height: 90,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("quantity".tr, style: tsInvenItemTotalCount),
+                        Text("${stockCount}",
+                            style: tsInvenItemTotalCount.copyWith(fontSize: isLongStockCount ? 18 : 24)),
+                        // Text(data.mst_base_stock, style: tsInvenItemTotalCount),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             )
           ],
         ),

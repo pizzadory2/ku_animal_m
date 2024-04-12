@@ -8,13 +8,12 @@ import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
-import 'package:ku_animal_m/src/ui/alarm/page_alarm.dart';
 import 'package:ku_animal_m/src/ui/home/home_controller.dart';
 import 'package:ku_animal_m/src/ui/home/page_home.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
+import 'package:ku_animal_m/src/ui/inventory/page_cart.dart';
 import 'package:ku_animal_m/src/ui/inventory/page_inven.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
-import 'package:ku_animal_m/src/ui/member/page_member.dart';
 import 'package:ku_animal_m/src/ui/product_in/page_product_in.dart';
 import 'package:ku_animal_m/src/ui/product_in/product_in_controller.dart';
 import 'package:ku_animal_m/src/ui/product_out/page_product_out.dart';
@@ -66,18 +65,41 @@ class _PageAppState extends State<PageApp> {
                   },
                 ),
                 actions: [
-                  IconButton(
-                    icon: const Icon(Icons.person),
-                    // icon: const FaIcon(FontAwesomeIcons.solidBell),
-                    onPressed: () {
-                      Get.to(PageMember());
-                      // Get.to(const PageAlarm())?.then((value) {
-                      //   setState(() {
-                      //     //
-                      //   });
-                      // });
-                    },
-                  ),
+                  // IconButton(
+                  //   icon: const Icon(Icons.person),
+                  //   // icon: const FaIcon(FontAwesomeIcons.solidBell),
+                  //   onPressed: () {
+                  //     Get.to(PageMember());
+                  //     // Get.to(const PageAlarm())?.then((value) {
+                  //     //   setState(() {
+                  //     //     //
+                  //     //   });
+                  //     // });
+                  //   },
+                  // ),
+                  Obx(
+                    () => Badge(
+                      // label: InvenController.to.getOrderCount() > 0
+                      //     ? Text("${InvenController.to.getOrderCount()}")
+                      //     : Text(""),
+                      label: InvenController.to.orderCount.value > 0
+                          ? Text("${InvenController.to.orderCount.value}")
+                          : Text(""),
+                      backgroundColor: InvenController.to.getOrderCount() > 0 ? Colors.red : Colors.transparent,
+                      offset: const Offset(-4, 9),
+                      isLabelVisible: true,
+                      child: IconButton(
+                        icon: const FaIcon(FontAwesomeIcons.basketShopping),
+                        onPressed: () {
+                          Get.to(const PageCart())?.then((value) {
+                            setState(() {
+                              //
+                            });
+                          });
+                        },
+                      ),
+                    ),
+                  )
                 ],
                 title: Text(ePageTitle[_selectIndex].tr, style: tsAppbarTitle),
               ),

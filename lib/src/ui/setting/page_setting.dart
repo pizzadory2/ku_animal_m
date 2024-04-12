@@ -67,7 +67,7 @@ class _PageSettingState extends State<PageSetting> {
                   // _buildNotice(),
                   _buildLanguage(),
                   // _buildVersion(),
-                  kDebugMode ? _buildTheme() : Container(),
+                  // kDebugMode ? _buildTheme() : Container(),
                   _buildLogout(),
                 ],
               ),
@@ -169,7 +169,12 @@ class _PageSettingState extends State<PageSetting> {
   }
 
   _buildVersion2() {
-    String appVersion = "0.0.1";
+    String appVersion = AppController.to.versionInfo;
+    if (kDebugMode) {
+      appVersion += "(Debug)";
+    }
+
+    // appVersion += "(Beta)";
 
     return Container(
       width: double.infinity,

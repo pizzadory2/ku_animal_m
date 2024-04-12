@@ -159,9 +159,9 @@ class ProductOutRegRepository {
         //   return null;
         // }
 
-        ProductRegModel resulModel = ProductRegModel.fromJson(parseData);
+        ProductRegModel resultModel = ProductRegModel.fromJson(parseData);
 
-        return resulModel;
+        return resultModel;
       } else {
         return null; // Map()
       }
