@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/enums.dart';
+import 'package:ku_animal_m/src/common/notification.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
@@ -38,6 +42,7 @@ class _PageHomeState extends State<PageHome> {
 
   @override
   void initState() {
+    _requestPermissions();
     _funcMakeDummyData();
 
     // refreshData();
@@ -404,6 +409,35 @@ class _PageHomeState extends State<PageHome> {
         ],
       ),
     );
+  }
+
+  // 알람 권한 요청
+  Future<void> _requestPermissions() async {
+    if (Platform.isIOS || Platform.isMacOS) {
+      await notifications
+          .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: true,
+            badge: true,
+            sound: true,
+          );
+      await notifications
+          .resolvePlatformSpecificImplementation<MacOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: true,
+            badge: true,
+            sound: true,
+          );
+    } else if (Platform.isAndroid) {
+      final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+          notifications.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+
+      // final bool? granted = await androidImplementation?.requestPermission();
+      final bool? granted = await androidImplementation?.requestNotificationsPermission();
+      setState(() {
+        // AppController.to.notificationsEnabled = granted ?? false;
+      });
+    }
   }
 
   void _funcMakeDummyData() {

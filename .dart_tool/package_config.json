@@ -15,15 +15,15 @@
     },
     {
       "name": "archive",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/archive-3.4.9",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/archive-3.4.10",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "args",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/args-2.4.2",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/args-2.5.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "async",
@@ -99,9 +99,9 @@
     },
     {
       "name": "cli_util",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/cli_util-0.4.0",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/cli_util-0.4.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "clock",
@@ -141,7 +141,7 @@
     },
     {
       "name": "device_info_plus",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/device_info_plus-9.1.1",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/device_info_plus-9.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -153,7 +153,7 @@
     },
     {
       "name": "dio",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/dio-5.4.0",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/dio-5.4.3+1",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -225,19 +225,19 @@
     },
     {
       "name": "firebase_messaging",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/firebase_messaging-14.7.8",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/firebase_messaging-14.7.10",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "firebase_messaging_platform_interface",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/firebase_messaging_platform_interface-4.5.17",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/firebase_messaging_platform_interface-4.5.18",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "firebase_messaging_web",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/firebase_messaging_web-3.5.17",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/firebase_messaging_web-3.5.18",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -267,7 +267,7 @@
     },
     {
       "name": "flutter_local_notifications",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/flutter_local_notifications-16.2.0",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/flutter_local_notifications-16.3.3",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -291,13 +291,13 @@
     },
     {
       "name": "flutter_spinkit",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/flutter_spinkit-5.2.0",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/flutter_spinkit-5.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "flutter_svg",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/flutter_svg-2.0.9",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/flutter_svg-2.0.10+1",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -315,13 +315,13 @@
     },
     {
       "name": "fluttertoast",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/fluttertoast-8.2.4",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/fluttertoast-8.2.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "font_awesome_flutter",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/font_awesome_flutter-10.6.0",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/font_awesome_flutter-10.7.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -351,7 +351,7 @@
     },
     {
       "name": "image",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/image-4.1.3",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/image-4.1.7",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -441,21 +441,21 @@
     },
     {
       "name": "path_provider",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/path_provider-2.1.1",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/path_provider-2.1.2",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/path_provider_android-2.2.1",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/path_provider_android-2.2.2",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "path_provider_foundation",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.1",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.2",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "path_provider_linux",
@@ -465,9 +465,9 @@
     },
     {
       "name": "path_provider_platform_interface",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.1.1",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.1.2",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "path_provider_windows",
@@ -513,21 +513,21 @@
     },
     {
       "name": "platform",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/platform-3.1.3",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/platform-3.1.4",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "plugin_platform_interface",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.7",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "pointycastle",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/pointycastle-3.7.3",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/pointycastle-3.8.0",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "3.0"
     },
     {
       "name": "pull_to_refresh",
@@ -549,9 +549,9 @@
     },
     {
       "name": "shared_preferences_foundation",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.3.4",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.3.5",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "shared_preferences_linux",
@@ -561,9 +561,9 @@
     },
     {
       "name": "shared_preferences_platform_interface",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/shared_preferences_platform_interface-2.3.1",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/shared_preferences_platform_interface-2.3.2",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "shared_preferences_web",
@@ -615,9 +615,9 @@
     },
     {
       "name": "synchronized",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/synchronized-3.1.0",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/synchronized-3.1.0+1",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     },
     {
       "name": "term_glyph",
@@ -645,25 +645,25 @@
     },
     {
       "name": "uuid",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/uuid-4.2.1",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/uuid-4.2.2",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "vector_graphics",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/vector_graphics-1.1.9+1",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/vector_graphics-1.1.11+1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "vector_graphics_codec",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/vector_graphics_codec-1.1.9+1",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/vector_graphics_codec-1.1.11+1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "vector_graphics_compiler",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/vector_graphics_compiler-1.1.9+1",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/vector_graphics_compiler-1.1.11+1",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -687,9 +687,9 @@
     },
     {
       "name": "xdg_directories",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/xdg_directories-1.0.3",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/xdg_directories-1.0.4",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.0"
     },
     {
       "name": "xml",
@@ -710,7 +710,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-04-05T01:41:03.722349Z",
+  "generated": "2024-04-16T08:03:17.167990Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }

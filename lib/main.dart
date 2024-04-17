@@ -7,6 +7,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/firebase_options.dart';
 import 'package:ku_animal_m/src/binding/init_binding.dart';
+import 'package:ku_animal_m/src/common/notification.dart';
 import 'package:ku_animal_m/src/common/preference.dart';
 import 'package:ku_animal_m/src/common/theme_ex.dart';
 import 'package:ku_animal_m/src/language/languages.dart';
@@ -32,6 +33,7 @@ Future<void> setupFlutterNotifications() async {
   if (isFlutterLocalNotificationsInitialized) {
     return;
   }
+
   channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
@@ -39,13 +41,13 @@ Future<void> setupFlutterNotifications() async {
     importance: Importance.high,
   );
 
-  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  // flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   /// Create an Android Notification Channel.
   ///
   /// We use this channel in the `AndroidManifest.xml` file to override the
   /// default FCM channel to enable heads up notifications.
-  await flutterLocalNotificationsPlugin
+  await notifications
       .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
@@ -97,14 +99,36 @@ Future<void> setupFlutterNotifications() async {
   isFlutterLocalNotificationsInitialized = true;
 }
 
+// void showFlutterNotification(RemoteMessage message) {
+//   RemoteNotification? notification = message.notification;
+//   AndroidNotification? android = message.notification?.android;
+//   if (notification != null && android != null && !kIsWeb) {
+//     flutterLocalNotificationsPlugin.show(
+//       notification.hashCode,
+//       notification.title,
+//       notification.body,
+//       NotificationDetails(
+//         android: AndroidNotificationDetails(
+//           channel.id,
+//           channel.name,
+//           channelDescription: channel.description,
+//           // TODO add a proper drawable resource to android, for now using
+//           //      one that already exists in example app.
+//           icon: 'launcher_icon',
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 void showFlutterNotification(RemoteMessage message) {
-  RemoteNotification? notification = message.notification;
+  RemoteNotification? rNoti = message.notification;
   AndroidNotification? android = message.notification?.android;
-  if (notification != null && android != null && !kIsWeb) {
-    flutterLocalNotificationsPlugin.show(
-      notification.hashCode,
-      notification.title,
-      notification.body,
+  if (rNoti != null && android != null && !kIsWeb) {
+    notifications.show(
+      rNoti.hashCode,
+      rNoti.title,
+      rNoti.body,
       NotificationDetails(
         android: AndroidNotificationDetails(
           channel.id,
@@ -119,8 +143,27 @@ void showFlutterNotification(RemoteMessage message) {
   }
 }
 
-late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+// void testNotification() {
+//   flutterLocalNotificationsPlugin.show(
+//     1,
+//     "입고 알림",
+//     "타미플루가 입고되었습니다.",
+//     NotificationDetails(
+//       android: AndroidNotificationDetails(
+//         channel.id,
+//         channel.name,
+//         channelDescription: channel.description,
+//         icon: 'launcher_icon',
+//       ),
+//     ),
+//   );
+// }
 
+// late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+// bundle id : com.today25.kuanimalm.kuAnimalm
+// ios app store connect Apple ID : 6497170054
+// ios app store connect SKU : com.today25.kuanimalm.kuAnimalm.ios
 // generate apk : flutter build apk --split-per-abi
 // generate release apk : flutter build appbundle --release
 // ios build : flutter build ipa
@@ -146,6 +189,7 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   if (!kIsWeb) {
+    await initNotification();
     await setupFlutterNotifications();
   }
 

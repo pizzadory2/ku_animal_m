@@ -3,8 +3,8 @@
 import 'package:get/get.dart';
 
 class Constants {
-  static const baseUrl = "http://kuvms.today25.com";
-  // static const baseUrl = "http://kuvms.konkuk.ac.kr";
+  // static const baseUrl = "http://kuvms.today25.com";
+  static const baseUrl = "http://kuvms.konkuk.ac.kr";
 
   // api
   static const apiPrefix = "/Ajax/AjaxMobile";

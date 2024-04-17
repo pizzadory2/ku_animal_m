@@ -124,6 +124,48 @@ class _StartUpState extends State<StartUp> {
     debugPrint("[animal] ::initPlatformState after - (6)");
   }
 
+  // android play store 버전 체크
+  // Future<String> _getAndroidStoreVersion(PackageInfo packageInfo) async {
+  // // https://play.google.com/store/apps/details?id=com.today25.kuanimalm.ku_animal_m
+  // final id = packageInfo.packageName;
+  // final uri = Uri.https("play.google.com", "/store/apps/details", {"id": "$id"});
+  // final response = await http.get(uri);
+  // if (response.statusCode != 200) {
+  //   debugPrint('Can\'t find an app in the Play Store with the id: $id');
+  //   return "";
+  // }
+  // final document = parse(response.body);
+  // final elements = document.getElementsByClassName('hAyfc');
+  // final versionElement = elements.firstWhere(
+  //   (elm) => elm.querySelector('.BgcNfc').text == 'Current Version',
+  // );
+  // return versionElement.querySelector('.htlgb').text;
+  // }
+
+  // ios app store 버전 체크
+  // Future<dynamic> _getiOSStoreVersion(PackageInfo packageInfo) async {
+  //   final id = packageInfo.packageName;
+
+  //   final parameters = {"bundleId": "$id"};
+
+  //   var uri = Uri.https("itunes.apple.com", "/lookup", parameters);
+  //   final response = await http.get(uri);
+
+  //   if (response.statusCode != 200) {
+  //     debugPrint('Can\'t find an app in the App Store with the id: $id');
+  //     return "";
+  //   }
+
+  //   final jsonObj = json.decode(response.body);
+
+  //   /* 일반 print에서 일정 길이 이상의 문자열이 들어왔을 때,
+  //    해당 길이만큼 문자열이 출력된 후 나머지 문자열은 잘린다.
+  //    debugPrint의 경우 일반 print와 달리 잘리지 않고 여러 행의 문자열 형태로 출력된다. */
+
+  //   // debugPrint(response.body.toString());
+  //   return jsonObj['results'][0]['version'];
+  // }
+
   Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {
     return <String, dynamic>{
       'version.securityPatch': build.version.securityPatch,
