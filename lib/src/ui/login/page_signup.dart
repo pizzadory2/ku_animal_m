@@ -24,7 +24,7 @@ class _PageSignupState extends State<PageSignup> {
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerPhone = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
-  int _workType = 0;
+  int _workType = 3;
 
   bool _isLoading = false;
 
@@ -101,7 +101,8 @@ class _PageSignupState extends State<PageSignup> {
                         inputType: TextInputType.emailAddress,
                         maxLength: 50,
                       ),
-                      _buildDropdown(title: "worktype".tr, list: ["시간제".tr, "계약직".tr, "정규직".tr], select: _workType),
+                      _buildDropdown(
+                          title: "worktype".tr, list: ["시간제".tr, "계약직".tr, "정규직".tr, "선택안함".tr], select: _workType),
                       const SizedBox(height: 30),
                       _buildInfo(),
                       _buildSignupButton(),
@@ -137,7 +138,7 @@ class _PageSignupState extends State<PageSignup> {
           return;
         } else {
           if (pw.isValidPassword() == false) {
-            Get.snackbar("signup failed".tr, "pw info".tr);
+            Get.snackbar("signup failed".tr, "pw info fail".tr);
             return;
           }
         }
@@ -157,10 +158,10 @@ class _PageSignupState extends State<PageSignup> {
           return;
         }
 
-        if (_controllerPhone.text.isEmpty) {
-          Get.snackbar("signup failed".tr, "please input phone number".tr);
-          return;
-        }
+        // if (_controllerPhone.text.isEmpty) {
+        //   Get.snackbar("signup failed".tr, "please input phone number".tr);
+        //   return;
+        // }
 
         if (_controllerEmail.text.isEmpty) {
           Get.snackbar("signup failed".tr, "please input email".tr);
@@ -190,7 +191,7 @@ class _PageSignupState extends State<PageSignup> {
                 type: workType)
             .then((value) {
           if (value) {
-            Get.snackbar("signup success".tr, "please wait for admin approval".tr);
+            Get.snackbar("thankyou".tr, "signup success".tr);
             Get.off(PageLogin(id: _controllerID.text, pw: _controllerPW.text));
           } else {
             // Get.snackbar("signup failed".tr, "아이디와 비밀번호를 확인해주세요.");

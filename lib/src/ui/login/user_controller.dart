@@ -144,6 +144,57 @@ class UserController extends GetxController {
     return isSuccess;
   }
 
+  // 회원탈퇴
+  Future<bool> withdraw({required String id, required String pw}) async {
+    // return Future.delayed(const Duration(seconds: 1), () {
+    //   return true;
+    // });
+
+    isLoading.value = true;
+    bool isSuccess = false;
+    String resultMsg = "네트워크 상태를 확인해주세요.";
+
+    clear();
+
+    debugPrint("[animal] 회원탈퇴777777777777777");
+
+    await repository.reqWithdraw(id: id, pw: pw).then((value) {
+      isLoading.value = false;
+
+      if (value != null) {
+        if (value is BaseModel) {
+          debugPrint("value is BaseModel");
+
+          resultMsg = value.msg ?? "";
+
+          if (value.result == "SUCCESS") {
+            isSuccess = true;
+          } else {
+            if (value.result == "REQUIRED") {
+              // String missItem = value.data ?? "";
+              resultMsg = "비밀번호를 다시 입력해주세요.";
+            }
+            isSuccess = false;
+          }
+        } else {
+          debugPrint("value is not UserModel");
+          isSuccess = false;
+        }
+      } else {
+        isSuccess = false;
+        // resultMsg = "네트워크 상태를 확인해주세요.";
+        // Get.snackbar("login failed".tr, resultMsg);
+      }
+    });
+
+    if (isSuccess == false) {
+      // Utils.showToast(resultMsg);
+      Get.snackbar("withdraw failed".tr, resultMsg);
+    }
+
+    return isSuccess;
+  }
+
   void clear() {
     userName = "";
     userSeq = "";

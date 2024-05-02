@@ -219,7 +219,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale('ko', 'KR'),
       fallbackLocale: const Locale('ko', 'KR'),
       theme: ThemeEx.light,
-      darkTheme: ThemeEx.dark,
+      // darkTheme: ThemeEx.dark,
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       initialBinding: InitBinding(),
       initialRoute: '/start_up',

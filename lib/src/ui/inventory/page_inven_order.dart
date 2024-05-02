@@ -61,7 +61,7 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
           SizedBox(height: 20),
           WidgetFactory.divider(color: Colors.grey),
           _buildOrderCount(),
-          _fileName.isEmpty ? _buildAddFile() : _buildFileInfo(),
+          // _fileName.isEmpty ? _buildAddFile() : _buildFileInfo(),
         ],
       ),
     );

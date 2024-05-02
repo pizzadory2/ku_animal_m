@@ -8,6 +8,8 @@ import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
+import 'package:ku_animal_m/src/ui/dialog/withdraw_dialog.dart';
+import 'package:ku_animal_m/src/ui/login/page_login.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/notice/page_notice.dart';
 
@@ -72,6 +74,8 @@ class _PageSettingState extends State<PageSetting> {
                 ],
               ),
             ),
+            Spacer(),
+            _buildWithdraw(),
             _buildVersion2(),
           ],
         ),
@@ -210,6 +214,45 @@ class _PageSettingState extends State<PageSetting> {
         });
       },
     );
+  }
+
+  _buildWithdraw() {
+    String appVersion = AppController.to.versionInfo;
+
+    return GestureDetector(
+      onTap: () {
+        _showWithdrawDialog(context).then((value) {
+          //
+        });
+      },
+      child: Container(
+        width: double.infinity,
+        height: 30,
+        margin: const EdgeInsets.only(bottom: 10),
+        child: Center(child: Text("withdraw".tr, style: tsAppVersion.copyWith(color: Colors.grey, fontSize: 12))),
+      ),
+    );
+  }
+
+  _showWithdrawDialog(context) async {
+    var result = await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return WithdrawDialog();
+        });
+
+    Utils.keyboardHide();
+
+    if (result != null && result == true) {
+      // Get.to(PageSearchResult(searchText: result), transition: Transition.fade);
+      // searchData(result.txt, result.t
+      Utils.showToast("회원탈퇴가 완료되었습니다.\n다시 로그인 해주세요.");
+
+      Get.offAllNamed("/login");
+    }
+
+    // return result;
   }
 
   Container _buildSettingItem({required String title, String subTitle = "", Function()? func}) {

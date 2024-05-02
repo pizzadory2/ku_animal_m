@@ -183,4 +183,53 @@ class UserRepository {
 
     return null;
   }
+
+  Future reqWithdraw({
+    required String id,
+    required String pw,
+  }) async {
+    debugPrint("[animal::user_repository] 회원탈퇴 API 호출");
+
+    var param = {
+      "userId": id,
+      "userPw": pw,
+    };
+
+    try {
+      var api = Constants.api_withdraw;
+      var result = await RestClient().dio.post(
+            api,
+            options: Options(headers: {
+              // Headers.contentTypeHeader: "multipart/form-data",
+              Headers.contentTypeHeader: Headers.formUrlEncodedContentType,
+            }),
+            data: param,
+          );
+
+      if (result != null) {
+        var parseData = jsonDecode(result.toString());
+        // var code = parseData["result"].toString();
+        // var msg = parseData["msg"].toString();
+
+        BaseModel apiResult = BaseModel.fromJson(parseData);
+
+        // var data = UserInfoModel.fromJson(result.data);
+        return apiResult;
+      } else {
+        return null; // Map()
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        debugPrint(e.response!.data.toString());
+        debugPrint(e.response!.headers.toString());
+        // debugPrint(e.response!.requestOptions.toString());
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // debugPrint(e.requestOptions.toString());
+        debugPrint(e.message);
+      }
+    }
+
+    return null;
+  }
 }

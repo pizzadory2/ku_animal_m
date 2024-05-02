@@ -325,10 +325,10 @@ class Utils {
     }
   }
 
-  // 근무 타입(PT:시간제, FT:계약직, NT:정규직)
+  // 근무 타입(PT:시간제, FT:계약직, NT:정규직, ET:기타)
   static getWorkType({required int workIndex}) {
     if (workIndex == -1) {
-      return "";
+      return "ET";
     }
 
     switch (workIndex) {
@@ -338,8 +338,10 @@ class Utils {
         return "FT";
       case 2:
         return "NT";
+      case 3:
+        return "ET";
       default:
-        return "PT";
+        return "ET";
     }
   }
 

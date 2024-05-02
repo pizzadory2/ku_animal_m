@@ -235,6 +235,7 @@ class WidgetFactory {
       {required TextEditingController controller,
       String value = "",
       bool autoFocus = false,
+      bool pw = false,
       TextInputType inputType = TextInputType.text,
       Function(String)? onSubmit,
       bool readOnly = false}) {
@@ -252,7 +253,7 @@ class WidgetFactory {
           maxLines: 1,
           readOnly: readOnly,
           cursorColor: Colors.black,
-          obscureText: false,
+          obscureText: pw,
           decoration: InputDecoration(
             // hintText: "${title}을 입력해 주세요",
             hintStyle: tsDialogHint,
