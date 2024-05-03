@@ -132,7 +132,77 @@ class InvenRepository {
     return null;
   }
 
+  // 재고 발주 요청
+  /*
+  command:reqStock
+  mode:STOCK_REQUEST_BUY
+  reqSeq[]:IT-000107
+  reqQty[]:7
+   */
+
   reqStockOrder({required List<OrderModel> list, required String msg, required String reason}) async {
+    List<String> reqSeqList = list.map((e) => e.code).toList();
+    List<String> countList = list.map((e) => e.orderCount.toString()).toList();
+
+    var param = {
+      "command": Constants.api_product,
+      "mode": "STOCK_REQUEST_BUY",
+      "reqSeq[]": reqSeqList,
+      "reqQty[]": countList,
+    };
+
+    debugPrint(jsonEncode(param).toString());
+
+    try {
+      var result = await RestClient().dio.post(
+            Constants.api_command,
+            options: Options(headers: {
+              Headers.contentTypeHeader: Headers.formUrlEncodedContentType,
+              // Headers.contentTypeHeader: "multipart/form-data",
+              // Headers.contentTypeHeader: "application/json",
+              // Headers.contentTypeHeader: Headers.formUrlEncodedContentType,
+            }),
+            data: param,
+            // data: jsonEncode(param),
+          );
+
+      if (result != null) {
+        if (result.data != null) {
+          int a = 0;
+          a++;
+        }
+
+        var parseData = jsonDecode(result.toString());
+        // var code = parseData["result"].toString();
+        // var msg = parseData["msg"].toString();
+        // if (parseData["result"] != "SUCCESS") {
+        //   return null;
+        // }
+
+        // ProductRegModel resultModel = ProductRegModel.fromJson(parseData);
+        InvenOrderModel resultModel = InvenOrderModel.fromJson(parseData);
+
+        return resultModel;
+      } else {
+        return null; // Map()
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        debugPrint(e.response!.data.toString());
+        debugPrint(e.response!.headers.toString());
+        // debugPrint(e.response!.requestOptions.toString());
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // debugPrint(e.requestOptions.toString());
+        debugPrint(e.message);
+      }
+    }
+
+    return null;
+  }
+
+  // 신규발주요청(2024.05.03) 모바일에는 없는 기능
+  reqStockOrderNew({required List<OrderModel> list, required String msg, required String reason}) async {
     List<String> miCodeList = list.map((e) => e.code).toList();
     List<String> countList = list.map((e) => e.orderCount.toString()).toList();
     List<String> filePathList = list.map((e) => e.filePath.toString()).toList();

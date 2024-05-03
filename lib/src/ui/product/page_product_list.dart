@@ -91,14 +91,12 @@ class _PageProductListState extends State<PageProductList> {
           children: [
             Row(
               children: [
-                Container(
-                  child: Text("No.${index + 1}"),
-                ),
+                Text("No.${index + 1}"),
               ],
             ),
             Text(
               title,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, overflow: TextOverflow.ellipsis),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 5),
             Text(

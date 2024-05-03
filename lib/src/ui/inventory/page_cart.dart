@@ -58,8 +58,8 @@ class _PageCartState extends State<PageCart> {
                   : Center(
                       child: Text("no data".tr),
                     )),
-          _buildTitle(),
-          _buildReason(),
+          // _buildTitle(),
+          // _buildReason(),
           SizedBox(height: 20),
           _buildBottom(),
         ],
@@ -98,7 +98,8 @@ class _PageCartState extends State<PageCart> {
       children: [
         WidgetFactory.divider(color: Colors.grey),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 5),
+          margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+          height: 45,
           child: ElevatedButton(
             onPressed: InvenController.to.getOrderCount() > 0
                 ? () {
