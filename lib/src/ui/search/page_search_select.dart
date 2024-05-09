@@ -81,14 +81,8 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
     }
 
     return GestureDetector(
-      onTap: () async {
-        ProductResultData result = await _showInputCountDialog(context, code: data.mi_code);
-
-        if (result.isNotEmpty) {
-          Controllers.getController(type: widget.pageType).addProduct(data, result.count);
-          debugPrint("[animal] result: ${result.toString()}");
-          Get.back();
-        }
+      onTap: () {
+        Utils.showDetailDlg(context, title: data.mi_name, dismissible: true);
       },
       child: Row(
         children: [
@@ -119,10 +113,29 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
                       ),
                     ),
                   ),
-                  Container(
-                      margin: EdgeInsets.only(left: 30, right: 10),
-                      alignment: Alignment.centerRight,
-                      child: Text("Select".tr, style: tsInvenItemCompany.copyWith(color: Colors.black))),
+                  GestureDetector(
+                    onTap: () async {
+                      ProductResultData result = await _showInputCountDialog(context, code: data.mi_code);
+
+                      if (result.isNotEmpty) {
+                        Controllers.getController(type: widget.pageType).addProduct(data, result.count);
+                        debugPrint("[animal] result: ${result.toString()}");
+                        Get.back();
+                      }
+                    },
+                    child: Container(
+                        margin: EdgeInsets.only(left: 30, right: 10),
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: ColorsEx.primaryColor,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        // color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        child:
+                            Center(child: Text("Select".tr, style: tsInvenItemCompany.copyWith(color: Colors.white)))),
+                  ),
                 ],
               ),
             ),
@@ -155,11 +168,16 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
   }
 
   _showInputCountDialog(BuildContext context, {required String code}) async {
+    bool productIn = false;
+    if (widget.pageType == PageType.ProductIn || widget.pageType == PageType.ProductRegIn) {
+      productIn = true;
+    }
+
     ProductResultData result = await showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return InputCountDialog(typeIn: widget.pageType == PageType.ProductIn);
+          return InputCountDialog(typeIn: productIn);
         });
 
     // Utils.keyboardHide();

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ku_animal_m/src/common/text_style_ex.dart';
+import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
@@ -71,22 +73,34 @@ class _PageCartState extends State<PageCart> {
     OrderModel order = InvenController.to.getOrder(index);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(order.name, style: TextStyle(fontSize: 20)),
+              Expanded(child: Text(order.name, style: tsDefault500.copyWith(fontSize: 20))),
               GestureDetector(
                 onTap: () {
-                  InvenController.to.removeOrder(index);
-                  setState(() {});
+                  Utils.showYesNoDialog(context, title: "Do you want to delete it?".tr).then((value) {
+                    if (value == true) {
+                      setState(() {
+                        InvenController.to.removeOrder(index);
+                      });
+                    }
+                  });
                 },
-                child: Icon(Icons.delete),
+                child: SizedBox(width: 22, child: Utils.ImageSvg("icons/ic_trash.svg", color: Colors.grey, width: 20)),
               ),
             ],
           ),
+          SizedBox(height: 8),
           Text("${"quantity".tr} : ${order.orderCount}", style: TextStyle(fontSize: 15)),
         ],
       ),
@@ -104,15 +118,39 @@ class _PageCartState extends State<PageCart> {
             onPressed: InvenController.to.getOrderCount() > 0
                 ? () {
                     // Get.back(result: OrderModel(orderCount: 10, filePath: ""));
-                    InvenController.to
-                        .orderStock(title: _controllerTitle.text, reason: _controllerReason.text)
-                        .then((value) {
-                      if (value) {
-                        if (value == true) {
-                          InvenController.to.clearOrderList();
-                          Get.back();
+                    InvenController.to.checkOrder().then((value) {
+                      if (value == null) {
+                        Get.snackbar("error".tr, "error".tr);
+                      } else {
+                        if (value.result == "SUCCESS") {
+                          // 바로 발주요청 API 호출
+                          // InvenController.to.clearOrderList();
+                          // Get.back();
+                          InvenController.to.orderStock().then((value) {
+                            if (value == true) {
+                              Utils.showToast("done".tr);
+                              InvenController.to.clearOrderList();
+                              Get.back();
+                            }
+                          });
+                        } else if (value.result == "EXIST") {
+                          Utils.showYesNoDialog(context,
+                                  title: // 설정
+                                      value.msg,
+                                  content: "Would you still like to request it?".tr)
+                              .then((valueDlg) {
+                            if (valueDlg == true) {
+                              InvenController.to.orderStock().then((value) {
+                                if (value == true) {
+                                  Utils.showToast("done".tr);
+                                  InvenController.to.clearOrderList();
+                                  Get.back();
+                                }
+                              });
+                            }
+                          });
                         } else {
-                          // Get.snackbar("error".tr, "error".tr);
+                          Get.snackbar("error".tr, "error".tr);
                         }
                       }
                     });

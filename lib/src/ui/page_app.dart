@@ -34,6 +34,8 @@ class _PageAppState extends State<PageApp> {
   bool _isFirst = true;
 
   final List<Widget> _pages = [];
+  final List<String> _pagesTitle = [];
+  final List<PageType> _pagesType = [];
   // final List<BottomNavigationBarItem> _bottomNavigations = [];
 
   @override
@@ -101,7 +103,8 @@ class _PageAppState extends State<PageApp> {
                     ),
                   )
                 ],
-                title: Text(ePageTitle[_selectIndex].tr, style: tsAppbarTitle),
+                // title: Text(ePageTitle[_selectIndex].tr, style: tsAppbarTitle),
+                title: Text(_pagesTitle[_selectIndex].tr, style: tsAppbarTitle),
               ),
               // body: IndexedStack(
               //   index: _selectIndex,
@@ -205,7 +208,8 @@ class _PageAppState extends State<PageApp> {
 
     var result = false;
 
-    switch (PageType.values[_selectIndex]) {
+    // switch (PageType.values[_selectIndex]) {
+    switch (_pagesType[_selectIndex]) {
       case PageType.Home:
         result = await HomeController.to.refreshData();
         break;
@@ -225,6 +229,23 @@ class _PageAppState extends State<PageApp> {
         // await AppController.to.getSettingData();
         break;
     }
+    // switch (_pagesTitle[_selectIndex]) {
+    //   case "home".tr:
+    //     result = await HomeController.to.refreshData();
+    //     break;
+    //   case "in list":
+    //     result = await ProductInController.to.refreshData();
+    //     break;
+    //   case "out list":
+    //     result = await ProductOutController.to.refreshData();
+    //     break;
+    //   case "inven":
+    //     result = await InvenController.to.refreshData();
+    //     break;
+    //   case "setting":
+    //     // await AppController.to.getSettingData();
+    //     break;
+    // }
 
     debugPrint("000000000444444444");
 
@@ -267,22 +288,32 @@ class _PageAppState extends State<PageApp> {
 
   void initPage() {
     // int pageIndex = 0;
+    _pagesTitle.clear();
+    _pagesType.clear();
     _pages.add(const PageHome());
+    _pagesTitle.add("home".tr);
+    _pagesType.add(PageType.Home);
     // _bottomNavigations.add(_buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: pageIndex++));
 
     if (UserController.to.userData.inList) {
       _pages.add(const PageProductIn());
       // _bottomNavigations
       //     .add(_buildBottomItem(label: "in list".tr, icon: FontAwesomeIcons.download, index: pageIndex++));
+      _pagesTitle.add("in list".tr);
+      _pagesType.add(PageType.ProductIn);
     }
 
     if (UserController.to.userData.outList) {
       _pages.add(const PageProductOut());
       // _bottomNavigations.add(_buildBottomItem(label: "out list".tr, icon: FontAwesomeIcons.upload, index: pageIndex++));
+      _pagesTitle.add("out list".tr);
+      _pagesType.add(PageType.ProductOut);
     }
 
     // if (UserController.to.userData.invenList) {
     _pages.add(const PageInven());
+    _pagesTitle.add("inven".tr);
+    _pagesType.add(PageType.ProductInven);
     // _bottomNavigations
     //     .add(_buildBottomItem(label: "inven".tr, icon: FontAwesomeIcons.boxesStacked, index: pageIndex++));
     // }

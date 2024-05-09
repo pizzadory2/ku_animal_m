@@ -32,6 +32,10 @@ class Constants {
   // 재고관리
   static const api_product = "reqStock";
   static const api_product_order = "reqStockOrder";
+  // 발주요청(재고) 체크
+  static const api_product_order_check = "reqStockRequestBuyExists";
+  // 발주요청
+  static const api_product_order_inven = "reqStockRequestBuy";
 
   // 회원 > 로그인
   // static const api_qr_search = "reqUsers";

@@ -44,7 +44,7 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
         children: [
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text(widget.data.mi_name, style: tsInvenItemName),
+            child: Text(widget.data.mi_name, style: tsInvenItemNameRequest),
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),

@@ -132,6 +132,62 @@ class InvenRepository {
     return null;
   }
 
+  // 발주체크
+  reqCheckOrder({required List<OrderModel> list}) async {
+    List<String> reqSeqList = list.map((e) => e.code).toList();
+
+    var param = {
+      "command": Constants.api_product_order_check,
+      "req_seq_list[]": reqSeqList,
+    };
+
+    debugPrint(jsonEncode(param).toString());
+
+    try {
+      var result = await RestClient().dio.post(
+            Constants.api_command,
+            options: Options(headers: {
+              Headers.contentTypeHeader: Headers.formUrlEncodedContentType,
+              // Headers.contentTypeHeader: "multipart/form-data",
+              // Headers.contentTypeHeader: "application/json",
+              // Headers.contentTypeHeader: Headers.formUrlEncodedContentType,
+            }),
+            data: param,
+            // data: jsonEncode(param),
+          );
+
+      if (result != null) {
+        if (result.data != null) {}
+
+        var parseData = jsonDecode(result.toString());
+        // var code = parseData["result"].toString();
+        // var msg = parseData["msg"].toString();
+        // if (parseData["result"] != "SUCCESS") {
+        //   return null;
+        // }
+
+        // ProductRegModel resultModel = ProductRegModel.fromJson(parseData);
+        InvenOrderModel resultModel = InvenOrderModel.fromJson(parseData);
+
+        return resultModel;
+      } else {
+        return null; // Map()
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        debugPrint(e.response!.data.toString());
+        debugPrint(e.response!.headers.toString());
+        // debugPrint(e.response!.requestOptions.toString());
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        // debugPrint(e.requestOptions.toString());
+        debugPrint(e.message);
+      }
+    }
+
+    return null;
+  }
+
   // 재고 발주 요청
   /*
   command:reqStock
@@ -140,15 +196,14 @@ class InvenRepository {
   reqQty[]:7
    */
 
-  reqStockOrder({required List<OrderModel> list, required String msg, required String reason}) async {
+  reqStockOrder({required List<OrderModel> list}) async {
     List<String> reqSeqList = list.map((e) => e.code).toList();
     List<String> countList = list.map((e) => e.orderCount.toString()).toList();
 
     var param = {
-      "command": Constants.api_product,
-      "mode": "STOCK_REQUEST_BUY",
-      "reqSeq[]": reqSeqList,
-      "reqQty[]": countList,
+      "command": Constants.api_product_order_inven,
+      "req_seq_list[]": reqSeqList,
+      "req_qty_list[]": countList,
     };
 
     debugPrint(jsonEncode(param).toString());

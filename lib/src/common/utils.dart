@@ -349,6 +349,28 @@ class Utils {
     return NumberFormat('###,###,###,###').format(src).replaceAll(' ', '');
   }
 
+  static showDetailDlg(BuildContext context, {String title = "", String content = "", bool dismissible = false}) {
+    return showDialog(
+        context: context,
+        barrierDismissible: dismissible,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              title.isNotEmpty ? title : "Do you want to delete it?".tr,
+              style: tsDialogBody2,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.back(result: true);
+                },
+                child: Text("ok".tr),
+              ),
+            ],
+          );
+        });
+  }
+
   static showYesNoDialog(BuildContext context, {String title = "", String content = ""}) {
     return showDialog(
         context: context,
@@ -359,18 +381,24 @@ class Utils {
               title.isNotEmpty ? title : "Do you want to delete it?".tr,
               style: tsDialogBody,
             ),
+            content: content.isNotEmpty
+                ? Text(
+                    content,
+                    style: tsDialogBody2,
+                  )
+                : null,
             actions: [
               TextButton(
                 onPressed: () {
                   Get.back(result: false);
                 },
-                child: Text("No".tr),
+                child: Text("no".tr),
               ),
               TextButton(
                 onPressed: () {
                   Get.back(result: true);
                 },
-                child: Text("Yes".tr),
+                child: Text("yes".tr),
               ),
             ],
           );

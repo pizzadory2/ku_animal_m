@@ -24,6 +24,7 @@ Map<String, String> koKR = <String, String>{
   'email or id': 'email or id',
   'password': 'password',
   'home': '홈',
+  'done': '성공하였습니다',
 
   // 회원가입
   'id': '아이디',
@@ -73,6 +74,7 @@ Map<String, String> koKR = <String, String>{
   'inout': '입출고',
   'inven': '재고',
   'inven order': '발주요청',
+  'Would you still like to request it?': '그래도 요청하시겠습니까?',
   'put': '담다',
   'Added to order request list': '발주요청 리스트에 추가하였습니다',
   'Requested Quantity': '요청수량',

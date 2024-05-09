@@ -74,7 +74,7 @@ class _PageSafeListState extends State<PageSafeList> {
   generateItem(InvenModel data, int index) {
     return Container(
       padding: const EdgeInsets.all(10),
-      height: 90,
+      // height: 90,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(bottom: BorderSide(width: 1, color: Colors.grey[300]!)),
@@ -85,7 +85,7 @@ class _PageSafeListState extends State<PageSafeList> {
         children: [
           Text(
             "${index + 1}. ${data.mi_name}",
-            style: TextStyle(overflow: TextOverflow.ellipsis),
+            style: TextStyle(),
           ),
           SizedBox(height: 10),
           Row(

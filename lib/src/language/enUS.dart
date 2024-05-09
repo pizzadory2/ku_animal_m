@@ -22,6 +22,7 @@ Map<String, String> enUS = <String, String>{
   'email or id': 'email or id',
   'password': 'password',
   'home': 'home',
+  'done': 'done',
 
   // 회원가입
   'id': 'id',
@@ -71,6 +72,7 @@ Map<String, String> enUS = <String, String>{
   'inout': 'inout',
   'inven': 'inven',
   'inven order': 'Order Stock',
+  'Would you still like to request it?': 'Would you still like to request it?',
   'put': 'put',
   'Added to order request list': 'Added to order request list',
   'Requested Quantity': 'Requested Quantity',

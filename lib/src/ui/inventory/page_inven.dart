@@ -50,6 +50,7 @@ class _PageInvenState extends State<PageInven> {
   @override
   Widget build(BuildContext context) {
     debugPrint("[animal] 00000인벤을 다시 그려");
+
     return Stack(
       children: [
         Scaffold(
@@ -307,15 +308,16 @@ class _PageInvenState extends State<PageInven> {
 
     return GestureDetector(
       onTap: () {
-        //
+        Utils.showDetailDlg(context, title: data.mi_name);
       },
       child: Container(
         margin: const EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
         padding: const EdgeInsets.all(15),
-        height: 150,
+        // height: 150,
         decoration: WidgetFactory.boxDecoration(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Container(
@@ -323,9 +325,9 @@ class _PageInvenState extends State<PageInven> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(data.mi_name, style: tsInvenItemName),
+                    Text(data.mi_name, style: tsInvenItemNameRequest),
                     Text(data.mi_manufacturer, style: tsInvenItemCompany),
-                    const Spacer(),
+                    const SizedBox(height: 10),
                     Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
                     Text("주요성분 (${ingredients})", style: tsInvenItemCompany),
                     const SizedBox(height: 5),
@@ -335,7 +337,6 @@ class _PageInvenState extends State<PageInven> {
               ),
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
                   behavior: HitTestBehavior.translucent,
@@ -353,10 +354,12 @@ class _PageInvenState extends State<PageInven> {
                   },
                   child: Container(
                     width: 90,
+                    height: 20,
                     alignment: Alignment.topRight,
                     child: Icon(Icons.add_shopping_cart_outlined),
                   ),
                 ),
+                SizedBox(height: 15),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.grey[100],

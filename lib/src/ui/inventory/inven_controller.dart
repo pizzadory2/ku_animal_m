@@ -96,10 +96,36 @@ class InvenController extends GetxController {
     debugPrint("[animal] 장바구니 추가");
   }
 
-  Future<bool> orderStock({required String title, required String reason}) async {
+  checkOrder() async {
     isLoading.value = true;
     bool isSuccess = false;
-    await repository.reqStockOrder(list: _orderList, msg: title, reason: reason).then((value) async {
+    var result = null;
+    await repository.reqCheckOrder(list: _orderList).then((value) async {
+      isLoading.value = false;
+
+      // if (value != null) {
+      //   if (value.result == "SUCCESS") {
+      //     isSuccess = true;
+      //     _orderList.clear();
+      //   } else {
+      //     isSuccess = false;
+      //   }
+      // } else {
+      //   isSuccess = false;
+      // }
+      result = value;
+    });
+
+    debugPrint("[animal] 요청 데이터는: ${_orderList.length}");
+
+    isLoading.value = false;
+    return result;
+  }
+
+  Future<bool> orderStock() async {
+    isLoading.value = true;
+    bool isSuccess = false;
+    await repository.reqStockOrder(list: _orderList).then((value) async {
       isLoading.value = false;
 
       if (value != null) {

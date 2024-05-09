@@ -9,6 +9,13 @@ TextStyle get tsDefault => const TextStyle(
       color: Colors.black,
     );
 
+TextStyle get tsDefault500 => const TextStyle(
+      fontFamily: "Pretendard",
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: Colors.black,
+    );
+
 TextStyle get tsBold => const TextStyle(
       fontFamily: "Pretendard",
       fontSize: 16,
@@ -87,6 +94,13 @@ TextStyle get tsInvenItemName => const TextStyle(
     fontWeight: FontWeight.w700,
     color: Colors.black,
     overflow: TextOverflow.ellipsis);
+
+TextStyle get tsInvenItemNameRequest => const TextStyle(
+      fontFamily: "Pretendard",
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+      color: Colors.black,
+    );
 
 TextStyle get tsInvenItemCompany => const TextStyle(
       fontSize: 14,
@@ -198,6 +212,13 @@ TextStyle get tsDialogTitle => const TextStyle(
 
 TextStyle get tsDialogBody => const TextStyle(
       fontFamily: "SCoreDream",
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
+    );
+
+TextStyle get tsDialogBody2 => const TextStyle(
+      fontFamily: "Pretendard",
       fontSize: 14,
       fontWeight: FontWeight.w300,
       color: Colors.black, //Color.fromARGB(255, 0, 17, 13),
