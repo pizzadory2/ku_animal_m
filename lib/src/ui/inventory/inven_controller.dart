@@ -180,4 +180,13 @@ class InvenController extends GetxController {
   void changeOrderCount() {
     orderCount.value = _orderList.length;
   }
+
+  int getTotalOrderCount() {
+    int total = 0;
+    for (OrderModel item in _orderList) {
+      total += item.orderCount;
+    }
+
+    return total;
+  }
 }

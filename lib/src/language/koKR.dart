@@ -48,6 +48,8 @@ Map<String, String> koKR = <String, String>{
   'signup success': '회원가입이 완료되었습니다.',
   'please wait for admin approval': '관리자 승인을 기다려주세요',
 
+  // 입출고
+  'unit': '단위',
   // 입고
   'in': '입고',
   'in reg': '입고등록',
@@ -118,6 +120,7 @@ Map<String, String> koKR = <String, String>{
   'empty': 'empty',
   'filter month': '검색년월',
   'filter condition': '검색조건',
+  'filter all': 'All',
   'filter code': '의약품코드',
   'filter name': '의약품명',
   'filter element': '성분',
@@ -142,4 +145,9 @@ Map<String, String> koKR = <String, String>{
   'oct': '10월',
   'nov': '11월',
   'dec': '12월',
+
+  // 요청리스트
+  'delete': '삭제',
+  'total count': '총 요청항목수',
+  'total quantity': '총 요청수량',
 };

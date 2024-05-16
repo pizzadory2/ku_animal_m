@@ -353,60 +353,66 @@ class _PageHomeState extends State<PageHome> {
     RecentData data = HomeController.to.homeModel.recentDatas[index];
     String date = Utils.getFormatDate(DateTime.parse(data.msr_date));
 
-    return SizedBox(
-      height: 80,
-      // color: Colors.amber,
-      // margin: EdgeInsets.only(bottom: index == 4 ? 0 : 10),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Text(
-                  data.mi_name,
-                  style: tsMainRecentlyName,
+    return GestureDetector(
+      onTap: () {
+        debugPrint("[animal] [home] 최근 입출고 제품 클릭");
+        Utils.showDetailDlg(context, title: data.mi_name);
+      },
+      child: SizedBox(
+        height: 80,
+        // color: Colors.amber,
+        // margin: EdgeInsets.only(bottom: index == 4 ? 0 : 10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    data.mi_name,
+                    style: tsMainRecentlyName,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Container(
-                alignment: Alignment.centerRight,
-                width: 100,
-                child: Text(
-                  date,
-                  style: const TextStyle(fontSize: 16, color: Colors.grey),
+                const SizedBox(width: 10),
+                Container(
+                  alignment: Alignment.centerRight,
+                  width: 100,
+                  child: Text(
+                    date,
+                    style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 2),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Utils.ImageAsset("product_in.png", width: 20, height: 20),
-              data.msr_type == "IN"
-                  ? const Icon(Icons.keyboard_double_arrow_down, color: Colors.blue)
-                  : const Icon(Icons.keyboard_double_arrow_up, color: Colors.red),
-              //const FaIcon(FontAwesomeIcons.arrow, color: Colors.blue)
-              // : const FaIcon(FontAwesomeIcons.arrowUp, color: Colors.red),
-              Text(
-                data.msr_type == "IN" ? "${"in".tr} ${data.msr_qty}건" : "${"out".tr} ${data.msr_qty}건",
-                style: tsMainRecentlyCount,
-              ),
-              // Text(
-              //   "/전체 ${data.totalCount}개",
-              //   style: tsMainRecentlyCount,
-              // ),
-              const Spacer(),
-              Text(
-                data.msr_man,
-                style: const TextStyle(fontSize: 18, color: Colors.grey),
-              ),
-            ],
-          ),
-          const SizedBox(height: 5),
-          WidgetFactory.dividerDash(),
-        ],
+              ],
+            ),
+            const SizedBox(height: 2),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Utils.ImageAsset("product_in.png", width: 20, height: 20),
+                data.msr_type == "IN"
+                    ? const Icon(Icons.keyboard_double_arrow_down, color: Colors.blue)
+                    : const Icon(Icons.keyboard_double_arrow_up, color: Colors.red),
+                //const FaIcon(FontAwesomeIcons.arrow, color: Colors.blue)
+                // : const FaIcon(FontAwesomeIcons.arrowUp, color: Colors.red),
+                Text(
+                  data.msr_type == "IN" ? "${"in".tr} ${data.msr_qty}건" : "${"out".tr} ${data.msr_qty}건",
+                  style: tsMainRecentlyCount,
+                ),
+                // Text(
+                //   "/전체 ${data.totalCount}개",
+                //   style: tsMainRecentlyCount,
+                // ),
+                const Spacer(),
+                Text(
+                  data.msr_man,
+                  style: const TextStyle(fontSize: 18, color: Colors.grey),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            WidgetFactory.dividerDash(),
+          ],
+        ),
       ),
     );
   }

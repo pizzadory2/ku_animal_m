@@ -170,7 +170,7 @@ class _PageProductInState extends State<PageProductIn> {
 
                   if (result != null) {
                     _controllerSearch.text = result;
-                    _filterIndex = 4;
+                    _filterIndex = 5;
                     _filterType = FilterType.Barcode;
                     searchData();
                   }
@@ -183,8 +183,6 @@ class _PageProductInState extends State<PageProductIn> {
   }
 
   _buildFilter() {
-    int filterCount = 4;
-
     return Container(
       height: 42,
       margin: EdgeInsets.symmetric(horizontal: 10),
@@ -211,7 +209,7 @@ class _PageProductInState extends State<PageProductIn> {
                   borderRadius: BorderRadius.circular(45),
                 ),
                 child: Text(
-                  Constants.filterList[index],
+                  Constants.filterListAll[index],
                   style: tsDefault.copyWith(
                     color: _filterIndex == index ? Colors.black : Colors.grey,
                     fontWeight: _filterIndex == index ? FontWeight.bold : FontWeight.normal,
@@ -220,7 +218,7 @@ class _PageProductInState extends State<PageProductIn> {
               ),
             );
           },
-          itemCount: filterCount),
+          itemCount: Constants.filterListAll.length),
     );
   }
 
@@ -264,14 +262,20 @@ class _PageProductInState extends State<PageProductIn> {
     ProductHistoryModel data = ProductInController.to.getItem(index);
     // String amount = data.mst_content.isEmpty ? "-" : "(${data.mst_content})";
 
+    // 출고타입 PK, BOX, EA
+    // String type = data.mst_type.isEmpty ? "" : "(${data.mst_type})";
+    String type = "(EA)";
+
+    String person = data.msr_man.isEmpty ? "-" : data.msr_man;
+
     return GestureDetector(
       onTap: () {
-        //
+        Utils.showDetailDlg(context, title: data.mi_name);
       },
       child: Container(
         margin: const EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
         padding: const EdgeInsets.all(15),
-        height: 130,
+        // height: 130,
         decoration: WidgetFactory.boxDecoration(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -283,13 +287,30 @@ class _PageProductInState extends State<PageProductIn> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(data.mi_name, style: tsInvenItemName.copyWith(color: ColorsEx.clrIn)),
+                    Text(data.mi_name, style: tsInvenItemNameRequest.copyWith(color: ColorsEx.clrIn)),
                     Text("${data.mi_manufacturer} / ${data.mi_type_name} / ${data.mi_class_name}",
                         style: tsInvenItemCompany),
-                    const Spacer(),
+                    // const Spacer(),
+                    const SizedBox(height: 10),
                     // Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
+                    Text("입고처리  ${person}", style: tsInvenItemCompany),
                     Text("주요성분 (${data.mi_ingredients})", style: tsInvenItemCompany),
-                    Container(child: Text("${"Enter quantity".tr} (${data.msr_qty})", style: tsProductItemBold)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("${"Enter quantity".tr} (${data.msr_qty})", style: tsProductItemBold),
+                        Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                            width: 90,
+                            height: 24,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
+                      ],
+                    ),
                   ],
                 ),
               ),

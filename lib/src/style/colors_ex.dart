@@ -12,7 +12,8 @@ class ColorsEx {
   static const Color primaryColorGrey = Color.fromRGBO(210, 210, 210, 1);
   static const Color primaryText = Color(0xFFFFE8D4);
   static const Color mainBg = Color.fromARGB(255, 245, 247, 248);
-  static const Color calDayBg = Color.fromARGB(255, 218, 228, 231);
+  // static const Color clrDivider = Color.fromARGB(255, 218, 228, 231);
+  static const Color clrDivider = Color.fromARGB(255, 228, 228, 228);
 
   // 입고, 출고
   static const Color clrIn = Color.fromRGBO(102, 158, 233, 1);

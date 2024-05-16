@@ -55,7 +55,15 @@ class Constants {
   // 출고 > 출고내역
   static const api_product_out_history = "reqStockHistory";
 
-  static List<String> filterList = ["filter name".tr, "filter code".tr, "filter element".tr, "filter company".tr];
+  // static List<String> filterList = ["filter name".tr, "filter code".tr, "filter element".tr, "filter company".tr];
+
+  static List<String> filterListAll = [
+    "filter all".tr,
+    "filter name".tr,
+    "filter code".tr,
+    "filter element".tr,
+    "filter company".tr
+  ];
 
   // month
   static List<String> monthList = [

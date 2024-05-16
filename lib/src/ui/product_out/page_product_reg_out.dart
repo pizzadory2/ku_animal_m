@@ -170,7 +170,7 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
 
                   if (result != null) {
                     _controllerSearch.text = result;
-                    _filterIndex = 4;
+                    _filterIndex = 5;
                     _filterType = FilterType.Barcode;
                     searchData();
                   }
@@ -225,8 +225,6 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
   }
 
   _buildFilter() {
-    int filterCount = 4;
-
     return Container(
       height: 42,
       margin: EdgeInsets.symmetric(horizontal: 10),
@@ -252,7 +250,7 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
                   borderRadius: BorderRadius.circular(45),
                 ),
                 child: Text(
-                  Constants.filterList[index],
+                  Constants.filterListAll[index],
                   style: tsDefault.copyWith(
                     color: _filterIndex == index ? Colors.black : Colors.grey,
                     fontWeight: _filterIndex == index ? FontWeight.bold : FontWeight.normal,
@@ -261,7 +259,7 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
               ),
             );
           },
-          itemCount: filterCount),
+          itemCount: Constants.filterListAll.length),
     );
   }
 

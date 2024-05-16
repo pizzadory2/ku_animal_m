@@ -205,7 +205,7 @@ class _PageInvenState extends State<PageInven> {
 
                   if (result != null) {
                     _controllerSearch.text = result;
-                    _filterIndex = 4;
+                    _filterIndex = 5;
                     _filterType = FilterType.Barcode;
                     searchData();
                   }
@@ -218,8 +218,6 @@ class _PageInvenState extends State<PageInven> {
   }
 
   _buildFilter() {
-    int filterCount = 4;
-
     return Container(
       height: 42,
       margin: EdgeInsets.symmetric(horizontal: 10),
@@ -245,7 +243,7 @@ class _PageInvenState extends State<PageInven> {
                   borderRadius: BorderRadius.circular(45),
                 ),
                 child: Text(
-                  Constants.filterList[index],
+                  Constants.filterListAll[index],
                   style: tsDefault.copyWith(
                     color: _filterIndex == index ? Colors.black : Colors.grey,
                     fontWeight: _filterIndex == index ? FontWeight.bold : FontWeight.normal,
@@ -254,7 +252,7 @@ class _PageInvenState extends State<PageInven> {
               ),
             );
           },
-          itemCount: filterCount),
+          itemCount: Constants.filterListAll.length),
     );
   }
 
@@ -306,6 +304,10 @@ class _PageInvenState extends State<PageInven> {
     int stockCount = data.mst_base_stock.isEmpty ? 0 : int.parse(data.mst_base_stock);
     bool isLongStockCount = data.mst_base_stock.length > 4;
 
+    // 출고타입 PK, BOX, EA
+    // String type = data.mst_type.isEmpty ? "" : "(${data.mst_type})";
+    String type = "(EA)";
+
     return GestureDetector(
       onTap: () {
         Utils.showDetailDlg(context, title: data.mi_name);
@@ -347,6 +349,7 @@ class _PageInvenState extends State<PageInven> {
                       // AppController.to.setLoading(true);
                       result.name = data.mi_name;
                       result.code = data.mi_code;
+                      // result.type = data.mst_type;
                       InvenController.to.addOrderList(data: result);
                       Utils.showToast("Added to order request list".tr, isCenter: true);
                       // AppController.to.setLoading(false);
@@ -364,7 +367,8 @@ class _PageInvenState extends State<PageInven> {
                   decoration: BoxDecoration(
                     color: Colors.grey[100],
                     border: Border.all(width: 1, color: Colors.grey[300]!),
-                    borderRadius: BorderRadius.circular(45),
+                    // borderRadius: BorderRadius.circular(45),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   width: 90,
                   height: 90,
@@ -376,6 +380,7 @@ class _PageInvenState extends State<PageInven> {
                         Text("${stockCount}",
                             style: tsInvenItemTotalCount.copyWith(fontSize: isLongStockCount ? 18 : 24)),
                         // Text(data.mst_base_stock, style: tsInvenItemTotalCount),
+                        Text(type, style: tsInvenItemType),
                       ],
                     ),
                   ),

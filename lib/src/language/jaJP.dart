@@ -46,6 +46,8 @@ Map<String, String> jaJP = <String, String>{
   'signup success': 'signup success',
   'please wait for admin approval': 'please wait for admin approval',
 
+  // 입출고
+  'unit': '	ユニット',
   // 입고
   'in': 'in',
   'in reg': 'in reg',
@@ -116,6 +118,7 @@ Map<String, String> jaJP = <String, String>{
   'empty': 'empty',
   'filter month': 'filter month',
   'filter condition': '条件',
+  'filter all': 'All',
   'filter code': '의약품코드',
   'filter name': '의약품명',
   'filter element': '성분',
@@ -140,4 +143,9 @@ Map<String, String> jaJP = <String, String>{
   'oct': 'Oct',
   'nov': 'Nov',
   'dec': 'Dec',
+
+  // 요청리스트
+  'delete': 'delete',
+  'total count': 'total count',
+  'total quantity': 'total quantity',
 };

@@ -9,6 +9,7 @@ import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/inventory/order_model.dart';
 import 'package:ku_animal_m/src/ui/product/inven_model.dart';
 
+// 발주요청
 class PageInvenOrder extends StatefulWidget {
   PageInvenOrder({super.key, required this.data});
 
@@ -22,6 +23,9 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
   int _orderCount = 0;
   String _filePath = "";
   String _fileName = "";
+  String _type = "";
+
+  bool _validCount = true;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,10 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
   }
 
   _buildBody() {
+    // 출고타입 PK, BOX, EA
+    // String type = widget.data.mst_type.isEmpty ? "" : "(${widget.data.mst_type})";
+    String type = "(EA)";
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -46,9 +54,17 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text(widget.data.mi_name, style: tsInvenItemNameRequest),
           ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text("${"quantity".tr} : ${widget.data.mst_base_stock}", style: tsDefault),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text("${"quantity".tr} : ${widget.data.mst_base_stock}", style: tsDefault),
+              ),
+              Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
+            ],
           ),
           // Container(
           //   height: 150,
@@ -59,8 +75,10 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
           //   color: Colors.greenAccent,
           // ),
           SizedBox(height: 20),
-          WidgetFactory.divider(color: Colors.grey),
+          // WidgetFactory.divider(color: Color.fromARGB(255, 228, 228, 228), weight: 3),
+          WidgetFactory.divider(color: ColorsEx.clrDivider, weight: 3),
           _buildOrderCount(),
+          _buildWarning(),
           // _fileName.isEmpty ? _buildAddFile() : _buildFileInfo(),
         ],
       ),
@@ -70,9 +88,11 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
   _buildBottom() {
     return Column(
       children: [
-        WidgetFactory.divider(color: Colors.grey),
+        // WidgetFactory.divider(color: Colors.grey),
+        WidgetFactory.divider(color: ColorsEx.clrDivider, weight: 1),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 5),
+          margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+          height: 45,
           child: ElevatedButton(
             onPressed: _orderCount > 0
                 ? () {
@@ -238,5 +258,16 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
         ),
       ),
     );
+  }
+
+  _buildWarning() {
+    if (_validCount) {
+      return Container();
+    }
+
+    // return Container(
+    //   alignment: Alignment.center,
+    //   child: Text("warning".tr, style: tsWarning.copyWith(color: Colors.red)),
+    // );
   }
 }

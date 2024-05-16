@@ -164,7 +164,7 @@ class _SearchListDialogState extends State<SearchListDialog> {
           borderRadius: BorderRadius.circular(45),
         ),
         child: Text(
-          Constants.filterList[index],
+          Constants.filterListAll[index],
           style: tsDefault.copyWith(
             color: _filterIndex == index ? Colors.black : Colors.grey,
             fontWeight: _filterIndex == index ? FontWeight.bold : FontWeight.normal,

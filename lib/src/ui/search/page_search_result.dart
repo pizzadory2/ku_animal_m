@@ -10,6 +10,7 @@ import 'package:ku_animal_m/src/ui/home/page_home.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
 import 'package:ku_animal_m/src/ui/search/search_home_controller.dart';
 
+// 전체검색 결과 화면
 // 메인화면에서 검색어를 입력하여 검색시 이동되는 화면
 class PageSearchResult extends StatefulWidget {
   PageSearchResult({super.key, required this.searchText, this.pageType = PageType.Home});
@@ -65,15 +66,18 @@ class _PageSearchResultState extends State<PageSearchResult> {
       regDate = "등록일 ${date.year}.${date.month}.${date.day}";
     }
 
+    // 출고타입 PK, BOX, EA
+    // String type = data.mst_type.isEmpty ? "" : "(${data.mst_type})";
+    String type = "(EA)";
+
     return GestureDetector(
       onTap: () {
-        int a = 0;
-        a++;
+        Utils.showDetailDlg(context, title: data.mi_name, content: regDate);
       },
       child: Container(
         margin: const EdgeInsets.only(top: 10, bottom: 5, left: 10, right: 10),
         padding: const EdgeInsets.all(15),
-        height: 150,
+        // height: 150,
         decoration: WidgetFactory.boxDecoration(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,7 +90,8 @@ class _PageSearchResultState extends State<PageSearchResult> {
                   children: [
                     Text(data.mi_name, style: tsInvenItemName),
                     Text(data.mi_manufacturer, style: tsInvenItemCompany),
-                    const Spacer(),
+                    // const Spacer(),
+                    const SizedBox(height: 10),
                     Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
                     Text("주요성분 (${data.mi_ingredients})", style: tsInvenItemCompany),
                     const SizedBox(height: 5),
@@ -94,7 +99,8 @@ class _PageSearchResultState extends State<PageSearchResult> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
-                        Text(regDate, style: tsInvenItemCompany.copyWith(color: Colors.black)),
+                        // Text(regDate, style: tsInvenItemCompany.copyWith(color: Colors.black)),
+                        Text("${"unit".tr} ${type}", style: tsProductItemBold),
                       ],
                     ),
                   ],

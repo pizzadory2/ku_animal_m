@@ -46,6 +46,8 @@ Map<String, String> enUS = <String, String>{
   'signup success': 'signup success',
   'please wait for admin approval': 'please wait for admin approval',
 
+  // 입출고
+  'unit': 'unit',
   // 입고
   'in': 'in',
   'in reg': 'in reg',
@@ -103,7 +105,7 @@ Map<String, String> enUS = <String, String>{
   'scan to qr': 'Scan to QR',
   'Please input QR or Barcode in camera': 'Please input QR or Barcode in camera',
   'Direct': 'Direct',
-  'quantity': 'quantity',
+  'quantity': 'stock',
   'Direct search': 'Direct search',
   '* Please input product name': '* Please input product name',
   'Please input product name': 'Please input product name',
@@ -116,6 +118,7 @@ Map<String, String> enUS = <String, String>{
   'empty': 'empty',
   'filter month': 'filter month',
   'filter condition': 'search condition',
+  'filter all': 'All',
   'filter code': 'code',
   'filter name': 'name',
   'filter element': 'element',
@@ -140,4 +143,9 @@ Map<String, String> enUS = <String, String>{
   'oct': 'Oct',
   'nov': 'Nov',
   'dec': 'Dec',
+
+  // 요청리스트
+  'delete': 'delete',
+  'total count': 'total count',
+  'total quantity': 'total quantity',
 };

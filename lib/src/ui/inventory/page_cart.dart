@@ -7,6 +7,7 @@ import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
 import 'package:ku_animal_m/src/ui/inventory/order_model.dart';
 
+// 요청 리스트
 class PageCart extends StatefulWidget {
   const PageCart({super.key});
 
@@ -17,6 +18,15 @@ class PageCart extends StatefulWidget {
 class _PageCartState extends State<PageCart> {
   final TextEditingController _controllerTitle = TextEditingController();
   final TextEditingController _controllerReason = TextEditingController();
+
+  int _totalCnt = 0;
+
+  @override
+  void initState() {
+    _totalCnt = InvenController.to.getTotalOrderCount();
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -62,7 +72,7 @@ class _PageCartState extends State<PageCart> {
                     )),
           // _buildTitle(),
           // _buildReason(),
-          SizedBox(height: 20),
+          // SizedBox(height: 10),
           _buildBottom(),
         ],
       ),
@@ -71,22 +81,36 @@ class _PageCartState extends State<PageCart> {
 
   _buildItem(int index) {
     OrderModel order = InvenController.to.getOrder(index);
+
+    // 출고타입 PK, BOX, EA
+    // String type = data.mst_type.isEmpty ? "" : "(${data.mst_type})";
+    String type = "(EA)";
+
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.only(left: 30, top: 20, right: 30, bottom: 20),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(10),
+        border: Border(
+          bottom: BorderSide(color: Colors.grey.withOpacity(0.3)),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(child: Text(order.name, style: tsDefault500.copyWith(fontSize: 20))),
+              // Container(
+              //     decoration: BoxDecoration(
+              //       color: Colors.grey.withOpacity(0.3),
+              //       borderRadius: BorderRadius.circular(5),
+              //     ),
+              //     child: Padding(
+              //       padding: const EdgeInsets.all(5.0),
+              //       child: Text("${index + 1}", style: tsDefault500.copyWith(fontSize: 20)),
+              //     )),
+
               GestureDetector(
+                behavior: HitTestBehavior.translucent,
                 onTap: () {
                   Utils.showYesNoDialog(context, title: "Do you want to delete it?".tr).then((value) {
                     if (value == true) {
@@ -96,21 +120,94 @@ class _PageCartState extends State<PageCart> {
                     }
                   });
                 },
-                child: SizedBox(width: 22, child: Utils.ImageSvg("icons/ic_trash.svg", color: Colors.grey, width: 20)),
+                child: Row(
+                  children: [
+                    Text("delete".tr, style: tsDefault500.copyWith(color: Colors.grey)),
+                    Icon(Icons.close, color: Colors.grey, size: 16),
+                  ],
+                ),
               ),
             ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: Text(order.name, style: tsDefault500.copyWith(fontSize: 18))),
+            ],
+          ),
           SizedBox(height: 8),
-          Text("${"quantity".tr} : ${order.orderCount}", style: TextStyle(fontSize: 15)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("${"quantity".tr}  ${order.orderCount}", style: TextStyle(fontSize: 15)),
+              Text("${"unit".tr} ${type}", style: tsProductItemBold),
+            ],
+          ),
         ],
       ),
     );
   }
 
+  // _buildItem(int index) {
+  //   OrderModel order = InvenController.to.getOrder(index);
+
+  //   // 출고타입 PK, BOX, EA
+  //   // String type = data.mst_type.isEmpty ? "" : "(${data.mst_type})";
+  //   String type = "(EA)";
+
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //     padding: EdgeInsets.all(10),
+  //     decoration: BoxDecoration(
+  //       border: Border.all(color: Colors.grey),
+  //       borderRadius: BorderRadius.circular(10),
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             Expanded(child: Text(order.name, style: tsDefault500.copyWith(fontSize: 20))),
+  //             GestureDetector(
+  //               onTap: () {
+  //                 Utils.showYesNoDialog(context, title: "Do you want to delete it?".tr).then((value) {
+  //                   if (value == true) {
+  //                     setState(() {
+  //                       InvenController.to.removeOrder(index);
+  //                     });
+  //                   }
+  //                 });
+  //               },
+  //               child: SizedBox(width: 22, child: Utils.ImageSvg("icons/ic_trash.svg", color: Colors.grey, width: 20)),
+  //             ),
+  //           ],
+  //         ),
+  //         SizedBox(height: 8),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Text("${"quantity".tr} : ${order.orderCount}", style: TextStyle(fontSize: 15)),
+  //             Text("${"unit".tr} ${type}", style: tsProductItemBold),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   _buildBottom() {
     return Column(
       children: [
-        WidgetFactory.divider(color: Colors.grey),
+        Container(
+          // margin: EdgeInsets.symmetric(horizontal: 20),
+          // child: WidgetFactory.divider(color: Colors.black, weight: 3),
+          child: WidgetFactory.divider(color: ColorsEx.clrDivider, weight: 1),
+        ),
+        _buildRequestInfo(),
+        WidgetFactory.divider(color: ColorsEx.clrDivider, weight: 1),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
           height: 45,
@@ -190,6 +287,35 @@ class _PageCartState extends State<PageCart> {
           hintText: "내용을 입력해주세요".tr,
           border: OutlineInputBorder(),
         ),
+      ),
+    );
+  }
+
+  _buildRequestInfo() {
+    int itemCount = InvenController.to.getOrderCount();
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(color: ColorsEx.clrDivider, borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("total count".tr, style: tsDefault),
+              Text("${itemCount}", style: tsDefault),
+            ],
+          ),
+          SizedBox(height: 5),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("total quantity".tr, style: tsDefault),
+              Text("${_totalCnt}", style: tsDefault),
+            ],
+          ),
+        ],
       ),
     );
   }

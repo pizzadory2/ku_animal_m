@@ -109,10 +109,24 @@ TextStyle get tsInvenItemCompany => const TextStyle(
       overflow: TextOverflow.ellipsis,
     );
 
+TextStyle get tsInvenItemCompanyFull => const TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      color: Colors.black54,
+    );
+
 TextStyle get tsInvenItemTotalCount => const TextStyle(
       fontFamily: "SCoreDream",
-      fontSize: 24,
+      fontSize: 22,
       fontWeight: FontWeight.bold,
+      color: ColorsEx.primaryColorBold, //Color.fromARGB(255, 0, 17, 13),
+      overflow: TextOverflow.ellipsis,
+    );
+
+TextStyle get tsInvenItemType => const TextStyle(
+      fontFamily: "SCoreDream",
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
       color: ColorsEx.primaryColorBold, //Color.fromARGB(255, 0, 17, 13),
       overflow: TextOverflow.ellipsis,
     );

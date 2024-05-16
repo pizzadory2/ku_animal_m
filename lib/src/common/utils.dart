@@ -311,14 +311,16 @@ class Utils {
 
     switch (filterIndex) {
       case 0:
-        return "mi_name";
+        return "mi_all";
       case 1:
-        return "mi_code";
+        return "mi_name";
       case 2:
-        return "mi_ingredients";
+        return "mi_code";
       case 3:
-        return "mi_manufacturer";
+        return "mi_ingredients";
       case 4:
+        return "mi_manufacturer";
+      case 5:
         return "mi_barcode";
       default:
         return "mi_name";
@@ -349,7 +351,7 @@ class Utils {
     return NumberFormat('###,###,###,###').format(src).replaceAll(' ', '');
   }
 
-  static showDetailDlg(BuildContext context, {String title = "", String content = "", bool dismissible = false}) {
+  static showDetailDlg(BuildContext context, {String title = "", String content = "", bool dismissible = true}) {
     return showDialog(
         context: context,
         barrierDismissible: dismissible,
@@ -359,6 +361,12 @@ class Utils {
               title.isNotEmpty ? title : "Do you want to delete it?".tr,
               style: tsDialogBody2,
             ),
+            content: content.isNotEmpty
+                ? Text(
+                    content,
+                    style: tsDialogBody2,
+                  )
+                : null,
             actions: [
               TextButton(
                 onPressed: () {

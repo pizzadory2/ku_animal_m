@@ -139,14 +139,20 @@ class _SearchFilterDialogState extends State<SearchFilterDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _buildFilterItem(0),
-              _buildFilterItem(1),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              _buildFilterItem(1),
               _buildFilterItem(2),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               _buildFilterItem(3),
+              _buildFilterItem(4),
             ],
           ),
         ],
@@ -174,7 +180,7 @@ class _SearchFilterDialogState extends State<SearchFilterDialog> {
             borderRadius: BorderRadius.circular(45),
           ),
           child: Text(
-            Constants.filterList[index],
+            Constants.filterListAll[index],
             style: tsDefault.copyWith(
               color: _filterIndex == index ? Colors.black : Colors.grey,
               fontWeight: _filterIndex == index ? FontWeight.bold : FontWeight.normal,
