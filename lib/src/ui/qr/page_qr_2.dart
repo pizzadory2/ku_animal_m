@@ -81,9 +81,13 @@ class _PageQR2State extends State<PageQR2> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text("QR Scan".tr, style: tsAppbarTitle),
+      ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: padding),
-        margin: EdgeInsets.only(top: appbar3, bottom: 30),
+        // margin: EdgeInsets.only(top: appbar3, bottom: 30),
+        margin: EdgeInsets.only(top: 30, bottom: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
