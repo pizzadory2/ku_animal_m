@@ -84,6 +84,7 @@ class _PageCartState extends State<PageCart> {
 
     // 출고타입 PK, BOX, EA
     // String type = data.mst_type.isEmpty ? "" : "(${data.mst_type})";
+    // String type = "(EA)";
     String type = "(EA)";
 
     return Container(
@@ -141,7 +142,7 @@ class _PageCartState extends State<PageCart> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("${"quantity".tr}  ${order.orderCount}", style: TextStyle(fontSize: 15)),
-              Text("${"unit".tr} ${type}", style: tsProductItemBold),
+              // Text("${"unit".tr} ${type}", style: tsProductItemBold),
             ],
           ),
         ],

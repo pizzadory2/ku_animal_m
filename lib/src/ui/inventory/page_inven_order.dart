@@ -61,9 +61,9 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Text("${"quantity".tr} : ${widget.data.mst_base_stock}", style: tsDefault),
               ),
-              Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
+              // Container(
+              //     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              //     child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
             ],
           ),
           // Container(

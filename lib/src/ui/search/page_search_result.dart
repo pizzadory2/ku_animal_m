@@ -100,7 +100,7 @@ class _PageSearchResultState extends State<PageSearchResult> {
                       children: [
                         Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
                         // Text(regDate, style: tsInvenItemCompany.copyWith(color: Colors.black)),
-                        Text("${"unit".tr} ${type}", style: tsProductItemBold),
+                        // Text("${"unit".tr} ${type}", style: tsProductItemBold),
                       ],
                     ),
                   ],

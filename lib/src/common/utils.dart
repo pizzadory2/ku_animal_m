@@ -311,7 +311,7 @@ class Utils {
 
     switch (filterIndex) {
       case 0:
-        return "mi_all";
+        return "all";
       case 1:
         return "mi_name";
       case 2:

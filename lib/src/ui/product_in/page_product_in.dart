@@ -288,8 +288,8 @@ class _PageProductInState extends State<PageProductIn> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(data.mi_name, style: tsInvenItemNameRequest.copyWith(color: ColorsEx.clrIn)),
-                    Text("${data.mi_manufacturer} / ${data.mi_type_name} / ${data.mi_class_name}",
-                        style: tsInvenItemCompany),
+                    // Text("${data.mi_manufacturer} / ${data.mi_type_name} / ${data.mi_class_name}",
+                    //     style: tsInvenItemCompany),
                     // const Spacer(),
                     const SizedBox(height: 10),
                     // Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
@@ -299,16 +299,16 @@ class _PageProductInState extends State<PageProductIn> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("${"Enter quantity".tr} (${data.msr_qty})", style: tsProductItemBold),
-                        Container(
-                            // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                            width: 90,
-                            height: 24,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
+                        // Container(
+                        //     // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                        //     width: 90,
+                        //     height: 24,
+                        //     alignment: Alignment.center,
+                        //     decoration: BoxDecoration(
+                        //       color: Colors.grey[200],
+                        //       borderRadius: BorderRadius.circular(10),
+                        //     ),
+                        //     child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
                       ],
                     ),
                   ],

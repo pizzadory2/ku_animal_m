@@ -380,7 +380,7 @@ class _PageInvenState extends State<PageInven> {
                         Text("${stockCount}",
                             style: tsInvenItemTotalCount.copyWith(fontSize: isLongStockCount ? 18 : 24)),
                         // Text(data.mst_base_stock, style: tsInvenItemTotalCount),
-                        Text(type, style: tsInvenItemType),
+                        // Text(type, style: tsInvenItemType),
                       ],
                     ),
                   ),

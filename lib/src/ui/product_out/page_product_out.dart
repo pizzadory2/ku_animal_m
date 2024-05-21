@@ -266,8 +266,8 @@ class _PageProductOutState extends State<PageProductOut> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(data.mi_name, style: tsInvenItemNameRequest.copyWith(color: ColorsEx.clrOut)),
-                    Text("${data.mi_manufacturer} / ${data.mi_type_name} / ${data.mi_class_name}",
-                        style: tsInvenItemCompany),
+                    // Text("${data.mi_manufacturer} / ${data.mi_type_name} / ${data.mi_class_name}",
+                    //     style: tsInvenItemCompany),
                     // const Spacer(),
                     const SizedBox(height: 10),
                     Text("출고처리  ${person}", style: tsInvenItemCompany),
@@ -284,16 +284,16 @@ class _PageProductOutState extends State<PageProductOut> {
                             //   borderRadius: BorderRadius.circular(10),
                             // ),
                             child: Text("${"Shipping quantity".tr}  (${data.msr_qty})", style: tsProductItemBold)),
-                        Container(
-                            // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                            width: 90,
-                            height: 24,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
+                        // Container(
+                        //     // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                        //     width: 90,
+                        //     height: 24,
+                        //     alignment: Alignment.center,
+                        //     decoration: BoxDecoration(
+                        //       color: Colors.grey[200],
+                        //       borderRadius: BorderRadius.circular(10),
+                        //     ),
+                        //     child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
                       ],
                     ),
                   ],
