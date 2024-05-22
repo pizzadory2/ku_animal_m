@@ -32,11 +32,17 @@ class _PageInvenState extends State<PageInven> {
 
   String _selectYear = "1900";
   String _selectMonth = "1";
+  String _currentYear = "1900";
+  String _currentMonth = "1";
 
   @override
   void initState() {
     _selectYear = DateTime.now().year.toString();
     _selectMonth = DateTime.now().month.toString();
+
+    _currentYear = _selectYear;
+    _currentMonth = _selectMonth;
+
     super.initState();
   }
 
@@ -308,6 +314,8 @@ class _PageInvenState extends State<PageInven> {
     // String type = data.mst_type.isEmpty ? "" : "(${data.mst_type})";
     String type = "(EA)";
 
+    bool isCurrentMonth = _currentYear == _selectYear && _currentMonth == _selectMonth;
+
     return GestureDetector(
       onTap: () {
         Utils.showDetailDlg(context, title: data.mi_name);
@@ -340,28 +348,32 @@ class _PageInvenState extends State<PageInven> {
             ),
             Column(
               children: [
-                GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () async {
-                    Utils.keyboardHide();
-                    var result = await Get.to(PageInvenOrder(data: data));
-                    if (result != null) {
-                      // AppController.to.setLoading(true);
-                      result.name = data.mi_name;
-                      result.code = data.mi_code;
-                      // result.type = data.mst_type;
-                      InvenController.to.addOrderList(data: result);
-                      Utils.showToast("Added to order request list".tr, isCenter: true);
-                      // AppController.to.setLoading(false);
-                    }
-                  },
-                  child: Container(
-                    width: 90,
-                    height: 20,
-                    alignment: Alignment.topRight,
-                    child: Icon(Icons.add_shopping_cart_outlined),
+                Visibility(
+                  visible: isCurrentMonth,
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () async {
+                      Utils.keyboardHide();
+                      var result = await Get.to(PageInvenOrder(data: data));
+                      if (result != null) {
+                        // AppController.to.setLoading(true);
+                        result.name = data.mi_name;
+                        result.code = data.mi_code;
+                        // result.type = data.mst_type;
+                        InvenController.to.addOrderList(data: result);
+                        Utils.showToast("Added to order request list".tr, isCenter: true);
+                        // AppController.to.setLoading(false);
+                      }
+                    },
+                    child: Container(
+                      width: 90,
+                      height: 20,
+                      alignment: Alignment.topRight,
+                      child: Icon(Icons.add_shopping_cart_outlined),
+                    ),
                   ),
                 ),
+                !isCurrentMonth ? SizedBox(height: 20) : Container(),
                 SizedBox(height: 15),
                 Container(
                   decoration: BoxDecoration(
