@@ -45,6 +45,7 @@ Map<String, String> enUS = <String, String>{
   'thankyou': 'thankyou',
   'signup success': 'signup success',
   'please wait for admin approval': 'please wait for admin approval',
+  'Please enter the quantity': 'Please enter the quantity',
 
   // 입출고
   'unit': 'unit',

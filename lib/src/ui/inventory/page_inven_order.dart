@@ -6,6 +6,7 @@ import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
+import 'package:ku_animal_m/src/ui/dialog/input_count_ex_dialog.dart';
 import 'package:ku_animal_m/src/ui/inventory/order_model.dart';
 import 'package:ku_animal_m/src/ui/product/inven_model.dart';
 
@@ -144,11 +145,23 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
             ),
           ),
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          width: 30,
-          alignment: Alignment.center,
-          child: Text("$_orderCount", style: tsDefault),
+        GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () async {
+            //
+            int result = await _showInputCountDialog(context, _orderCount);
+            if (result != -1) {
+              setState(() {
+                _orderCount = result;
+              });
+            }
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            width: 30,
+            alignment: Alignment.center,
+            child: Text("$_orderCount", style: tsDefault),
+          ),
         ),
         GestureDetector(
           onTap: () {
@@ -269,5 +282,18 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
     //   alignment: Alignment.center,
     //   child: Text("warning".tr, style: tsWarning.copyWith(color: Colors.red)),
     // );
+  }
+
+  _showInputCountDialog(BuildContext context, int initCount) async {
+    int result = await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return InputCountExDialog(count: initCount);
+        });
+
+    // Utils.keyboardHide();
+
+    return result;
   }
 }

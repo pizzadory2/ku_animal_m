@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
-import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product/inven_model.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
 

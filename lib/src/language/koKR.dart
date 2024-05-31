@@ -47,6 +47,7 @@ Map<String, String> koKR = <String, String>{
   'thankyou': '감사합니다',
   'signup success': '회원가입이 완료되었습니다.',
   'please wait for admin approval': '관리자 승인을 기다려주세요',
+  'Please enter the quantity': '수량을 입력해주세요.',
 
   // 입출고
   'unit': '단위',
