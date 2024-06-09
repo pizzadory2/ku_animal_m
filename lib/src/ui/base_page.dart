@@ -13,7 +13,5 @@ class _BasePageState extends State<BasePage> {
     return const Placeholder();
   }
 
-  void initData() async {
-    // TODO: implement initData
-  }
+  void initData() async {}
 }

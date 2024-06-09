@@ -186,7 +186,7 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
   }
 
   _buildMultiSelect() {
-    return Container(
+    return SizedBox(
       height: 40,
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,

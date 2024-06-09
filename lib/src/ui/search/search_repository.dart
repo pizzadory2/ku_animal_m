@@ -78,7 +78,6 @@ class SearchRepository {
       "sch_condition": "",
       "sch_txt": "",
       "command": Constants.api_product,
-      // "command": Constants.api_search,
     };
 
     try {

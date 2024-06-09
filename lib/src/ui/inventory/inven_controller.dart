@@ -98,7 +98,7 @@ class InvenController extends GetxController {
 
   checkOrder() async {
     isLoading.value = true;
-    bool isSuccess = false;
+    // bool isSuccess = false;
     var result = null;
     await repository.reqCheckOrder(list: _orderList).then((value) async {
       isLoading.value = false;

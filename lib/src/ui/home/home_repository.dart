@@ -102,9 +102,9 @@ class HomeRepository {
   loadAll({required String userSeq}) async {
     debugPrint("[animal::home_repository(대쉬보드)] dashboard API 호출");
 
-    var param = {
-      "command": Constants.api_dashboard,
-    };
+    // var param = {
+    //   "command": Constants.api_dashboard,
+    // };
 
     try {
       var result = await RestClient().dio.get(

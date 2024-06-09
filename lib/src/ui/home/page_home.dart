@@ -38,7 +38,7 @@ class _PageHomeState extends State<PageHome> {
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
   final List<ProductRecentlyModel> _listDummy = [];
 
-  bool _isLoading = true;
+  // bool _isLoading = true;
 
   @override
   void initState() {
@@ -141,48 +141,45 @@ class _PageHomeState extends State<PageHome> {
                 ],
               ),
             ),
-            Container(
-              // child: ChartSample(),
-              child: Row(children: [
-                Expanded(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        // const Icon(Icons.arrow_downward, color: Colors.blue),
-                        const Icon(Icons.file_download_rounded, color: Colors.blue),
-                        SizedBox(
-                          height: 40,
-                          child: Text("${HomeController.to.homeModel.monthData.inCount}", style: tsMainBoxInOutCount),
-                        ),
-                        SizedBox(
-                          height: 20,
-                          child: Text("in".tr),
-                        ),
-                      ],
-                    ),
+            Row(children: [
+              Expanded(
+                child: Center(
+                  child: Column(
+                    children: [
+                      // const Icon(Icons.arrow_downward, color: Colors.blue),
+                      const Icon(Icons.file_download_rounded, color: Colors.blue),
+                      SizedBox(
+                        height: 40,
+                        child: Text("${HomeController.to.homeModel.monthData.inCount}", style: tsMainBoxInOutCount),
+                      ),
+                      SizedBox(
+                        height: 20,
+                        child: Text("in".tr),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        // const Icon(Icons.arrow_upward, color: Colors.red),
-                        const Icon(Icons.file_upload_rounded, color: Colors.red),
-                        SizedBox(
-                          height: 40,
-                          child: Text("${HomeController.to.homeModel.monthData.outCount}", style: tsMainBoxInOutCount),
-                        ),
-                        SizedBox(
-                          height: 20,
-                          child: Text("out".tr),
-                        ),
-                      ],
-                    ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Center(
+                  child: Column(
+                    children: [
+                      // const Icon(Icons.arrow_upward, color: Colors.red),
+                      const Icon(Icons.file_upload_rounded, color: Colors.red),
+                      SizedBox(
+                        height: 40,
+                        child: Text("${HomeController.to.homeModel.monthData.outCount}", style: tsMainBoxInOutCount),
+                      ),
+                      SizedBox(
+                        height: 20,
+                        child: Text("out".tr),
+                      ),
+                    ],
                   ),
                 ),
-              ]),
-            ),
+              ),
+            ]),
             Container(
               alignment: Alignment.center,
               width: double.infinity,
