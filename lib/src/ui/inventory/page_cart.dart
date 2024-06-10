@@ -56,26 +56,24 @@ class _PageCartState extends State<PageCart> {
 
   _buildList() {
     int itemCount = InvenController.to.getOrderCount();
-    return Container(
-      child: Column(
-        children: [
-          Expanded(
-              child: itemCount > 0
-                  ? ListView.builder(
-                      itemCount: InvenController.to.getOrderCount(),
-                      itemBuilder: (context, index) {
-                        return _buildItem(index);
-                      },
-                    )
-                  : Center(
-                      child: Text("no data".tr),
-                    )),
-          // _buildTitle(),
-          // _buildReason(),
-          // SizedBox(height: 10),
-          _buildBottom(),
-        ],
-      ),
+    return Column(
+      children: [
+        Expanded(
+            child: itemCount > 0
+                ? ListView.builder(
+                    itemCount: InvenController.to.getOrderCount(),
+                    itemBuilder: (context, index) {
+                      return _buildItem(index);
+                    },
+                  )
+                : Center(
+                    child: Text("no data".tr),
+                  )),
+        // _buildTitle(),
+        // _buildReason(),
+        // SizedBox(height: 10),
+        _buildBottom(),
+      ],
     );
   }
 
@@ -83,9 +81,8 @@ class _PageCartState extends State<PageCart> {
     OrderModel order = InvenController.to.getOrder(index);
 
     // 출고타입 PK, BOX, EA
-    // String type = data.mst_type.isEmpty ? "" : "(${data.mst_type})";
+    String type = order.type.isEmpty ? "(-)" : "(${order.type})";
     // String type = "(EA)";
-    String type = "(EA)";
 
     return Container(
       padding: EdgeInsets.only(left: 30, top: 20, right: 30, bottom: 20),
@@ -142,7 +139,7 @@ class _PageCartState extends State<PageCart> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("${"quantity".tr}  ${order.orderCount}", style: TextStyle(fontSize: 15)),
-              // Text("${"unit".tr} ${type}", style: tsProductItemBold),
+              Text("${"unit".tr} ${type}", style: tsProductItemBold),
             ],
           ),
         ],
@@ -263,34 +260,34 @@ class _PageCartState extends State<PageCart> {
     );
   }
 
-  _buildTitle() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-      child: Container(
-        // margin: EdgeInsets.symmetric(horizontal: 30),
-        child: TextField(
-          controller: _controllerTitle,
-          decoration: InputDecoration(
-            hintText: "제목을 입력해주세요".tr,
-            border: OutlineInputBorder(),
-          ),
-        ),
-      ),
-    );
-  }
+  // _buildTitle() {
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+  //     child: Container(
+  //       // margin: EdgeInsets.symmetric(horizontal: 30),
+  //       child: TextField(
+  //         controller: _controllerTitle,
+  //         decoration: InputDecoration(
+  //           hintText: "제목을 입력해주세요".tr,
+  //           border: OutlineInputBorder(),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  _buildReason() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30),
-      child: TextField(
-        controller: _controllerReason,
-        decoration: InputDecoration(
-          hintText: "내용을 입력해주세요".tr,
-          border: OutlineInputBorder(),
-        ),
-      ),
-    );
-  }
+  // _buildReason() {
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(horizontal: 30),
+  //     child: TextField(
+  //       controller: _controllerReason,
+  //       decoration: InputDecoration(
+  //         hintText: "내용을 입력해주세요".tr,
+  //         border: OutlineInputBorder(),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   _buildRequestInfo() {
     int itemCount = InvenController.to.getOrderCount();

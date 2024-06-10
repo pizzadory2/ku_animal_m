@@ -80,6 +80,9 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
       regDate = "등록일 ${date.year}.${date.month}.${date.day}";
     }
 
+    // 출고타입 PK, BOX, EA
+    String type = data.mi_unit.isEmpty ? "" : "(${data.mi_unit})";
+
     return GestureDetector(
       onTap: () {
         Utils.showDetailDlg(context, title: data.mi_name, dismissible: true);
@@ -91,7 +94,8 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
             child: Container(
               margin: const EdgeInsets.only(top: 5, bottom: 10, left: 10, right: 10),
               padding: const EdgeInsets.all(15),
-              height: 150,
+              // height: 150,
+              height: 160,
               decoration: WidgetFactory.boxDecoration(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,10 +109,16 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
                           Text(data.mi_name, style: tsInvenItemName),
                           Text(data.mi_manufacturer, style: tsInvenItemCompany),
                           const Spacer(),
-                          Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
-                          Text("주요성분 (${data.mi_ingredients})", style: tsInvenItemCompany),
+                          Row(
+                            children: [
+                              Text("${"current qty".tr} (${data.mst_base_stock})", style: tsInvenItemCompany),
+                              Text("/${"safe list".tr} (${data.mi_safety_stock})", style: tsInvenItemCompany),
+                            ],
+                          ),
+                          Text("${"ingredient".tr} (${data.mi_ingredients})", style: tsInvenItemCompany),
                           const SizedBox(height: 5),
-                          Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
+                          Text("${"content".tr} ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
+                          Text("${"unit".tr} ${type}", style: tsProductItemBold),
                         ],
                       ),
                     ),

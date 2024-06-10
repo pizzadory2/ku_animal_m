@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ku_animal_m/src/common/constants.dart';
-import 'package:ku_animal_m/src/model/base_model.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
 import 'package:ku_animal_m/src/ui/inventory/invern_order_model.dart';
 import 'package:ku_animal_m/src/ui/inventory/order_model.dart';
@@ -222,10 +221,7 @@ class InvenRepository {
           );
 
       if (result != null) {
-        if (result.data != null) {
-          int a = 0;
-          a++;
-        }
+        if (result.data != null) {}
 
         var parseData = jsonDecode(result.toString());
         // var code = parseData["result"].toString();
@@ -270,13 +266,13 @@ class InvenRepository {
       "msor_reason": reason,
     };
 
-    List<MultipartFile> _files = [];
+    List<MultipartFile> files = [];
     if (filePathList.isNotEmpty) {
       for (int i = 0; i < filePathList.length; i++) {
         if (filePathList[i].contains("http") || filePathList[i].isEmpty) {
           continue;
         } else {
-          _files.add(MultipartFile.fromFileSync(filePathList[i]));
+          files.add(MultipartFile.fromFileSync(filePathList[i]));
         }
       }
       // List<MultipartFile> _files = imagePaths.map((e) => MultipartFile.fromFileSync(e)).toList();
@@ -291,8 +287,8 @@ class InvenRepository {
       "msor_reason": reason,
     });
 
-    for (int i = 0; i < _files.length; i++) {
-      formData.files.add(MapEntry("file${i + 1}", _files[i]));
+    for (int i = 0; i < files.length; i++) {
+      formData.files.add(MapEntry("file${i + 1}", files[i]));
     }
 
     debugPrint(jsonEncode(param).toString());
@@ -310,10 +306,7 @@ class InvenRepository {
           );
 
       if (result != null) {
-        if (result.data != null) {
-          int a = 0;
-          a++;
-        }
+        if (result.data != null) {}
 
         var parseData = jsonDecode(result.toString());
         // var code = parseData["result"].toString();

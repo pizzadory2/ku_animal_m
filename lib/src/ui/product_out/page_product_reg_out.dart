@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ku_animal_m/src/common/constants.dart';
-import 'package:ku_animal_m/src/common/dimens.dart';
-import 'package:ku_animal_m/src/common/enums.dart';
-import 'package:ku_animal_m/src/common/text_style_ex.dart';
-import 'package:ku_animal_m/src/common/utils.dart';
-import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
+import 'package:ku_animal_m/src/index/index_common.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/input_count_dialog.dart';
 import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
@@ -32,7 +27,7 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
 
   final TextEditingController _controllerSearch = TextEditingController();
   int _filterIndex = 0;
-  FilterType _filterType = FilterType.Name;
+  // FilterType _filterType = FilterType.Name;
 
   @override
   void initState() {
@@ -171,7 +166,7 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
                   if (result != null) {
                     _controllerSearch.text = result;
                     _filterIndex = 5;
-                    _filterType = FilterType.Barcode;
+                    // _filterType = FilterType.Barcode;
                     searchData();
                   }
                 },

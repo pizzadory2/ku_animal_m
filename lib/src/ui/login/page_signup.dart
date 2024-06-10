@@ -292,9 +292,7 @@ class _PageSignupState extends State<PageSignup> {
   }
 
   _buildInfo() {
-    return Container(
-      child: Text(""),
-    );
+    return Text("");
   }
 
   _buildDropdown({required String title, required List<String> list, required int select}) {

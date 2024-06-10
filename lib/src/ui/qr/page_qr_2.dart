@@ -72,7 +72,7 @@ class _PageQR2State extends State<PageQR2> {
     // double height2 = MediaQuery.of(context).size.height;
     // double appbar = kToolbarHeight;
     // double appbar2 = AppBar().preferredSize.height;
-    double appbar3 = MediaQuery.of(context).padding.top + kToolbarHeight;
+    // double appbar3 = MediaQuery.of(context).padding.top + kToolbarHeight;
 
     _scanWidth = Get.width * 0.8;
     double padding = Get.width * 0.1;

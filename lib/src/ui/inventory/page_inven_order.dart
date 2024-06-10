@@ -1,9 +1,9 @@
-import 'package:dotted_border/dotted_border.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
-import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/input_count_ex_dialog.dart';
@@ -23,10 +23,9 @@ class PageInvenOrder extends StatefulWidget {
 class _PageInvenOrderState extends State<PageInvenOrder> {
   int _orderCount = 0;
   String _filePath = "";
-  String _fileName = "";
-  String _type = "";
+  // String _fileName = "";
 
-  bool _validCount = true;
+  // bool _validCount = true;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +42,7 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
 
   _buildBody() {
     // 출고타입 PK, BOX, EA
-    // String type = widget.data.mst_type.isEmpty ? "" : "(${widget.data.mst_type})";
-    String type = "(EA)";
+    String type = widget.data.mi_unit.isEmpty ? "" : "(${widget.data.mi_unit})";
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -62,9 +60,9 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Text("${"quantity".tr} : ${widget.data.mst_base_stock}", style: tsDefault),
               ),
-              // Container(
-              //     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              //     child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
+              Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
             ],
           ),
           // Container(
@@ -197,7 +195,7 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
         // Utils.showToast("File Path: $filePath");
         if (filePath.isNotEmpty) {
           _filePath = filePath;
-          _fileName = result.files.single.name;
+          // _fileName = result.files.single.name;
         }
         // imgFile = File(result.files.single.path!); // Make the selected image file
         // print('File Path: ${imgFile!.path}');
@@ -212,71 +210,72 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
     // });
   }
 
-  _buildAddFile() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () {
-          pickFile();
-        },
-        child: SizedBox(
-          width: double.infinity,
-          height: 100,
-          child: DottedBorder(
-            child: Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("supporting data".tr, style: tsDefault.copyWith(fontSize: 20)),
-                SizedBox(height: 10),
-                Icon(Icons.add, size: 40),
-              ],
-            )),
-          ),
-        ),
-      ),
-    );
-  }
+  // _buildAddFile() {
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+  //     child: GestureDetector(
+  //       behavior: HitTestBehavior.translucent,
+  //       onTap: () {
+  //         pickFile();
+  //       },
+  //       child: SizedBox(
+  //         width: double.infinity,
+  //         height: 100,
+  //         child: DottedBorder(
+  //           child: Center(
+  //               child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               Text("supporting data".tr, style: tsDefault.copyWith(fontSize: 20)),
+  //               SizedBox(height: 10),
+  //               Icon(Icons.add, size: 40),
+  //             ],
+  //           )),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  _buildFileInfo() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-      child: SizedBox(
-        width: double.infinity,
-        height: 100,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(width: 40),
-                  Text("${_fileName}", style: tsDefault.copyWith(fontSize: 20)),
-                  GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        _filePath = "";
-                        _fileName = "";
-                        setState(() {});
-                      },
-                      child: Icon(Icons.delete_forever_sharp, color: Colors.grey, size: 40)),
-                ],
-              ),
-              // SizedBox(height: 10),
-              // Icon(Icons.add, size: 40),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  // _buildFileInfo() {
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+  //     child: SizedBox(
+  //       width: double.infinity,
+  //       height: 100,
+  //       child: Center(
+  //         child: Column(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 SizedBox(width: 40),
+  //                 Text("${_fileName}", style: tsDefault.copyWith(fontSize: 20)),
+  //                 GestureDetector(
+  //                     behavior: HitTestBehavior.translucent,
+  //                     onTap: () {
+  //                       _filePath = "";
+  //                       _fileName = "";
+  //                       setState(() {});
+  //                     },
+  //                     child: Icon(Icons.delete_forever_sharp, color: Colors.grey, size: 40)),
+  //               ],
+  //             ),
+  //             // SizedBox(height: 10),
+  //             // Icon(Icons.add, size: 40),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   _buildWarning() {
-    if (_validCount) {
-      return Container();
-    }
+    return Container();
+    // if (_validCount) {
+    //   return Container();
+    // }
 
     // return Container(
     //   alignment: Alignment.center,

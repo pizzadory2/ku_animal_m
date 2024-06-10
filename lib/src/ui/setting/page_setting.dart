@@ -9,7 +9,6 @@ import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
 import 'package:ku_animal_m/src/ui/dialog/withdraw_dialog.dart';
-import 'package:ku_animal_m/src/ui/login/page_login.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/notice/page_notice.dart';
 
@@ -217,7 +216,7 @@ class _PageSettingState extends State<PageSetting> {
   }
 
   _buildWithdraw() {
-    String appVersion = AppController.to.versionInfo;
+    // String appVersion = AppController.to.versionInfo;
 
     return GestureDetector(
       onTap: () {

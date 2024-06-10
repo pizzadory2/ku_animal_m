@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
@@ -14,7 +16,7 @@ class InvenController extends GetxController {
   RxBool isLoading = false.obs;
 
   List<InvenModel> _list = [];
-  List<OrderModel> _orderList = [];
+  final List<OrderModel> _orderList = [];
   RxInt orderCount = 0.obs;
 
   clearData() {
@@ -99,7 +101,7 @@ class InvenController extends GetxController {
   checkOrder() async {
     isLoading.value = true;
     // bool isSuccess = false;
-    var result = null;
+    var result;
     await repository.reqCheckOrder(list: _orderList).then((value) async {
       isLoading.value = false;
 

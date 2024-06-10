@@ -25,7 +25,7 @@ class _PageProductOutState extends State<PageProductOut> {
 
   final TextEditingController _controllerSearch = TextEditingController();
   int _filterIndex = 0;
-  FilterType _filterType = FilterType.Name;
+  // FilterType _filterType = FilterType.Name;
 
   @override
   void initState() {
@@ -151,7 +151,7 @@ class _PageProductOutState extends State<PageProductOut> {
                   if (result != null) {
                     _controllerSearch.text = result;
                     _filterIndex = 5;
-                    _filterType = FilterType.Barcode;
+                    // _filterType = FilterType.Barcode;
                     searchData();
                   }
                 },
@@ -241,8 +241,7 @@ class _PageProductOutState extends State<PageProductOut> {
     ProductHistoryModel data = ProductOutController.to.getItem(index);
 
     // 출고타입 PK, BOX, EA
-    // String type = data.mst_type.isEmpty ? "" : "(${data.mst_type})";
-    String type = "(EA)";
+    String type = data.mi_unit.isEmpty ? "" : "(${data.mi_unit})";
 
     String person = data.msr_man.isEmpty ? "-" : data.msr_man;
 
@@ -270,8 +269,8 @@ class _PageProductOutState extends State<PageProductOut> {
                     //     style: tsInvenItemCompany),
                     // const Spacer(),
                     const SizedBox(height: 10),
-                    Text("출고처리  ${person}", style: tsInvenItemCompany),
-                    Text("주요성분  (${data.mi_ingredients})", style: tsInvenItemCompany),
+                    Text("${"release".tr}  ${person}", style: tsInvenItemCompany),
+                    Text("${"ingredient".tr}  (${data.mi_ingredients})", style: tsInvenItemCompany),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -294,6 +293,7 @@ class _PageProductOutState extends State<PageProductOut> {
                         //       borderRadius: BorderRadius.circular(10),
                         //     ),
                         //     child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
+                        Text("${"unit".tr} ${type}", style: tsProductItemBold),
                       ],
                     ),
                   ],

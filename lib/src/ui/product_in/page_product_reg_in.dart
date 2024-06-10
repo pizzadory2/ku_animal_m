@@ -10,7 +10,6 @@ import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/input_count_dialog.dart';
 import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
-import 'package:ku_animal_m/src/ui/dialog/select_month_dialog.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product/product_model.dart';
 import 'package:ku_animal_m/src/ui/product_in/product_in_reg_controller.dart';
@@ -33,7 +32,7 @@ class _PageProductRegInState extends State<PageProductRegIn> {
 
   final TextEditingController _controllerSearch = TextEditingController();
   int _filterIndex = 0;
-  FilterType _filterType = FilterType.Name;
+  // FilterType _filterType = FilterType.Name;
 
   @override
   void initState() {
@@ -171,7 +170,7 @@ class _PageProductRegInState extends State<PageProductRegIn> {
                   if (result != null) {
                     _controllerSearch.text = result;
                     _filterIndex = 5;
-                    _filterType = FilterType.Barcode;
+                    // _filterType = FilterType.Barcode;
                     searchData();
                   }
                 },
@@ -278,23 +277,23 @@ class _PageProductRegInState extends State<PageProductRegIn> {
     });
   }
 
-  _showSelectMonthDialog(context) async {
-    ProductResultData result = await showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          return SelectMonthDialog();
-        });
+  // _showSelectMonthDialog(context) async {
+  //   ProductResultData result = await showDialog(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (context) {
+  //         return SelectMonthDialog();
+  //       });
 
-    // Utils.keyboardHide();
+  //   // Utils.keyboardHide();
 
-    if (result.isNotEmpty) {
-      // Get.to(PageSearchResult(searchText: result), transition: Transition.fade);
-      // searchData(result.txt, result.type);
-    }
+  //   if (result.isNotEmpty) {
+  //     // Get.to(PageSearchResult(searchText: result), transition: Transition.fade);
+  //     // searchData(result.txt, result.type);
+  //   }
 
-    // return result;
-  }
+  //   // return result;
+  // }
 
   _showInputCountDialog(BuildContext context, {required String code}) async {
     ProductResultData result = await showDialog(

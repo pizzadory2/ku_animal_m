@@ -1,10 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
-import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/ui/member/member_controller.dart';
 import 'package:ku_animal_m/src/ui/member/member_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -21,7 +19,7 @@ class _PageMemberState extends State<PageMember> {
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   final TextEditingController _controllerSearch = TextEditingController();
-  int _filterIndex = 0;
+  // int _filterIndex = 0;
 
   @override
   void initState() {
@@ -68,84 +66,84 @@ class _PageMemberState extends State<PageMember> {
     );
   }
 
-  _buildSearch() {
-    return Container(
-        height: Dimens.searchHeight,
-        padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.search),
-                    ),
-                    Expanded(
-                      child: TextField(
-                        controller: _controllerSearch,
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                        onSubmitted: (value) {
-                          searchData();
-                        },
-                        cursorColor: Colors.black,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          hintText: "search hint".tr,
-                          hintStyle: tsSearchHint,
-                        ),
-                      ),
-                    ),
-                    _controllerSearch.text.isNotEmpty
-                        ? GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _controllerSearch.clear();
-                              });
-                            },
-                            child: WidgetFactory.searchClearButton(),
-                          )
-                        : Container(),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            SizedBox(
-              width: AppController.to.language == "ko" ? 80 : 90,
-              child: ElevatedButton(
-                onPressed: () {
-                  searchData();
-                },
-                child: Text(
-                  "search".tr,
-                  style: tsSearch,
-                ),
-              ),
-            ),
-            WidgetFactory.dividerVer(height: 30, color: Colors.black12, margin: 10),
-            SizedBox(
-              // width: 50,
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {
-                  debugPrint("QR");
-                },
-                child: const Icon(Icons.qr_code_rounded, size: 30, color: Colors.black54),
-              ),
-            ),
-          ],
-        ));
-  }
+  // _buildSearch() {
+  //   return Container(
+  //       height: Dimens.searchHeight,
+  //       padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
+  //       child: Row(
+  //         children: [
+  //           Expanded(
+  //             child: Container(
+  //               padding: const EdgeInsets.only(right: 10),
+  //               decoration: BoxDecoration(
+  //                 color: Colors.grey[100],
+  //                 borderRadius: BorderRadius.circular(10),
+  //               ),
+  //               child: Row(
+  //                 children: [
+  //                   IconButton(
+  //                     onPressed: () {},
+  //                     icon: const Icon(Icons.search),
+  //                   ),
+  //                   Expanded(
+  //                     child: TextField(
+  //                       controller: _controllerSearch,
+  //                       onChanged: (value) {
+  //                         setState(() {});
+  //                       },
+  //                       onSubmitted: (value) {
+  //                         searchData();
+  //                       },
+  //                       cursorColor: Colors.black,
+  //                       decoration: InputDecoration(
+  //                         border: InputBorder.none,
+  //                         focusedBorder: InputBorder.none,
+  //                         hintText: "search hint".tr,
+  //                         hintStyle: tsSearchHint,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   _controllerSearch.text.isNotEmpty
+  //                       ? GestureDetector(
+  //                           onTap: () {
+  //                             setState(() {
+  //                               _controllerSearch.clear();
+  //                             });
+  //                           },
+  //                           child: WidgetFactory.searchClearButton(),
+  //                         )
+  //                       : Container(),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //           const SizedBox(width: 10),
+  //           SizedBox(
+  //             width: AppController.to.language == "ko" ? 80 : 90,
+  //             child: ElevatedButton(
+  //               onPressed: () {
+  //                 searchData();
+  //               },
+  //               child: Text(
+  //                 "search".tr,
+  //                 style: tsSearch,
+  //               ),
+  //             ),
+  //           ),
+  //           WidgetFactory.dividerVer(height: 30, color: Colors.black12, margin: 10),
+  //           SizedBox(
+  //             // width: 50,
+  //             child: GestureDetector(
+  //               behavior: HitTestBehavior.translucent,
+  //               onTap: () {
+  //                 debugPrint("QR");
+  //               },
+  //               child: const Icon(Icons.qr_code_rounded, size: 30, color: Colors.black54),
+  //             ),
+  //           ),
+  //         ],
+  //       ));
+  // }
 
   _buildList() {
     int itemCount = MemberController.to.getCount();
@@ -166,7 +164,7 @@ class _PageMemberState extends State<PageMember> {
     MemberModel item = MemberController.to.getItem(index);
 
     String name = item.tu_name;
-    String phone = item.tu_phone;
+    // String phone = item.tu_phone;
     String team = item.si_name;
     String email = item.tu_email;
 

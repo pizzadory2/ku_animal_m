@@ -164,10 +164,7 @@ class ProductInRegRepository {
           );
 
       if (result != null) {
-        if (result.data != null) {
-          int a = 0;
-          a++;
-        }
+        if (result.data != null) {}
 
         var parseData = jsonDecode(result.toString());
         // var code = parseData["result"].toString();

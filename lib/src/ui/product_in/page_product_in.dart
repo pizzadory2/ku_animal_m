@@ -26,7 +26,7 @@ class _PageProductInState extends State<PageProductIn> {
 
   final TextEditingController _controllerSearch = TextEditingController();
   int _filterIndex = 0;
-  FilterType _filterType = FilterType.Name;
+  // FilterType _filterType = FilterType.Name;
 
   @override
   void initState() {
@@ -171,7 +171,7 @@ class _PageProductInState extends State<PageProductIn> {
                   if (result != null) {
                     _controllerSearch.text = result;
                     _filterIndex = 5;
-                    _filterType = FilterType.Barcode;
+                    // _filterType = FilterType.Barcode;
                     searchData();
                   }
                 },
@@ -196,7 +196,7 @@ class _PageProductInState extends State<PageProductIn> {
               onTap: () {
                 setState(() {
                   _filterIndex = index;
-                  _filterType = FilterType.values[index];
+                  // _filterType = FilterType.values[index];
                 });
               },
               child: Container(
@@ -263,8 +263,7 @@ class _PageProductInState extends State<PageProductIn> {
     // String amount = data.mst_content.isEmpty ? "-" : "(${data.mst_content})";
 
     // 출고타입 PK, BOX, EA
-    // String type = data.mst_type.isEmpty ? "" : "(${data.mst_type})";
-    String type = "(EA)";
+    String type = data.mi_unit.isEmpty ? "" : "(${data.mi_unit})";
 
     String person = data.msr_man.isEmpty ? "-" : data.msr_man;
 
@@ -309,6 +308,7 @@ class _PageProductInState extends State<PageProductIn> {
                         //       borderRadius: BorderRadius.circular(10),
                         //     ),
                         //     child: Text("${"unit".tr} ${type}", style: tsProductItemBold)),
+                        Text("${"unit".tr} ${type}", style: tsProductItemBold),
                       ],
                     ),
                   ],

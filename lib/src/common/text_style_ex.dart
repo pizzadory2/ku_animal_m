@@ -306,6 +306,13 @@ TextStyle get tsProductItemTitle => const TextStyle(
     color: Colors.black,
     overflow: TextOverflow.ellipsis);
 
+TextStyle get tsProductItemTitleFull => const TextStyle(
+      fontFamily: "Pretendard",
+      fontSize: 16,
+      fontWeight: FontWeight.w700,
+      color: Colors.black,
+    );
+
 TextStyle get tsProductItem => const TextStyle(
       // fontFamily: "Pretendard",
       fontSize: 14,

@@ -436,7 +436,8 @@ class _PageHomeState extends State<PageHome> {
           notifications.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
 
       // final bool? granted = await androidImplementation?.requestPermission();
-      final bool? granted = await androidImplementation?.requestNotificationsPermission();
+      // final bool? granted = await androidImplementation?.requestNotificationsPermission();
+      await androidImplementation?.requestNotificationsPermission();
       setState(() {
         // AppController.to.notificationsEnabled = granted ?? false;
       });

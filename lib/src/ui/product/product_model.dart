@@ -21,6 +21,9 @@ class ProductModel {
   final String mi_type_name;
   final String mi_class_name;
   final String pc_main_name;
+  final String mst_in_stock;
+  final String mst_out_stock;
+  final String mst_base_stock;
   int inout_count = 0;
 
   ProductModel({
@@ -46,6 +49,9 @@ class ProductModel {
     required this.mi_type_name,
     required this.mi_class_name,
     required this.pc_main_name,
+    required this.mst_in_stock,
+    required this.mst_out_stock,
+    required this.mst_base_stock,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -72,6 +78,9 @@ class ProductModel {
       mi_type_name: json['mi_type_name'] ?? "",
       mi_class_name: json['mi_class_name'] ?? "",
       pc_main_name: json['pc_main_name'] ?? "",
+      mst_in_stock: json['mst_in_stock'] ?? "",
+      mst_out_stock: json['mst_out_stock'] ?? "",
+      mst_base_stock: json['mst_base_stock'] ?? "",
     );
   }
 }

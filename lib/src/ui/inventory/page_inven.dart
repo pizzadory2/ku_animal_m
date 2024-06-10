@@ -28,7 +28,7 @@ class _PageInvenState extends State<PageInven> {
 
   final TextEditingController _controllerSearch = TextEditingController();
   int _filterIndex = 0;
-  FilterType _filterType = FilterType.Name;
+  // FilterType _filterType = FilterType.Name;
 
   String _selectYear = "1900";
   String _selectMonth = "1";
@@ -212,7 +212,7 @@ class _PageInvenState extends State<PageInven> {
                   if (result != null) {
                     _controllerSearch.text = result;
                     _filterIndex = 5;
-                    _filterType = FilterType.Barcode;
+                    // _filterType = FilterType.Barcode;
                     searchData();
                   }
                 },
@@ -311,8 +311,8 @@ class _PageInvenState extends State<PageInven> {
     bool isLongStockCount = data.mst_base_stock.length > 4;
 
     // 출고타입 PK, BOX, EA
-    // String type = data.mst_type.isEmpty ? "" : "(${data.mst_type})";
-    String type = "(EA)";
+    String type = data.mi_unit.isEmpty ? "" : "(${data.mi_unit})";
+    // String type = "(EA)";
 
     bool isCurrentMonth = _currentYear == _selectYear && _currentMonth == _selectMonth;
 
@@ -338,10 +338,11 @@ class _PageInvenState extends State<PageInven> {
                     Text(data.mi_name, style: tsInvenItemNameRequest),
                     Text(data.mi_manufacturer, style: tsInvenItemCompany),
                     const SizedBox(height: 10),
-                    Text("안전재고 (${data.mi_safety_stock})", style: tsInvenItemCompany),
-                    Text("주요성분 (${ingredients})", style: tsInvenItemCompany),
+                    Text("${"safe list".tr} (${data.mi_safety_stock})", style: tsInvenItemCompany),
+                    Text("${"ingredient".tr} (${ingredients})", style: tsInvenItemCompany),
+                    Text("${"unit".tr} ${type}", style: tsInvenItemCompany),
                     const SizedBox(height: 5),
-                    Text("함량 ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
+                    Text("${"content".tr} ${amount}", style: tsInvenItemCompany.copyWith(color: Colors.black)),
                   ],
                 ),
               ),
@@ -359,7 +360,7 @@ class _PageInvenState extends State<PageInven> {
                         // AppController.to.setLoading(true);
                         result.name = data.mi_name;
                         result.code = data.mi_code;
-                        // result.type = data.mst_type;
+                        result.type = type.replaceAll("(", "").replaceAll(")", "");
                         InvenController.to.addOrderList(data: result);
                         Utils.showToast("Added to order request list".tr, isCenter: true);
                         // AppController.to.setLoading(false);

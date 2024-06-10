@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ku_animal_m/src/common/dimens.dart';
 import 'package:ku_animal_m/src/common/text_style_ex.dart';
 import 'package:ku_animal_m/src/common/utils.dart';
@@ -305,11 +306,12 @@ class WidgetFactory {
 
     return GestureDetector(
       onTap: () {
-        debugPrint("[animal] ::추가된 아이템 클릭(${index})");
+        debugPrint("[animal::regItem] 추가된 아이템 클릭(${index})");
+        // Utils.showDetailDlg(context, title: data.mi_name);
       },
       child: Container(
         padding: const EdgeInsets.all(15),
-        height: 120,
+        // height: 120,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border(bottom: BorderSide(width: 1, color: Colors.grey[300]!)),
@@ -320,7 +322,7 @@ class WidgetFactory {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(child: Text(data.mi_name, style: tsProductItemTitle)),
+                Expanded(child: Text(data.mi_name, style: tsProductItemTitleFull)),
                 SizedBox(width: 10),
                 GestureDetector(
                   behavior: HitTestBehavior.translucent,
@@ -336,56 +338,56 @@ class WidgetFactory {
               child:
                   Text("${data.mi_manufacturer} / ${data.mi_type_name} / ${data.mi_class_name}", style: tsProductItem),
             ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Text(data.mi_manufacturer, style: tsProductItem),
-                        const Spacer(),
-                        // Text("(${data.mi_type_name}/${data.mi_class_name})", style: tsProductItem),
-                        Text("주요성분 (${data.mi_ingredients})", style: tsProductItem),
-                        const SizedBox(height: 5),
-                        Text("함량 ${amount}", style: tsProductItem),
-                      ],
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Text(data.mi_manufacturer, style: tsProductItem),
+                      // const Spacer(),
+                      // Text("(${data.mi_type_name}/${data.mi_class_name})", style: tsProductItem),
+                      Text("${"ingredient".tr} (${data.mi_ingredients})", style: tsProductItem),
+                      Text("${"current qty".tr} (${data.mst_base_stock})", style: tsInvenItemCompany),
+                      const SizedBox(height: 5),
+                      Text("${"content".tr} ${amount}", style: tsProductItem),
+                    ],
                   ),
-                  Container(
-                    width: Dimens.qtyButtonWidth,
-                    margin: EdgeInsets.only(left: 10),
-                    alignment: Alignment.bottomRight,
-                    child: GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: onChangeQty,
-                      child: Container(
-                        height: 25,
-                        decoration: BoxDecoration(
-                          color: data.inout_count == 0 ? Colors.red[500] : Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding: EdgeInsets.only(left: 10, right: 7),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "${countText} ${dspCount}",
-                              style: data.inout_count == 0
-                                  ? tsProductItemBold.copyWith(color: Colors.white)
-                                  : tsProductItemBold,
-                            ),
-                            SizedBox(width: 5),
-                            Icon(Icons.edit, color: data.inout_count == 0 ? Colors.white : Colors.black54, size: 16),
-                          ],
-                        ),
+                ),
+                Container(
+                  width: Dimens.qtyButtonWidth,
+                  margin: EdgeInsets.only(left: 10),
+                  alignment: Alignment.bottomRight,
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: onChangeQty,
+                    child: Container(
+                      height: 25,
+                      decoration: BoxDecoration(
+                        color: data.inout_count == 0 ? Colors.red[500] : Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: EdgeInsets.only(left: 10, right: 7),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "${countText} ${dspCount}",
+                            style: data.inout_count == 0
+                                ? tsProductItemBold.copyWith(color: Colors.white)
+                                : tsProductItemBold,
+                          ),
+                          SizedBox(width: 5),
+                          Icon(Icons.edit, color: data.inout_count == 0 ? Colors.white : Colors.black54, size: 16),
+                        ],
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ],
         ),
