@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ku_animal_m/src/common/constants.dart';
-import 'package:ku_animal_m/src/common/dimens.dart';
-import 'package:ku_animal_m/src/common/enums.dart';
-import 'package:ku_animal_m/src/common/text_style_ex.dart';
-import 'package:ku_animal_m/src/common/utils.dart';
-import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
+import 'package:ku_animal_m/src/index/index_common.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/dialog/product_result_data.dart';
 import 'package:ku_animal_m/src/ui/dialog/select_month_dialog.dart';

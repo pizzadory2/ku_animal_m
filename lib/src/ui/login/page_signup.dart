@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ku_animal_m/src/common/extension_string.dart';
-import 'package:ku_animal_m/src/common/text_style_ex.dart';
-import 'package:ku_animal_m/src/common/utils.dart';
-import 'package:ku_animal_m/src/common/widget_factory.dart';
+import 'package:ku_animal_m/src/index/index_common.dart';
 import 'package:ku_animal_m/src/ui/login/page_login.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 

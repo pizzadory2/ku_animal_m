@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:ku_animal_m/src/common/enums.dart';
 import 'package:ku_animal_m/src/common/permission_manager.dart';
-import 'package:ku_animal_m/src/common/text_style_ex.dart';
-import 'package:ku_animal_m/src/common/utils.dart';
-import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
+import 'package:ku_animal_m/src/index/index_common.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/home/home_controller.dart';
 import 'package:ku_animal_m/src/ui/home/page_home.dart';
