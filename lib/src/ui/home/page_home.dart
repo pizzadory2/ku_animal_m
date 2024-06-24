@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -549,6 +550,31 @@ class _PageHomeState extends State<PageHome> {
               heroTag: "fab_out",
               backgroundColor: ColorsEx.clrOut,
               onPressed: () async {
+                // String data = '';
+                // for (int i = 0; i < 10000; i++) {
+                //   data = '${data}Hello world(${i}';
+                // }
+
+                // //Original Data
+                // List<int> original = utf8.encode(data);
+
+                // //Compress data
+                // List<int> compressed = gzip.encode(original);
+
+                // //Decompress
+                // List<int> decompress = gzip.decode(compressed);
+
+                // print('Original ${original.length} bytes');
+                // print('Compressed ${compressed.length} bytes');
+                // print('Decompressed ${decompress.length} bytes');
+
+                // print("데이터: $data");
+                // print("Original: $original");
+                // print("Compressed: $compressed");
+                // print("Decompressed: $decompress");
+
+                // String decoded = utf8.decode(decompress);
+
                 // Get.bottomSheet();
                 await Get.to(() => const PageProductRegOut());
                 await HomeController.to.refreshData().then((value) => setState(() {}));

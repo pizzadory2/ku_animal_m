@@ -154,4 +154,7 @@ Map<String, String> koKR = <String, String>{
   'delete': '삭제',
   'total count': '총 요청항목수',
   'total quantity': '총 요청수량',
+
+  // 안전재고
+  'not enough': '부족',
 };

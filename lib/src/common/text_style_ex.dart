@@ -328,3 +328,19 @@ TextStyle get tsProductItemBold => const TextStyle(
       color: Colors.black,
       overflow: TextOverflow.ellipsis,
     );
+
+// 안전재고
+TextStyle get tsSafeListItemName => const TextStyle(
+      fontFamily: "Pretendard",
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      color: Colors.black,
+      overflow: TextOverflow.ellipsis,
+    );
+
+TextStyle get tsSafeListItemNameRequest => const TextStyle(
+      fontFamily: "Pretendard",
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      color: Colors.black,
+    );

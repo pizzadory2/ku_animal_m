@@ -152,4 +152,7 @@ Map<String, String> enUS = <String, String>{
   'delete': 'delete',
   'total count': 'total count',
   'total quantity': 'total quantity',
+
+  // 안전재고
+  'not enough': 'not enough',
 };
