@@ -167,6 +167,12 @@ void showFlutterNotification(RemoteMessage message) {
 // ios build : flutter build ipa
 // ios build option : flutter build ipa --export-methodbuild/ios/archive/MyApp.xcarchive
 // flutter pub run flutter_launcher_icons:main (런처아이콘 적용)
+// gradle migration : https://docs.flutter.dev/release/breaking-changes/flutter-gradle-plugin-apply
+// gradle migration : https://velog.io/@koyk0408/Fix-flutter-gradle-%EC%97%90%EB%9F%ACSupport-in-stable-release-3.16.0-Recommended-in-stable-release-3.19.0
+// flutter 3.10 버전이면 업그레이드 해야한다(dart 3.0.6)
+// flutter clean
+// flutter pub cache clean
+// flutter pub get
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
