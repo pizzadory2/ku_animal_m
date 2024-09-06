@@ -117,6 +117,8 @@ Map<String, String> koKR = <String, String>{
   'Safety stock not met': '안전재고 미충족',
   'Product Total Count': '전체 품목수',
   'safe list': '안전재고',
+  'soldout': '품절',
+  'discontinued': '단종',
   'current qty': '현재수량',
   'ingredient': '주요성분',
   'content': '함량',

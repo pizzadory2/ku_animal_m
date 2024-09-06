@@ -133,7 +133,7 @@ TextStyle get tsInvenItemType => const TextStyle(
 
 TextStyle get tsSearch => const TextStyle(
       fontFamily: "SCoreDream",
-      fontSize: 17,
+      fontSize: 16,
       fontWeight: FontWeight.bold,
       color: Colors.white, //Color.fromARGB(255, 0, 17, 13),
     );

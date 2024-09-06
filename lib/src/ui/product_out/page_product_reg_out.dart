@@ -50,6 +50,7 @@ class _PageProductRegOutState extends State<PageProductRegOut> {
         Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
+              foregroundColor: Colors.white,
               leading: IconButton(
                 onPressed: (() => Get.back()),
                 icon: const Icon(Icons.close),

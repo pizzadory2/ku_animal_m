@@ -115,6 +115,8 @@ Map<String, String> jaJP = <String, String>{
   'Safety stock not met': 'Safety stock not met',
   'Product Total Count': 'Product Total Count',
   'safe list': 'safe list',
+  'soldout': 'soldout',
+  'discontinued': 'discontinued',
   'current qty': 'current qty',
   'ingredient': 'ingredient',
   'content': 'content',

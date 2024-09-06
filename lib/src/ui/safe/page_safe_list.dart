@@ -32,6 +32,7 @@ class _PageSafeListState extends State<PageSafeList> {
       children: [
         Scaffold(
           appBar: AppBar(
+            foregroundColor: Colors.white,
             // title: Text("${"safe list".tr}(${itemCount})"),
             title: Text("${"Safety stock not met".tr}(${itemCount})"),
           ),

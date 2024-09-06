@@ -54,7 +54,10 @@ class _PageAppState extends State<PageApp> {
           child: Scaffold(
               appBar: AppBar(
                 leading: IconButton(
-                  icon: const Icon(Icons.settings),
+                  icon: const Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                  ),
                   onPressed: () {
                     Get.to(const PageSetting())?.then((value) {
                       setState(() {
@@ -88,7 +91,7 @@ class _PageAppState extends State<PageApp> {
                       offset: const Offset(-4, 9),
                       isLabelVisible: true,
                       child: IconButton(
-                        icon: const FaIcon(FontAwesomeIcons.basketShopping),
+                        icon: const FaIcon(FontAwesomeIcons.basketShopping, color: Colors.white),
                         onPressed: () {
                           Get.to(const PageCart())?.then((value) {
                             setState(() {

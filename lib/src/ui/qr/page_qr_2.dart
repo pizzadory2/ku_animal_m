@@ -82,6 +82,7 @@ class _PageQR2State extends State<PageQR2> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text("QR Scan".tr, style: tsAppbarTitle),
       ),
       body: Container(

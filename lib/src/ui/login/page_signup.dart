@@ -55,6 +55,7 @@ class _PageSignupState extends State<PageSignup> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text("Sign up".tr, style: tsAppbarTitle),
         centerTitle: true,
       ),

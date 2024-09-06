@@ -4,6 +4,7 @@ class ProductModel {
   final String mi_type;
   final String mi_name;
   final String mi_class;
+  final String mi_status;
   final String mi_ingredients;
   final String mi_manufacturer;
   final String mi_content;
@@ -32,6 +33,7 @@ class ProductModel {
     required this.mi_type,
     required this.mi_name,
     required this.mi_class,
+    required this.mi_status,
     required this.mi_ingredients,
     required this.mi_manufacturer,
     required this.mi_content,
@@ -61,6 +63,7 @@ class ProductModel {
       mi_type: json['mi_type'] ?? "",
       mi_name: json['mi_name'] ?? "",
       mi_class: json['mi_class'] ?? "",
+      mi_status: json['mi_status'] ?? "",
       mi_ingredients: json['mi_ingredients'] ?? "",
       mi_manufacturer: json['mi_manufacturer'] ?? "",
       mi_content: json['mi_content'] ?? "",

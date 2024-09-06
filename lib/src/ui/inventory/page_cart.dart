@@ -37,13 +37,14 @@ class _PageCartState extends State<PageCart> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         leading: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () {
               // Navigator.pop(context);
               Get.back();
             },
-            child: const Icon(Icons.arrow_back)),
+            child: const Icon(Icons.arrow_back, color: Colors.white)),
         backgroundColor: ColorsEx.primaryColor,
         centerTitle: true,
         title: Text("request list".tr),

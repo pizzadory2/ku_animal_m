@@ -30,6 +30,7 @@ class _PageProductListState extends State<PageProductList> {
       children: [
         Scaffold(
           appBar: AppBar(
+            foregroundColor: Colors.white,
             title: Text(title),
           ),
           body: SafeArea(

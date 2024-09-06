@@ -28,8 +28,10 @@ class _PageSearchResultState extends State<PageSearchResult> {
 
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text(
           "검색어(${widget.searchText})",
+          style: tsAppbarTitle,
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -86,7 +88,7 @@ class _PageSearchResultState extends State<PageSearchResult> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(data.mi_name, style: tsInvenItemName),
+                    Text(data.mi_name, style: getTitleStyle(data.mi_status)),
                     Text(data.mi_manufacturer, style: tsInvenItemCompany),
                     // const Spacer(),
                     const SizedBox(height: 10),
@@ -94,6 +96,8 @@ class _PageSearchResultState extends State<PageSearchResult> {
                       children: [
                         Text("${"current qty".tr} (${data.mst_base_stock})", style: tsInvenItemCompany),
                         Text("/${"safe list".tr} (${data.mi_safety_stock})", style: tsInvenItemCompany),
+                        Spacer(),
+                        _buildProductStatus(data.mi_status),
                       ],
                     ),
                     Text("${"ingredient".tr} (${data.mi_ingredients})", style: tsInvenItemCompany),
@@ -114,6 +118,19 @@ class _PageSearchResultState extends State<PageSearchResult> {
         ),
       ),
     );
+  }
+
+  TextStyle getTitleStyle(String status) {
+    if (status == "DISCONTINUED") {
+      // if (status == "ACTIVE") {
+      return tsInvenItemName.copyWith(
+        color: Colors.grey,
+        decoration: TextDecoration.lineThrough,
+        decorationColor: Colors.grey,
+      );
+    }
+
+    return tsInvenItemName;
   }
 
   _buildEmpty() {
@@ -146,5 +163,32 @@ class _PageSearchResultState extends State<PageSearchResult> {
     // }
 
     return false;
+  }
+
+  _buildProductStatus(String mi_status) {
+    // 품절이면 빨간 배경에 하얀색 글자
+    // 단종이면 그레이배경에 하얀색 글자 + 타이틀(취소선 + 그레이)
+    if (mi_status == "SOLDOUT") {
+      return Container(
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Text("soldout".tr, style: tsProductItemBold.copyWith(fontWeight: FontWeight.bold, color: Colors.white)),
+      );
+    } else if (mi_status == "DISCONTINUED") {
+      return Container(
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: Colors.grey,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Text("discontinued".tr,
+            style: tsProductItemBold.copyWith(fontWeight: FontWeight.bold, color: Colors.white)),
+      );
+    }
+
+    return Container();
   }
 }
