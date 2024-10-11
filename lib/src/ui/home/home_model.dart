@@ -72,6 +72,7 @@ class RecentData {
   String msr_type = "";
   String msr_qty = "";
   String msr_man = "";
+  String msr_name = "";
   String msr_date = "";
 
   RecentData({
@@ -80,6 +81,7 @@ class RecentData {
     this.msr_type = "",
     this.msr_qty = "",
     this.msr_man = "",
+    this.msr_name = "",
     this.msr_date = "",
   });
 
@@ -89,6 +91,7 @@ class RecentData {
     msr_type = json['msr_type'] ?? "";
     msr_qty = json['msr_qty'] ?? "";
     msr_man = json['msr_man'] ?? "";
+    msr_name = json['msr_name'] ?? "";
     msr_date = json['msr_date'] ?? "";
   }
 }

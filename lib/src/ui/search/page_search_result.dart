@@ -168,6 +168,7 @@ class _PageSearchResultState extends State<PageSearchResult> {
   _buildProductStatus(String mi_status) {
     // 품절이면 빨간 배경에 하얀색 글자
     // 단종이면 그레이배경에 하얀색 글자 + 타이틀(취소선 + 그레이)
+    // mi_status = "DISCONTINUED";
     if (mi_status == "SOLDOUT") {
       return Container(
         padding: const EdgeInsets.all(5),

@@ -273,9 +273,8 @@ class _PageInvenState extends State<PageInven> {
           await InvenController.to.refreshData();
           setState(() {
             debugPrint("0000007777111111");
-            debugPrint("0000000777722222");
             _refreshController.refreshCompleted();
-            debugPrint("000000777733333");
+            debugPrint("0000000777722222");
           });
         },
         onLoading: () {
@@ -330,7 +329,7 @@ class _PageInvenState extends State<PageInven> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(data.mi_name, style: tsInvenItemNameRequest),
+                    Text(data.mi_name, style: getTitleStyle(data.mi_status)),
                     Text(data.mi_manufacturer, style: tsInvenItemCompany),
                     const SizedBox(height: 10),
                     Text("${"safe list".tr} (${data.mi_safety_stock})", style: tsInvenItemCompany),
@@ -343,6 +342,7 @@ class _PageInvenState extends State<PageInven> {
               ),
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Visibility(
                   visible: isCurrentMonth,
@@ -350,6 +350,17 @@ class _PageInvenState extends State<PageInven> {
                     behavior: HitTestBehavior.translucent,
                     onTap: () async {
                       Utils.keyboardHide();
+
+                      if (data.mi_status == "DISCONTINUED") {
+                        Utils.showToast("This product is discontinued".tr, isCenter: true);
+                        return;
+                      }
+
+                      if (data.mi_status == "SOLDOUT") {
+                        Utils.showToast("This product is sold out".tr, isCenter: true);
+                        return;
+                      }
+
                       var result = await Get.to(PageInvenOrder(data: data));
                       if (result != null) {
                         // AppController.to.setLoading(true);
@@ -361,12 +372,7 @@ class _PageInvenState extends State<PageInven> {
                         // AppController.to.setLoading(false);
                       }
                     },
-                    child: Container(
-                      width: 90,
-                      height: 20,
-                      alignment: Alignment.topRight,
-                      child: Icon(Icons.add_shopping_cart_outlined),
-                    ),
+                    child: _buildProductStatus(data.mi_status),
                   ),
                 ),
                 !isCurrentMonth ? SizedBox(height: 20) : Container(),
@@ -503,5 +509,51 @@ class _PageInvenState extends State<PageInven> {
     }
 
     // return result;
+  }
+
+  _buildProductStatus(String mi_status) {
+    // 품절이면 빨간 배경에 하얀색 글자
+    // 단종이면 그레이배경에 하얀색 글자 + 타이틀(취소선 + 그레이)
+    // mi_status = "DISCONTINUED";
+    if (mi_status == "SOLDOUT") {
+      return Container(
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Text("soldout".tr, style: tsProductItemBold.copyWith(fontWeight: FontWeight.bold, color: Colors.white)),
+      );
+    } else if (mi_status == "DISCONTINUED") {
+      return Container(
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: Colors.grey,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Text("discontinued".tr,
+            style: tsProductItemBold.copyWith(fontWeight: FontWeight.bold, color: Colors.white)),
+      );
+    } else {
+      return Container(
+        width: 90,
+        height: 20,
+        alignment: Alignment.topRight,
+        child: Icon(Icons.add_shopping_cart_outlined),
+      );
+    }
+  }
+
+  getTitleStyle(String status) {
+    if (status == "DISCONTINUED") {
+      // if (status == "ACTIVE") {
+      return tsInvenItemName.copyWith(
+        color: Colors.grey,
+        decoration: TextDecoration.lineThrough,
+        decorationColor: Colors.grey,
+      );
+    }
+
+    return tsInvenItemNameRequest;
   }
 }

@@ -66,18 +66,19 @@ class _PageQRState extends State<PageQR> {
             //   });
             // },
             onPressed: () => _controller.toggleTorch(),
-            icon: ValueListenableBuilder(
-              valueListenable: _controller.torchState,
-              builder: (context, state, child) {
-                switch (state) {
-                  case TorchState.off:
-                    return const Icon(Icons.flash_off_rounded, color: Colors.white);
-                  case TorchState.on:
-                    return const Icon(Icons.flash_on_rounded, color: Colors.white);
-                  // return const Icon(Icons.flash_on_rounded, color: Colors.yellow);
-                }
-              },
-            ),
+            icon: const Icon(Icons.flash_off_rounded, color: Colors.white),
+            // icon: ValueListenableBuilder(
+            //   valueListenable: _controller.torchState,
+            //   builder: (context, state, child) {
+            //     switch (state) {
+            //       case TorchState.off:
+            //         return const Icon(Icons.flash_off_rounded, color: Colors.white);
+            //       case TorchState.on:
+            //         return const Icon(Icons.flash_on_rounded, color: Colors.white);
+            //       // return const Icon(Icons.flash_on_rounded, color: Colors.yellow);
+            //     }
+            //   },
+            // ),
           ),
           IconButton(
             // onPressed: () {
@@ -89,19 +90,20 @@ class _PageQRState extends State<PageQR> {
             // // icon: const Icon(Icons.file_upload_rounded),
             // icon: const Icon(Icons.flip_camera_ios_outlined),
             onPressed: () => _controller.switchCamera(),
-            icon: ValueListenableBuilder(
-              valueListenable: _controller.cameraFacingState,
-              builder: (context, state, child) {
-                switch (state) {
-                  case CameraFacing.front:
-                    return const Icon(Icons.flip_camera_ios_outlined);
-                  // return const Icon(Icons.camera_front);
-                  case CameraFacing.back:
-                    return const Icon(Icons.flip_camera_ios_outlined);
-                  // return const Icon(Icons.camera_rear);
-                }
-              },
-            ),
+            icon: const Icon(Icons.flip_camera_ios_outlined),
+            // icon: ValueListenableBuilder(
+            //   valueListenable: _controller.facing,
+            //   builder: (context, state, child) {
+            //     switch (state) {
+            //       case CameraFacing.front:
+            //         return const Icon(Icons.flip_camera_ios_outlined);
+            //       // return const Icon(Icons.camera_front);
+            //       case CameraFacing.back:
+            //         return const Icon(Icons.flip_camera_ios_outlined);
+            //       // return const Icon(Icons.camera_rear);
+            //     }
+            //   },
+            // ),
           ),
         ],
       ),

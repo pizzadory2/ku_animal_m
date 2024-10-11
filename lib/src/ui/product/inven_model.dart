@@ -18,6 +18,7 @@ class InvenModel {
   final String mst_in_stock;
   final String mst_out_stock;
   final String mst_base_stock;
+  final String mi_status;
   int orderCount = 0;
 
   InvenModel({
@@ -40,6 +41,7 @@ class InvenModel {
     required this.mst_in_stock,
     required this.mst_out_stock,
     required this.mst_base_stock,
+    required this.mi_status,
     this.orderCount = 0,
   });
 
@@ -64,6 +66,7 @@ class InvenModel {
       mst_in_stock: json['mst_in_stock'] ?? "",
       mst_out_stock: json['mst_out_stock'] ?? "",
       mst_base_stock: json['mst_base_stock'] ?? "",
+      mi_status: json['mi_status'] ?? "",
     );
   }
 }

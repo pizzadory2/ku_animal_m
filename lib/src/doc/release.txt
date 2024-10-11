@@ -43,3 +43,23 @@
 2024.09.06
  - 검색시 단종,품절여부 표시
  - 기타 UI 수정
+2024.10.07
+1.재고리스트에서 단종 또는 품절일 경우 요청할 수 없도록 변경
+2.대시보드에 아이디가 아닌 이름으로 표시
+3.입출고 화면 UI 수정(앱바, 약품명 등)
+*************************************
+XCode 16으로 업데이트 이후 ios 빌드시 에러
+ios/Podfile내에 platform :ios, '15.5' <- 이 항목을 15.5 이상으로 변경하고
+XCode runner에서 dependency를 15.5로 동일하게 맞춰준다
+그리고 flutter clean && flutter pub get
+그리고 cd ios
+그리고 pod repo update
+그리고 pod install --repo-update
+그리고 flutter build ipa
+참고링크
+https://github.com/juliansteenbakker/mobile_scanner/issues/1165
+https://github.com/juliansteenbakker/mobile_scanner/issues/1190
+https://velog.io/@ronron/Flutter%EC%99%80-Xcode%EC%9D%98-iOS-%EB%B2%84%EC%A0%84-%EB%A7%9E%EC%B6%94%EA%B8%B0
+https://github.com/juliansteenbakker/mobile_scanner/issues/1182
+https://stackoverflow.com/questions/78958362/cocoapods-could-not-find-compatible-versions-for-pod-googledatatransport
+*************************************

@@ -97,6 +97,7 @@ Map<String, String> koKR = <String, String>{
   'Last week': '지난주',
   'Product Status': '제품 현황',
   'Recently shipped products': '최근 입출고 제품',
+  'no items': '최근 입출고 제품이 없습니다.',
   'notice': '공지사항',
   'kor': '한국어',
   'eng': 'English',
@@ -159,4 +160,6 @@ Map<String, String> koKR = <String, String>{
 
   // 안전재고
   'not enough': '부족',
+  'This product is discontinued': '이 제품은 단종되었습니다',
+  'This product is sold out': '이 제품은 품절되었습니다',
 };

@@ -319,7 +319,7 @@ class _PageHomeState extends State<PageHome> {
             ),
             const SizedBox(height: 10),
             recentlyCount == 0
-                ? const Text("최근 입출고 제품이 없습니다.")
+                ? Text("no items".tr)
                 : Column(
                     children: List.generate(recentlyCount, (i) {
                       return _buildProductInfo(
@@ -398,7 +398,7 @@ class _PageHomeState extends State<PageHome> {
                 // ),
                 const Spacer(),
                 Text(
-                  data.msr_man,
+                  data.msr_name,
                   style: const TextStyle(fontSize: 18, color: Colors.grey),
                 ),
               ],

@@ -36,6 +36,8 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
 
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
+        centerTitle: true,
         title: Text(
           widget.title,
           overflow: TextOverflow.ellipsis,
@@ -95,7 +97,7 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
               margin: const EdgeInsets.only(top: 5, bottom: 10, left: 10, right: 10),
               padding: const EdgeInsets.all(15),
               // height: 150,
-              height: 160,
+              // height: 160,
               decoration: WidgetFactory.boxDecoration(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,9 +108,10 @@ class _PageSearchSelectState extends State<PageSearchSelect> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(data.mi_name, style: tsInvenItemName),
+                          Text(data.mi_name, style: tsInvenItemNameRequest),
                           Text(data.mi_manufacturer, style: tsInvenItemCompany),
-                          const Spacer(),
+                          // const Spacer(),
+                          const SizedBox(height: 10),
                           Row(
                             children: [
                               Text("${"current qty".tr} (${data.mst_base_stock})", style: tsInvenItemCompany),

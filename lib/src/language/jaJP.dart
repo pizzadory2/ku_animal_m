@@ -95,6 +95,7 @@ Map<String, String> jaJP = <String, String>{
   'Last week': 'Last week',
   'Product Status': 'Product Status',
   'Recently shipped products': 'Recently shipped products',
+  'no items': 'No Items',
   'notice': 'notice',
   'kor': '한국어',
   'eng': 'English',
@@ -157,4 +158,6 @@ Map<String, String> jaJP = <String, String>{
 
   // 안전재고
   'not enough': 'not enough',
+  'This product is discontinued': 'This product is discontinued',
+  'This product is sold out': 'This product is sold out',
 };
