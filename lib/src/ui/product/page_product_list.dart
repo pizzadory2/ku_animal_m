@@ -29,6 +29,7 @@ class _PageProductListState extends State<PageProductList> {
     return Stack(
       children: [
         Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             foregroundColor: Colors.white,
             title: Text(title),

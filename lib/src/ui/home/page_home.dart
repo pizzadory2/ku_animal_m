@@ -58,6 +58,7 @@ class _PageHomeState extends State<PageHome> {
     return Stack(
       children: [
         Scaffold(
+          backgroundColor: Colors.white,
           floatingActionButton: _buildFAB(),
           body: SmartRefresher(
             controller: _refreshController,
@@ -544,7 +545,7 @@ class _PageHomeState extends State<PageHome> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Visibility(
-            visible: UserController.to.userData.inReg,
+            visible: UserController.to.userData.outReg,
             child: FloatingActionButton(
               // mini: true,
               heroTag: "fab_out",
@@ -585,7 +586,7 @@ class _PageHomeState extends State<PageHome> {
           ),
           SizedBox(height: 10),
           Visibility(
-            visible: UserController.to.userData.outReg,
+            visible: UserController.to.userData.inReg,
             child: FloatingActionButton(
               // mini: true,
               heroTag: "fab_in",

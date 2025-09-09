@@ -30,7 +30,9 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text("inven order".tr, style: tsAppbarTitle),
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [

@@ -63,3 +63,7 @@ https://velog.io/@ronron/Flutter%EC%99%80-Xcode%EC%9D%98-iOS-%EB%B2%84%EC%A0%84-
 https://github.com/juliansteenbakker/mobile_scanner/issues/1182
 https://stackoverflow.com/questions/78958362/cocoapods-could-not-find-compatible-versions-for-pod-googledatatransport
 *************************************
+
+2024.11.20
+version : 1.0.13(15)
+입출고 등록 권한에 따른 UI 변경 Bug 수정

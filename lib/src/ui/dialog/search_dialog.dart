@@ -34,7 +34,7 @@ class SearchDialog extends StatelessWidget {
         Container(
           alignment: Alignment.center,
           padding: EdgeInsets.only(top: 40),
-          child: Text("직접 검색", style: tsDialogTitle),
+          child: Text("Direct search".tr, style: tsDialogTitle),
         ),
         Container(
           alignment: Alignment.center,

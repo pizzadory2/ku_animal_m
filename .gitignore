@@ -75,3 +75,6 @@ app.*.map.json
 key.properties
 **/*.keystore
 **/*.jks
+
+# Xcode build cache anywhere
+**/XCBuildData/

@@ -36,6 +36,7 @@ class _PageCartState extends State<PageCart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         foregroundColor: Colors.white,
         leading: GestureDetector(

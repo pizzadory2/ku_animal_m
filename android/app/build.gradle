@@ -45,10 +45,11 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.today25.kuanimalm.ku_animal_m"
-    compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -66,8 +67,8 @@ android {
         applicationId "com.today25.kuanimalm.ku_animal_m"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 26
-        targetSdkVersion 34
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -84,12 +85,13 @@ android {
 
     buildTypes {
         release {
-            // release 속성으로 변경
+            // release 속성으로 변경`
             // signingConfig signingConfigs.debug
             signingConfig signingConfigs.release
 
             // start of 코드난독화 및 사이즈 축소
-            minifyEnabled true
+            minifyEnabled false
+            shrinkResources false
             // useProguard true // 더이상 사용하지 않음(자동으로 되는듯)
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             // end of 코드난독화 및 사이즈 축소
@@ -103,4 +105,5 @@ flutter {
 
 dependencies {
     // implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
 }

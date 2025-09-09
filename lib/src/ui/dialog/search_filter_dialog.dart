@@ -43,7 +43,7 @@ class _SearchFilterDialogState extends State<SearchFilterDialog> {
       children: [
         Container(
           alignment: Alignment.center,
-          padding: EdgeInsets.only(top: 40),
+          padding: EdgeInsets.only(top: 35),
           child: Text("Direct search".tr, style: tsDialogTitle),
         ),
         Container(

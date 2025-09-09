@@ -31,6 +31,7 @@ class _PageSafeListState extends State<PageSafeList> {
     return Stack(
       children: [
         Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             foregroundColor: Colors.white,
             // title: Text("${"safe list".tr}(${itemCount})"),

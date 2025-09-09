@@ -111,47 +111,57 @@ class _PageAppState extends State<PageApp> {
               //   children: _pages,
               // ),
               body: _isFirst ? Container() : _pages[_selectIndex],
-              bottomNavigationBar: BottomNavigationBar(
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                type: BottomNavigationBarType.fixed,
-                selectedFontSize: 14,
-                unselectedFontSize: 14,
-                // elevation: 20,
-                currentIndex: _selectIndex,
-                enableFeedback: false,
-                onTap: (value) {
-                  debugPrint("0000000001111");
-                  _selectIndex = value;
-                  refreshData();
-                  debugPrint("00000000022222");
-                },
-                items: _buildBottomNavigation(),
-                // items: [
-                //   // BottomNavigationBarItem(
-                //   //   icon: const Icon(Icons.home),
-                //   //   label: "home".tr,
-                //   // ),
-                //   _buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: 0),
-                //   // _buildBottomItem(label: "inout".tr, icon: FontAwesomeIcons.arrowsUpDown, index: 1),
-                //   _buildBottomItem(label: "in list".tr, icon: FontAwesomeIcons.download, index: 1),
-                //   _buildBottomItem(label: "out list".tr, icon: FontAwesomeIcons.upload, index: 2),
-                //   // _buildBottomItem(label: "out".tr, icon: FontAwesomeIcons.inbox, index: 2),
-                //   _buildBottomItem(label: "inven".tr, icon: FontAwesomeIcons.boxesStacked, index: 3),
-                //   // _buildBottomItem(label: "setting".tr, icon: FontAwesomeIcons.gear, index: 3),
-                //   // _buildBottomItem(label: "home".tr, icon: "icons/home_3.svg", index: 0),
-                //   // _buildBottomItem(label: "in".tr, icon: "icons/import.svg", index: 1),
-                //   // _buildBottomItem(label: "out".tr, icon: "icons/export.svg", index: 2),
-                //   // _buildBottomItem(label: "inven".tr, icon: "icons/inventory_2.svg", index: 3),
-                //   // BottomNavigationBarItem(
-                //   //   icon: const Icon(Icons.qr_code),
-                //   //   label: "inven".tr,
-                //   // ),
-                //   // BottomNavigationBarItem(
-                //   //   icon: Icon(Icons.qr_code),
-                //   //   label: "QR",
-                //   // ),
-                // ],
+              bottomNavigationBar: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 1,
+                    color: Colors.grey.shade300, // 구분선 색상
+                  ),
+                  BottomNavigationBar(
+                    backgroundColor: Colors.white,
+                    showSelectedLabels: false,
+                    showUnselectedLabels: false,
+                    type: BottomNavigationBarType.fixed,
+                    selectedFontSize: 14,
+                    unselectedFontSize: 14,
+                    // elevation: 20,
+                    currentIndex: _selectIndex,
+                    enableFeedback: false,
+                    onTap: (value) {
+                      // debugPrint("0000000001111");
+                      _selectIndex = value;
+                      refreshData();
+                      // debugPrint("00000000022222");
+                    },
+                    items: _buildBottomNavigation(),
+                    // items: [
+                    //   // BottomNavigationBarItem(
+                    //   //   icon: const Icon(Icons.home),
+                    //   //   label: "home".tr,
+                    //   // ),
+                    //   _buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: 0),
+                    //   // _buildBottomItem(label: "inout".tr, icon: FontAwesomeIcons.arrowsUpDown, index: 1),
+                    //   _buildBottomItem(label: "in list".tr, icon: FontAwesomeIcons.download, index: 1),
+                    //   _buildBottomItem(label: "out list".tr, icon: FontAwesomeIcons.upload, index: 2),
+                    //   // _buildBottomItem(label: "out".tr, icon: FontAwesomeIcons.inbox, index: 2),
+                    //   _buildBottomItem(label: "inven".tr, icon: FontAwesomeIcons.boxesStacked, index: 3),
+                    //   // _buildBottomItem(label: "setting".tr, icon: FontAwesomeIcons.gear, index: 3),
+                    //   // _buildBottomItem(label: "home".tr, icon: "icons/home_3.svg", index: 0),
+                    //   // _buildBottomItem(label: "in".tr, icon: "icons/import.svg", index: 1),
+                    //   // _buildBottomItem(label: "out".tr, icon: "icons/export.svg", index: 2),
+                    //   // _buildBottomItem(label: "inven".tr, icon: "icons/inventory_2.svg", index: 3),
+                    //   // BottomNavigationBarItem(
+                    //   //   icon: const Icon(Icons.qr_code),
+                    //   //   label: "inven".tr,
+                    //   // ),
+                    //   // BottomNavigationBarItem(
+                    //   //   icon: Icon(Icons.qr_code),
+                    //   //   label: "QR",
+                    //   // ),
+                    // ],
+                  ),
+                ],
               )),
         ),
         // Obx(() => WidgetFactory.loadingWidget(isLoading: true, title: "Loading...".tr, isBackground: true)),

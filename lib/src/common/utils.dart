@@ -356,6 +356,7 @@ class Utils {
         barrierDismissible: dismissible,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Colors.white,
             title: Text(
               title.isNotEmpty ? title : "Do you want to delete it?".tr,
               style: tsDialogBody2,
