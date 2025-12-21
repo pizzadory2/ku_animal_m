@@ -47,6 +47,8 @@ Map<String, String> jaJP = <String, String>{
   'please wait for admin approval': '管理者の承認をお待ちください',
   'Please enter the quantity': '数量を入力してください',
 
+  // 근무관리
+  'work manage': '勤務管理',
   // 입출고
   'unit': '	ユニット',
   // 입고

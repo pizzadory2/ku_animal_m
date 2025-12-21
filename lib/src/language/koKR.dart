@@ -49,6 +49,8 @@ Map<String, String> koKR = <String, String>{
   'please wait for admin approval': '관리자 승인을 기다려주세요',
   'Please enter the quantity': '수량을 입력해주세요.',
 
+  // 근무관리
+  'work manage': '근무관리',
   // 입출고
   'unit': '단위',
   // 입고

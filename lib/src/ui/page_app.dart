@@ -135,31 +135,6 @@ class _PageAppState extends State<PageApp> {
                       // debugPrint("00000000022222");
                     },
                     items: _buildBottomNavigation(),
-                    // items: [
-                    //   // BottomNavigationBarItem(
-                    //   //   icon: const Icon(Icons.home),
-                    //   //   label: "home".tr,
-                    //   // ),
-                    //   _buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: 0),
-                    //   // _buildBottomItem(label: "inout".tr, icon: FontAwesomeIcons.arrowsUpDown, index: 1),
-                    //   _buildBottomItem(label: "in list".tr, icon: FontAwesomeIcons.download, index: 1),
-                    //   _buildBottomItem(label: "out list".tr, icon: FontAwesomeIcons.upload, index: 2),
-                    //   // _buildBottomItem(label: "out".tr, icon: FontAwesomeIcons.inbox, index: 2),
-                    //   _buildBottomItem(label: "inven".tr, icon: FontAwesomeIcons.boxesStacked, index: 3),
-                    //   // _buildBottomItem(label: "setting".tr, icon: FontAwesomeIcons.gear, index: 3),
-                    //   // _buildBottomItem(label: "home".tr, icon: "icons/home_3.svg", index: 0),
-                    //   // _buildBottomItem(label: "in".tr, icon: "icons/import.svg", index: 1),
-                    //   // _buildBottomItem(label: "out".tr, icon: "icons/export.svg", index: 2),
-                    //   // _buildBottomItem(label: "inven".tr, icon: "icons/inventory_2.svg", index: 3),
-                    //   // BottomNavigationBarItem(
-                    //   //   icon: const Icon(Icons.qr_code),
-                    //   //   label: "inven".tr,
-                    //   // ),
-                    //   // BottomNavigationBarItem(
-                    //   //   icon: Icon(Icons.qr_code),
-                    //   //   label: "QR",
-                    //   // ),
-                    // ],
                   ),
                 ],
               )),
@@ -280,6 +255,11 @@ class _PageAppState extends State<PageApp> {
     int pageIndex = 0;
 
     items.add(_buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: pageIndex++));
+
+    // if (UserController.to.userData.workManage) {
+    if (true) {
+      items.add(_buildBottomItem(label: "work manage".tr, icon: FontAwesomeIcons.clockRotateLeft, index: pageIndex++));
+    }
 
     if (UserController.to.userData.inList) {
       items.add(_buildBottomItem(label: "in list".tr, icon: FontAwesomeIcons.download, index: pageIndex++));

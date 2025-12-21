@@ -1,4 +1,4 @@
-List<String> ePageTitle = ["home", "in list", "out list", "inven", "setting"];
+List<String> ePageTitle = ["home", "work manage", "in list", "out list", "inven", "setting"];
 
 enum PageType { Home, ProductIn, ProductOut, ProductInven, ProductRegIn, ProductRegOut, Setting }
 
