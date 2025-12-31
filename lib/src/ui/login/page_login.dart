@@ -106,6 +106,17 @@ class _PageLoginState extends State<PageLogin> {
                         child: Row(
                           children: [
                             Checkbox(
+                                checkColor: Colors.black, // 체크 표시 색
+                                // fillColor: MaterialStateProperty.resolveWith((states) {
+                                //   if (states.contains(MaterialState.selected)) {
+                                //     return Colors.grey; // 체크 시 박스 배경
+                                //   }
+                                //   return Colors.white; // 기본 박스 배경
+                                // }),
+                                // side: const BorderSide(
+                                //   color: Colors.grey, // 테두리 색
+                                //   width: 1.5,
+                                // ),
                                 value: _autoLogin,
                                 onChanged: (value) {
                                   setState(() {

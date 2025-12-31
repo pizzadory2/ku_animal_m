@@ -3,7 +3,7 @@
 import 'package:get/get.dart';
 
 class Constants {
-  // static const baseUrl = "http://kuvms.today25.com";
+  // static const baseUrl = "https://kuvms.today25.com";
   static const baseUrl = "http://kuvms.konkuk.ac.kr";
 
   // api
@@ -54,6 +54,15 @@ class Constants {
 
   // 출고 > 출고내역
   static const api_product_out_history = "reqStockHistory";
+
+  // 근무관리 > 월별 근무시간 조회
+  static const api_work_history = "reqGetWorkTime";
+
+  // 근무관리 > 월별 근무시간 저장
+  static const api_work_save = "reqWorkDataSave";
+
+  // 근무관리 > 근무시간 삭제
+  static const api_work_delete = "reqDelMultiWorkTime";
 
   // static List<String> filterList = ["filter name".tr, "filter code".tr, "filter element".tr, "filter company".tr];
 

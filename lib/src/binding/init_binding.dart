@@ -18,6 +18,8 @@ import 'package:ku_animal_m/src/ui/product_out/product_out_reg_repository.dart';
 import 'package:ku_animal_m/src/ui/product_out/product_out_repository.dart';
 import 'package:ku_animal_m/src/ui/search/search_home_controller.dart';
 import 'package:ku_animal_m/src/ui/search/search_repository.dart';
+import 'package:ku_animal_m/src/ui/workmanage/work_manager_controller.dart';
+import 'package:ku_animal_m/src/ui/workmanage/work_manager_repository.dart';
 
 class InitBinding extends Bindings {
   @override
@@ -27,6 +29,7 @@ class InitBinding extends Bindings {
     Get.put(HomeController(repository: HomeRepository()), permanent: true);
     Get.put(SearchHomeController(repository: SearchRepository()), permanent: true);
     Get.put(InvenController(repository: InvenRepository()), permanent: true);
+    Get.put(WorkManagerController(repository: WorkManagerRepository()), permanent: true);
     Get.put(ProductInController(repository: ProductInRepository()), permanent: true);
     Get.put(ProductInRegController(repository: ProductInRegRepository()), permanent: true);
     Get.put(ProductOutController(repository: ProductOutRepository()), permanent: true);

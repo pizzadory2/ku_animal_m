@@ -98,6 +98,7 @@ class SearchRepository {
 
       if (result.data != null) {
         var parseData = jsonDecode(result.toString());
+        debugPrint(parseData.toString());
         var dataList = parseData["data"];
         if (dataList == null) {
           return null;

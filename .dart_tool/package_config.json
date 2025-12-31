@@ -441,9 +441,9 @@
     },
     {
       "name": "mobile_scanner",
-      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/mobile_scanner-6.0.11",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/mobile_scanner-7.1.4",
       "packageUri": "lib/",
-      "languageVersion": "3.4"
+      "languageVersion": "3.7"
     },
     {
       "name": "package_info_plus",
@@ -614,6 +614,12 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "simple_gesture_detector",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/simple_gesture_detector-0.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/penny/development/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -648,6 +654,12 @@
       "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/synchronized-3.4.0",
       "packageUri": "lib/",
       "languageVersion": "3.8"
+    },
+    {
+      "name": "table_calendar",
+      "rootUri": "file:///Users/penny/.pub-cache/hosted/pub.dev/table_calendar-3.0.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "term_glyph",

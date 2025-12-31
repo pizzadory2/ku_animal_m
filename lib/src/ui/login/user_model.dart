@@ -43,7 +43,6 @@ class UserData {
   // 메뉴권한
   bool clientList = false; // "EMPLOYEE_10_10": "N", // 회원리스트
   bool clientLevel = false; // "EMPLOYEE_10_20": "N", // 회원권한
-  bool workManage = false; // "": "N", // 근무관리
   bool outReg = false; // "ISSUE_10_10": "Y",    // 출고등록
   bool outList = false; // "ISSUE_10_20": "Y",    // 출고내역
   bool productReg = false; // "ITEM_10_10": "N",     // 약품등록
@@ -56,6 +55,8 @@ class UserData {
   bool invenList = false; // "STOCK_10_10": "Y",    // 재고리스트
   bool payReg = false; // "STOCK_10_20": "N",    // 수불처리
   bool warehouseList = false; // "WAREHOUSE_10_10": "N" // 창고리스트
+  // bool workManage = false; // "": "N", // 근무관리
+  bool workManageList = false; // "": "N", // 근무리스트
 
   UserData({this.seq = "", this.id = "", this.name = "", this.type = "", this.token = ""});
 
@@ -83,6 +84,8 @@ class UserData {
       invenList = Utils.YN2Bool(grantList['STOCK_10_10']); // 재고리스트
       payReg = Utils.YN2Bool(grantList['STOCK_10_20']); // 수불처리
       warehouseList = Utils.YN2Bool(grantList['WAREHOUSE_10_10']); // 창고리스트
+      // workManage = Utils.YN2Bool(grantList['WORK_10_10']); // 근무관리
+      workManageList = Utils.YN2Bool(grantList['WORK_10_20']); // 근무리스트
     }
   }
 

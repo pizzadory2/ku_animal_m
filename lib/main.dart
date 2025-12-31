@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:ku_animal_m/firebase_options.dart';
 import 'package:ku_animal_m/src/binding/init_binding.dart';
 import 'package:ku_animal_m/src/common/notification.dart';
@@ -203,7 +204,8 @@ void main() async {
 
   await Preference().init();
 
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  initializeDateFormatting('ko_KR', null).then((_) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {

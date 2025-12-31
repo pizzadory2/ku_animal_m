@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/index/index_common.dart';
 import 'package:ku_animal_m/src/ui/inventory/inven_controller.dart';
 import 'package:ku_animal_m/src/ui/inventory/page_inven_order.dart';

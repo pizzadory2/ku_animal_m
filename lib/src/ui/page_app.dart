@@ -16,6 +16,8 @@ import 'package:ku_animal_m/src/ui/product_in/product_in_controller.dart';
 import 'package:ku_animal_m/src/ui/product_out/page_product_out.dart';
 import 'package:ku_animal_m/src/ui/product_out/product_out_controller.dart';
 import 'package:ku_animal_m/src/ui/setting/page_setting.dart';
+import 'package:ku_animal_m/src/ui/workmanage/page_work_manager.dart';
+import 'package:ku_animal_m/src/ui/workmanage/work_manager_controller.dart';
 
 class PageApp extends StatefulWidget {
   const PageApp({super.key});
@@ -32,6 +34,7 @@ class _PageAppState extends State<PageApp> {
 
   final List<Widget> _pages = [];
   final List<String> _pagesTitle = [];
+  final List<IconData> _pagesIcon = [];
   final List<PageType> _pagesType = [];
   // final List<BottomNavigationBarItem> _bottomNavigations = [];
 
@@ -58,6 +61,15 @@ class _PageAppState extends State<PageApp> {
                     Icons.settings,
                     color: Colors.white,
                   ),
+                  // icon: _pagesIcon[_selectIndex] != null
+                  //     ? FaIcon(
+                  //         _pagesIcon[_selectIndex],
+                  //         color: Colors.white,
+                  //       )
+                  //     : const Icon(
+                  //         Icons.settings,
+                  //         color: Colors.white,
+                  //       ),
                   onPressed: () {
                     Get.to(const PageSetting())?.then((value) {
                       setState(() {
@@ -105,6 +117,7 @@ class _PageAppState extends State<PageApp> {
                 ],
                 // title: Text(ePageTitle[_selectIndex].tr, style: tsAppbarTitle),
                 title: Text(_pagesTitle[_selectIndex].tr, style: tsAppbarTitle),
+                centerTitle: true,
               ),
               // body: IndexedStack(
               //   index: _selectIndex,
@@ -198,6 +211,9 @@ class _PageAppState extends State<PageApp> {
       case PageType.Home:
         result = await HomeController.to.refreshData();
         break;
+      case PageType.WorkManage:
+        result = await WorkManagerController.to.refreshData();
+        break;
       case PageType.ProductIn:
         result = await ProductInController.to.refreshData();
         break;
@@ -256,8 +272,7 @@ class _PageAppState extends State<PageApp> {
 
     items.add(_buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: pageIndex++));
 
-    // if (UserController.to.userData.workManage) {
-    if (true) {
+    if (UserController.to.userData.workManageList) {
       items.add(_buildBottomItem(label: "work manage".tr, icon: FontAwesomeIcons.clockRotateLeft, index: pageIndex++));
     }
 
@@ -279,17 +294,28 @@ class _PageAppState extends State<PageApp> {
   void initPage() {
     // int pageIndex = 0;
     _pagesTitle.clear();
+    _pagesIcon.clear();
     _pagesType.clear();
+
     _pages.add(const PageHome());
     _pagesTitle.add("home".tr);
+    _pagesIcon.add(FontAwesomeIcons.house);
     _pagesType.add(PageType.Home);
     // _bottomNavigations.add(_buildBottomItem(label: "home".tr, icon: FontAwesomeIcons.house, index: pageIndex++));
+
+    if (UserController.to.userData.workManageList) {
+      _pages.add(const PageWorkManager());
+      _pagesTitle.add("work manage".tr);
+      _pagesIcon.add(FontAwesomeIcons.clockRotateLeft);
+      _pagesType.add(PageType.WorkManage);
+    }
 
     if (UserController.to.userData.inList) {
       _pages.add(const PageProductIn());
       // _bottomNavigations
       //     .add(_buildBottomItem(label: "in list".tr, icon: FontAwesomeIcons.download, index: pageIndex++));
       _pagesTitle.add("in list".tr);
+      _pagesIcon.add(FontAwesomeIcons.download);
       _pagesType.add(PageType.ProductIn);
     }
 
@@ -297,12 +323,14 @@ class _PageAppState extends State<PageApp> {
       _pages.add(const PageProductOut());
       // _bottomNavigations.add(_buildBottomItem(label: "out list".tr, icon: FontAwesomeIcons.upload, index: pageIndex++));
       _pagesTitle.add("out list".tr);
+      _pagesIcon.add(FontAwesomeIcons.upload);
       _pagesType.add(PageType.ProductOut);
     }
 
     // if (UserController.to.userData.invenList) {
     _pages.add(const PageInven());
     _pagesTitle.add("inven".tr);
+    _pagesIcon.add(FontAwesomeIcons.boxesStacked);
     _pagesType.add(PageType.ProductInven);
     // _bottomNavigations
     //     .add(_buildBottomItem(label: "inven".tr, icon: FontAwesomeIcons.boxesStacked, index: pageIndex++));

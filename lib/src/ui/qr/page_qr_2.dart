@@ -18,6 +18,7 @@ import 'package:ku_animal_m/src/ui/product_out/product_out_reg_controller.dart';
 import 'package:ku_animal_m/src/ui/qr/qr_scanner_overlay3.dart';
 import 'package:ku_animal_m/src/ui/search/page_search_result.dart';
 import 'package:ku_animal_m/src/ui/search/search_home_controller.dart';
+import 'package:ku_animal_m/src/ui/workmanage/work_manager_controller.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class PageQR2 extends StatefulWidget {
@@ -334,6 +335,7 @@ class _PageQR2State extends State<PageQR2> {
   getController() {
     return switch (widget.pageType) {
       PageType.Home => HomeController.to,
+      PageType.WorkManage => WorkManagerController.to,
       PageType.ProductIn => ProductInController.to,
       PageType.ProductOut => ProductOutController.to,
       PageType.ProductInven => InvenController.to,
@@ -358,6 +360,7 @@ class _PageQR2State extends State<PageQR2> {
           });
           break;
         }
+      case (PageType.WorkManage):
       case (PageType.ProductIn):
       case (PageType.ProductOut):
       case (PageType.ProductInven):

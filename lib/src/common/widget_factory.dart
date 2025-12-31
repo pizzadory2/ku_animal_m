@@ -214,7 +214,7 @@ class WidgetFactory {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: isBackground ? Colors.black.withOpacity(0.5) : null,
+        color: isBackground ? Colors.black.withValues(alpha: 0.5) : null,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
