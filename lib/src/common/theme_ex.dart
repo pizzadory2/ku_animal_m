@@ -3,6 +3,20 @@ import 'package:ku_animal_m/src/style/colors_ex.dart';
 
 class ThemeEx {
   static final ThemeData light = ThemeData(
+    useMaterial3: true,
+    // 1. 커서 및 텍스트 선택 핸들(물방울) 색상 변경
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: ColorsEx.primaryColor, // 커서 막대 색상
+      selectionColor: Color(0x66679E7D), // 텍스트 드래그 영역 (반투명 그린)
+      selectionHandleColor: ColorsEx.primaryColor, // 커서 아래 물방울 핸들 색상
+    ),
+
+    // 2. 시스템 전역 포인트 컬러 설정 (보라색 제거의 핵심)
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: ColorsEx.primaryColor,
+      primary: ColorsEx.primaryColor,
+      // 필요 시 secondary 등 추가 설정 가능
+    ),
     textTheme: textTheme,
     primaryColor: ColorsEx.primaryColor,
     primaryColorLight: ColorsEx.primaryColor,
@@ -30,9 +44,23 @@ class ThemeEx {
         foregroundColor: ColorsEx.primaryColor,
       ),
     ),
+    // 3. 체크박스 테두리 및 내부 색상 디테일 수정
     checkboxTheme: CheckboxThemeData(
-      fillColor: MaterialStateProperty.all<Color>(
-        ColorsEx.primaryColor,
+      fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+        if (states.contains(MaterialState.selected)) {
+          return ColorsEx.primaryColor; // 체크 시 그린
+        }
+        return Colors.transparent; // 언체크 시 투명
+      }),
+      side: const BorderSide(color: ColorsEx.primaryColor, width: 1.5), // 언체크 시 테두리 그린
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+    ),
+
+    // 4. 입력창 커서 및 강조색을 위한 추가 설정
+    inputDecorationTheme: InputDecorationTheme(
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: ColorsEx.primaryColor, width: 1.5),
       ),
     ),
     appBarTheme: AppBarTheme(

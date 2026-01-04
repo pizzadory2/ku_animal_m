@@ -10,6 +10,7 @@ import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
 import 'package:ku_animal_m/src/ui/login/page_signup.dart';
+import 'package:ku_animal_m/src/ui/login/page_signup2.dart';
 import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/page_app.dart';
 
@@ -381,7 +382,7 @@ class _PageLoginState extends State<PageLogin> {
                           const Text("처음이신가요? ", style: TextStyle(color: Colors.grey)),
                           TextButton(
                             onPressed: () {
-                              Get.to(PageSignup());
+                              Get.to(PageSignup2());
                             },
                             child: Text("가입하기", style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold)),
                           ),
