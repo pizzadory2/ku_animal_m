@@ -6,6 +6,7 @@ import 'package:ku_animal_m/src/common/utils.dart';
 import 'package:ku_animal_m/src/common/widget_factory.dart';
 import 'package:ku_animal_m/src/controller/app_controller.dart';
 import 'package:ku_animal_m/src/style/colors_ex.dart';
+import 'package:ku_animal_m/src/ui/login/user_controller.dart';
 import 'package:ku_animal_m/src/ui/product/product_history_model.dart';
 import 'package:ku_animal_m/src/ui/product_in/product_in_controller.dart';
 import 'package:ku_animal_m/src/ui/workmanage/work_data_model.dart';
@@ -119,6 +120,16 @@ class _PageWorkManagerState extends State<PageWorkManager> {
                     return;
                   }
 
+                  // 2. 근무 타입에 따른 주말 선택 제한
+                  String workType = UserController.to.workType;
+                  bool isWeekend = selectedDay.weekday == DateTime.saturday || selectedDay.weekday == DateTime.sunday;
+
+                  // PT 타입일 경우에만 주말 선택을 차단합니다.
+                  if (workType == "PT" && isWeekend) {
+                    Get.snackbar("선택 불가", "일반 시간제는 주말에 근무를 등록할 수 없습니다.");
+                    return;
+                  }
+
                   setState(() {
                     _focusedDay = focusedDay;
 
@@ -219,6 +230,12 @@ class _PageWorkManagerState extends State<PageWorkManager> {
     // final timeData = _individualTimes[pureDate];
     WorkData? timeData = WorkManagerController.to.getData(day);
 
+    String workType = UserController.to.workType;
+    bool isWeekend = day.weekday == DateTime.saturday || day.weekday == DateTime.sunday;
+
+    // PT 타입인데 주말인 경우 비활성화 스타일 적용
+    bool isDisabledByRule = (workType == "PT" && isWeekend);
+
     // 주말 색상 보정
     // Color dateColor = textColor;
     Color dateColor = isSelected ? Colors.white : textColor;
@@ -255,11 +272,13 @@ class _PageWorkManagerState extends State<PageWorkManager> {
       // ),
       decoration: BoxDecoration(
         // 2. 배경색: 선택됨(진녹색) / 오늘(연녹색) / 데이터 있음(연회색) / 기본(투명)
-        color: !isEditable
-            ? Colors.grey[200]
-            : isSelected
-                ? const Color(0xFF294f2e)
-                : (isToday ? const Color(0xFF679E7D).withValues(alpha: 0.1) : Colors.transparent),
+        color: isDisabledByRule
+            ? Colors.grey[100]
+            : !isEditable
+                ? Colors.grey[200]
+                : isSelected
+                    ? const Color(0xFF294f2e)
+                    : (isToday ? const Color(0xFF679E7D).withValues(alpha: 0.1) : Colors.transparent),
         borderRadius: BorderRadius.circular(6),
         // 3. 보더 설정: 데이터가 있거나 선택된 경우 보더를 주어 독립된 칸으로 보이게 함
         border: isSelected
@@ -268,57 +287,60 @@ class _PageWorkManagerState extends State<PageWorkManager> {
                 ? Border.all(color: Colors.grey[300]!, width: 0.8) // 데이터 있는 날 보더
                 : Border.all(color: Colors.grey[100]!, width: 0.5)), // 일반 날짜 아주 연한 보더
       ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          if (totalHours.isNotEmpty)
-            Positioned(
-              left: 3,
-              top: 3,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
-                decoration: BoxDecoration(
-                  color: isSelected ? Colors.white.withValues(alpha: 0.2) : Colors.green[50],
-                  borderRadius: BorderRadius.circular(3),
-                ),
-                child: Text(
-                  totalHours,
-                  style: TextStyle(
-                    fontSize: 8,
-                    fontWeight: FontWeight.bold,
-                    color: isSelected ? Colors.white : Colors.green[800],
+      child: Opacity(
+        opacity: isDisabledByRule ? 0.3 : 1.0, // PT 주말 비활성화 시 투명도 조절
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            if (totalHours.isNotEmpty)
+              Positioned(
+                left: 3,
+                top: 3,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
+                  decoration: BoxDecoration(
+                    color: isSelected ? Colors.white.withValues(alpha: 0.2) : Colors.green[50],
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  child: Text(
+                    totalHours,
+                    style: TextStyle(
+                      fontSize: 8,
+                      fontWeight: FontWeight.bold,
+                      color: isSelected ? Colors.white : Colors.green[800],
+                    ),
                   ),
                 ),
               ),
-            ),
 
-          // 우측 상단: 잠금 아이콘
-          if (!isEditable) const Positioned(right: 3, top: 3, child: Icon(Icons.lock, size: 10, color: Colors.grey)),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("${day.day}",
-                  style: TextStyle(
-                      fontSize: 12, color: dateColor, fontWeight: isSelected || isToday ? FontWeight.bold : null)),
-              // Spacer(),
-              SizedBox(height: 2),
-              // if (timeData != null) ...[
-              //   _timeLabel(timeData['start']!, isSelected ? Colors.white : Colors.orange),
-              //   SizedBox(height: 1),
-              //   _timeLabel(timeData['end']!, isSelected ? Colors.white : Colors.blueGrey),
-              // ],
-              // 시간이 있든 없든 공간을 차지하게 하거나, 있을 때만 중앙 배치
-              if (timeData != null) ...[
-                _timeLabel(timeData.start, isSelected ? Colors.white : Colors.orange),
-                const SizedBox(height: 1),
-                _timeLabel(timeData.end, isSelected ? Colors.white : Colors.blueGrey),
-              ] else
-                // ⭐ 시간이 없는 날도 일정한 높이를 유지하고 싶다면 투명한 박스를 넣습니다.
-                const SizedBox(height: 18),
-              SizedBox(height: 1),
-            ],
-          ),
-        ],
+            // 우측 상단: 잠금 아이콘
+            if (!isEditable) const Positioned(right: 3, top: 3, child: Icon(Icons.lock, size: 10, color: Colors.grey)),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("${day.day}",
+                    style: TextStyle(
+                        fontSize: 12, color: dateColor, fontWeight: isSelected || isToday ? FontWeight.bold : null)),
+                // Spacer(),
+                SizedBox(height: 2),
+                // if (timeData != null) ...[
+                //   _timeLabel(timeData['start']!, isSelected ? Colors.white : Colors.orange),
+                //   SizedBox(height: 1),
+                //   _timeLabel(timeData['end']!, isSelected ? Colors.white : Colors.blueGrey),
+                // ],
+                // 시간이 있든 없든 공간을 차지하게 하거나, 있을 때만 중앙 배치
+                if (timeData != null) ...[
+                  _timeLabel(timeData.start, isSelected ? Colors.white : Colors.orange),
+                  const SizedBox(height: 1),
+                  _timeLabel(timeData.end, isSelected ? Colors.white : Colors.blueGrey),
+                ] else
+                  // ⭐ 시간이 없는 날도 일정한 높이를 유지하고 싶다면 투명한 박스를 넣습니다.
+                  const SizedBox(height: 18),
+                SizedBox(height: 1),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -379,6 +401,8 @@ class _PageWorkManagerState extends State<PageWorkManager> {
     final firstDay = DateTime(_focusedDay.year, _focusedDay.month, 1);
     final lastDay = DateTime(_focusedDay.year, _focusedDay.month + 1, 0);
 
+    String workType = UserController.to.workType;
+
     setState(() {
       _selectedDays.clear(); // 기존 선택 초기화 (중복 방지)
 
@@ -389,7 +413,18 @@ class _PageWorkManagerState extends State<PageWorkManager> {
         // 2. 서버에서 내려준 '수정 가능 플래그' 확인 (없으면 기본값 true)
         bool isEditable = WorkManagerController.to.isEditableData(pureDate);
 
-        if (isEditable) {
+        // 3. ⭐ 주말 여부 확인 (토요일: 6, 일요일: 7)
+        bool isWeekend = day.weekday == DateTime.saturday || day.weekday == DateTime.sunday;
+
+        // 3. 필터링 조건 적용
+        // - 수정 가능해야 함
+        // - PT 타입인 경우 주말이 아니어야 함 (ET는 제한 없음)
+        bool canSelect = isEditable;
+        if (workType == "PT" && isWeekend) {
+          canSelect = false;
+        }
+
+        if (canSelect) {
           _selectedDays.add(pureDate);
         }
       }
@@ -472,8 +507,96 @@ class _PageWorkManagerState extends State<PageWorkManager> {
         false;
   }
 
+  // 주차 계산 도움 함수 (단순 주차 구분용)
+  int _getWeekNumber(DateTime date) {
+    int dayOfYear = int.parse(DateFormat("D").format(date));
+    return ((dayOfYear - date.weekday + 10) / 7).floor();
+  }
+
   // 일괄 적용 로직 및 덮어쓰기 알림
   void _handleBatchApply() async {
+    // 0. 사용자 타입 및 권한 체크
+    String workType = UserController.to.workType; // "PT", "ET" 또는 ""
+
+    if (workType.isEmpty) {
+      Get.snackbar("알림", "근무 타입 정보가 없어 등록할 수 없습니다.\n관리자에게 문의하세요.");
+      // backgroundColor: Colors.orangeAccent.withValues(alpha: 0.2));
+      return;
+    }
+
+    // 1. 선택된 설정값 (시간 단위 변환)
+    int startMin = _startTime.hour * 60 + _startTime.minute;
+    int endMin = _endTime.hour * 60 + _endTime.minute;
+    double selectedDailyHours = (endMin - startMin) / 60.0;
+
+    // 2. 누적 시간 체크를 위한 변수
+    double totalMonthHours = 0.0;
+    Map<int, double> weeklyHoursMap = {}; // 주차별 합계 (ISO 주차 기준)
+
+    // 3. 기존 저장된 데이터 + 현재 선택된 날짜들의 합계 계산
+    // WorkManagerController에 저장된 모든 데이터를 훑으며 합산합니다.
+    // for (var date in WorkManagerController.to.getAllDates()) {
+    for (int i = 0; i < WorkManagerController.to.getCount(); i++) {
+      WorkData? data = WorkManagerController.to.getItem(i);
+      if (data == null) continue;
+      if (data.date == null) continue;
+
+      DateTime date = DateTime(data.date!.year, data.date!.month, data.date!.day);
+
+      // 선택된 날짜 리스트에 포함되어 있다면, 기존 데이터 대신 '새로 설정할 시간'을 더함
+      double hoursToAdd;
+      bool isBeingOverwritten = _selectedDays.any((d) => isSameDay(d, date));
+
+      if (isBeingOverwritten) {
+        hoursToAdd = selectedDailyHours;
+      } else {
+        // 기존 데이터 시간 파싱 (ex: "08:00")
+        final s = data.start.split(':');
+        final e = data.end.split(':');
+        int diff = (int.parse(e[0]) * 60 + int.parse(e[1])) - (int.parse(s[0]) * 60 + int.parse(s[1]));
+        hoursToAdd = diff / 60.0;
+      }
+
+      // 월간 합산 (현재 포커스된 달 기준)
+      if (date.year == _focusedDay.year && date.month == _focusedDay.month) {
+        totalMonthHours += hoursToAdd;
+      }
+
+      // 주간 합산 (ISO 주차 계산 라이브러리나 간단한 로직 사용)
+      int weekNum = _getWeekNumber(date);
+      weeklyHoursMap[weekNum] = (weeklyHoursMap[weekNum] ?? 0) + hoursToAdd;
+    }
+
+    // 아직 저장되지 않은 '새로 선택한 날짜'들 중 기존에 데이터가 없던 날짜들도 더해줌
+    for (var day in _selectedDays) {
+      if (WorkManagerController.to.getData(day) == null) {
+        totalMonthHours += selectedDailyHours;
+        int weekNum = _getWeekNumber(day);
+        weeklyHoursMap[weekNum] = (weeklyHoursMap[weekNum] ?? 0) + selectedDailyHours;
+      }
+    }
+
+    // 4. 규칙 검증 (PT/ET 공통 또는 개별)
+    // PT 전용 규칙: 일 3시간
+    if (workType == "PT" && selectedDailyHours > 3.0) {
+      Get.snackbar("알림", "일반 시간제 하루 최대 3시간까지만 가능합니다.");
+      return;
+    }
+
+    // 공통 규칙: 주 14시간 초과 체크
+    for (var weekEntry in weeklyHoursMap.entries) {
+      if (weekEntry.value > 14.0) {
+        Get.snackbar("알림", "주 최대 근무시간(14시간)을 초과했습니다.\n(해당 주: ${weekEntry.value}시간)");
+        return;
+      }
+    }
+
+    // 공통 규칙: 월 50시간 초과 체크
+    if (totalMonthHours > 50.0) {
+      Get.snackbar("알림", "월 최대 근무시간(50시간)을 초과했습니다.\n(현재 합계: ${totalMonthHours}시간)");
+      return;
+    }
+
     // 1. 덮어쓰기 체크
     // bool hasExisting = _selectedDays.any((day) => _individualTimes.containsKey(day));
     bool hasExisting = _selectedDays.any((day) {
@@ -799,8 +922,6 @@ class _PageWorkManagerState extends State<PageWorkManager> {
             ),
 
             const SizedBox(height: 20),
-
-            // 작업 버튼
             Row(
               children: [
                 Expanded(
@@ -814,6 +935,80 @@ class _PageWorkManagerState extends State<PageWorkManager> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
+                      // 0. 사용자 타입 및 권한 체크
+                      String workType = UserController.to.workType;
+                      if (workType.isEmpty) {
+                        Get.back();
+                        Get.snackbar("알림", "근무 타입 정보가 없어 등록할 수 없습니다.\n관리자에게 문의하세요.");
+                        return;
+                      }
+
+                      // 1. 현재 입력된 시간 계산 (분 단위)
+                      int startMin = tempStart.hour * 60 + tempStart.minute;
+                      int endMin = tempEnd.hour * 60 + tempEnd.minute;
+                      double selectedDailyHours = (endMin - startMin) / 60.0;
+
+                      // --- [규칙 검증 시작] ---
+
+                      // PT 타입: 일 최대 3시간 체크
+                      if (workType == "PT" && selectedDailyHours > 3.0) {
+                        Get.back();
+                        Get.snackbar("규칙 위반", "일반 시간제는 하루 최대 3시간까지만 근무 가능합니다.");
+                        return;
+                      }
+
+                      // 주간/월간 누적 시간 합산
+                      double totalMonthHours = 0.0;
+                      Map<int, double> weeklyHoursMap = {};
+
+                      // Controller의 모든 데이터를 순회하며 합산
+                      for (int i = 0; i < WorkManagerController.to.getCount(); i++) {
+                        WorkData? data = WorkManagerController.to.getItem(i);
+                        if (data == null) continue;
+                        if (data.date == null) continue;
+
+                        DateTime date = DateTime(data.date!.year, data.date!.month, data.date!.day);
+
+                        double hoursToAdd;
+                        // 현재 수정 중인 날짜라면 '입력된 새 시간'을 사용, 아니면 '기존 시간' 사용
+                        if (isSameDay(date, pureDate)) {
+                          hoursToAdd = selectedDailyHours;
+                        } else {
+                          final s = data.start.split(':');
+                          final e = data.end.split(':');
+                          int diff =
+                              (int.parse(e[0]) * 60 + int.parse(e[1])) - (int.parse(s[0]) * 60 + int.parse(s[1]));
+                          hoursToAdd = diff / 60.0;
+                        }
+
+                        // 월간 합산 (포커스된 달 기준)
+                        if (date.year == _focusedDay.year && date.month == _focusedDay.month) {
+                          totalMonthHours += hoursToAdd;
+                        }
+
+                        // 주간 합산
+                        int weekNum = _getWeekNumber(date);
+                        weeklyHoursMap[weekNum] = (weeklyHoursMap[weekNum] ?? 0) + hoursToAdd;
+                      }
+
+                      // 규칙 검증: 주 최대 14시간
+                      for (var weekEntry in weeklyHoursMap.entries) {
+                        if (weekEntry.value > 14.0) {
+                          Get.back();
+                          Get.snackbar("알림", "해당 주차의 총 근무시간이 14시간을 초과하게 됩니다.\n(현재: ${weekEntry.value}시간)");
+                          return;
+                        }
+                      }
+
+                      // 규칙 검증: 월 최대 50시간
+                      if (totalMonthHours > 50.0) {
+                        Get.back();
+                        Get.snackbar("알림", "이번 달 총 근무시간이 50시간을 초과하게 됩니다.\n(현재: ${totalMonthHours}시간)");
+                        return;
+                      }
+
+                      // --- [규칙 검증 종료] ---
+
                       AppController.to.setLoading(true);
 
                       final result = await WorkManagerController.to.saveAndRefreshBatch(
@@ -1076,43 +1271,91 @@ class _PageWorkManagerState extends State<PageWorkManager> {
     }
   }
 
-  Widget _buildTotalSummary() {
-    return Obx(() {
-      // isLoading 상태일 때는 로딩 표시, 아닐 때는 시간 표시
-      String timeText = WorkManagerController.to.isLoading.value ? "계산 중..." : WorkManagerController.to.totalWorkTime;
+  Widget _buildSummaryContainer({required Widget child}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[50],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Center(child: child),
+    );
+  }
 
-      return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.blueGrey[50],
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.blueGrey[100]!),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Row(
-              children: [
-                Icon(Icons.access_time_filled, color: Colors.blueGrey, size: 20),
-                SizedBox(width: 8),
-                Text(
-                  "이달의 총 근무 시간",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
-              ],
-            ),
-            Text(
-              timeText,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
+  Widget _buildTotalSummary() {
+    // isLoading 상태일 때는 로딩 표시, 아닐 때는 시간 표시
+    // String timeText = WorkManagerController.to.isLoading.value ? "계산 중..." : WorkManagerController.to.totalWorkTime;
+
+    // if (WorkManagerController.to.isLoading.value) {
+    //   return _buildSummaryContainer(child: const Text("계산 중...", style: TextStyle(color: Colors.grey)));
+    // }
+
+    // 2. 근무일수 계산: 이번 달 데이터 중 기록이 있는 날짜만 카운트
+    int workDays = WorkManagerController.to.getCount();
+
+    String timeText = WorkManagerController.to.totalWorkTime;
+
+    // 2. 평균 시간 계산 (숫자만 추출)
+    double totalHours = double.tryParse(timeText.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0;
+    String avgText = workDays > 0 ? (totalHours / workDays).toStringAsFixed(1) : "0";
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[50],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.blueGrey[100]!),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.baseline,
+        textBaseline: TextBaseline.alphabetic, // 숫자들 높이를 일정하게 맞춤
+        children: [
+          const Row(
+            children: [
+              Icon(Icons.access_time_filled, color: Colors.blueGrey, size: 20),
+              SizedBox(width: 8),
+              Text(
+                "이달의 총 근무 시간",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
-            ),
-          ],
-        ),
-      );
-    });
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                timeText,
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                ),
+              ),
+              Text(
+                " / $workDays일",
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  // color: Color(0xFF679E7D), // 근무일수는 강조를 위해 녹색 계열 사용
+                  color: Colors.black, // 근무일수는 강조를 위해 녹색 계열 사용
+                ),
+              ),
+              // 3. 평균 (가장 작게, 회색으로 가독성 분리)
+              if (workDays > 0)
+                Text(
+                  " (평균 ${avgText}h)",
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.grey[600],
+                    letterSpacing: -0.8, // 글자 간격을 좁혀서 오버플로우 방지
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

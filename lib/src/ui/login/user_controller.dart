@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:ku_animal_m/src/common/preference.dart';
 import 'package:ku_animal_m/src/model/base_model.dart';
 import 'package:ku_animal_m/src/network/rest_client.dart';
@@ -19,6 +20,7 @@ class UserController extends GetxController {
   String userID = "";
   String userPW = "";
   String userToken = "";
+  String workType = "";
   UserData userData = UserData();
 
   Future<bool> login(
@@ -64,6 +66,17 @@ class UserController extends GetxController {
             userToken = userData.token;
 
             RestClient().setToken(userToken);
+
+            // 1. 토큰 전체 데이터(Map) 가져오기
+            Map<String, dynamic> payload = JwtDecoder.decode(userToken);
+            print(payload);
+
+            // 2. 특정 필드 값 접근
+            String tuName = payload['tu_name']; // "응급-시간"
+            String tuId = payload['tu_id']; // "test02"
+            String tuType = payload['tu_type']; // "DOCTOR"
+            String tuWorkType = payload['tu_work_type']; // "PT":일반, "ET":응급
+            workType = tuWorkType;
 
             isSuccess = true;
           } else {

@@ -268,4 +268,17 @@ class WorkManagerController extends GetxController {
     if (hours == 0 && minutes == 0) return "0시간";
     return minutes > 0 ? "$hours시간 $minutes분" : "$hours시간";
   }
+
+  getAllDates() {
+    Set<DateTime> dateSet = {};
+
+    for (var element in _list) {
+      if (element.date != null) {
+        DateTime pureDate = DateTime(element.date!.year, element.date!.month, element.date!.day);
+        dateSet.add(pureDate);
+      }
+    }
+
+    return dateSet;
+  }
 }

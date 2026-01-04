@@ -356,7 +356,11 @@ class Utils {
         barrierDismissible: dismissible,
         builder: (context) {
           return AlertDialog(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.white, // 배경을 순백색으로 강제
+            surfaceTintColor: Colors.white, // Material3의 붉은 틴트 제거
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15), // 모서리 라운드 조절
+            ),
             title: Text(
               title.isNotEmpty ? title : "Do you want to delete it?".tr,
               style: tsDialogBody2,
@@ -385,6 +389,11 @@ class Utils {
         barrierDismissible: false,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Colors.white, // 배경을 순백색으로 강제
+            surfaceTintColor: Colors.white, // Material3의 붉은 틴트 제거
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15), // 모서리 라운드 조절
+            ),
             title: Text(
               title.isNotEmpty ? title : "Do you want to delete it?".tr,
               style: tsDialogBody,
@@ -419,6 +428,11 @@ class Utils {
         barrierDismissible: false,
         builder: (context) {
           return AlertDialog(
+            backgroundColor: Colors.white, // 배경을 순백색으로 강제
+            surfaceTintColor: Colors.white, // Material3의 붉은 틴트 제거
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15), // 모서리 라운드 조절
+            ),
             title: const Text("title"),
             content: const Text("content"),
             actions: [
