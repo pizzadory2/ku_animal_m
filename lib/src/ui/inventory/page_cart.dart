@@ -50,7 +50,9 @@ class _PageCartState extends State<PageCart> {
         centerTitle: true,
         title: Text("request list".tr),
       ),
-      body: _buildList(),
+      body: SafeArea(
+        child: _buildList(),
+      ),
     );
   }
 
