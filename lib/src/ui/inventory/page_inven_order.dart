@@ -35,10 +35,12 @@ class _PageInvenOrderState extends State<PageInvenOrder> {
         foregroundColor: Colors.white,
         title: Text("inven order".tr, style: tsAppbarTitle),
       ),
-      body: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Expanded(child: _buildBody()),
-        _buildBottom(),
-      ]),
+      body: SafeArea(
+        child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Expanded(child: _buildBody()),
+          _buildBottom(),
+        ]),
+      ),
     );
   }
 
